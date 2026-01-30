@@ -1,0 +1,32 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Modeles theoriques de limite elastique}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Critere de Tresca}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Critere de Von Mises}{2}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Critere de Tabor}{2}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Force de limite elastique}{2}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Materiaux et parametres etudies}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Proprietes des materiaux}{3}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Geometries etudiees}{3}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Resultats et analyse}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Pressions de limite elastique}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Forces de limite elastique}{4}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Deplacements critiques}{5}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Comparaison des criteres}{5}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Analyse detaillee des resultats}{5}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Variation avec le rayon}{5}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Comparaison des criteres}{6}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Influence des proprietes materiaux}{6}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Interpretation physique}{6}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Signification des deplacements critiques}{6}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Zones de contraintes}{6}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Critere de choix}{6}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Applications pratiques}{7}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Conception de contacts}{7}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Indentation instrumentee}{7}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Microsystemes}{7}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Conclusion}{7}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Principales conclusions}{7}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Recommandations}{7}{subsection.8.2}%
+\contentsline {section}{\numberline {A}Code Python - Analyse des limites elastiques}{8}{appendix.A}%
+\contentsline {section}{\numberline {B}Tableau des forces de limite elastique}{8}{appendix.B}%

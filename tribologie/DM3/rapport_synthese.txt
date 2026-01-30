@@ -1,0 +1,29 @@
+RAPPORT SYNTHÈSE - ANALYSE DES LIMITES ÉLASTIQUES
+============================================================
+
+1. PRESSIONS DE LIMITE ÉLASTIQUE (MPa)
+----------------------------------------
+Plomb          : Tresca=  32.0, VonMises=  33.4, Tabor=  22.0
+cuivre         : Tresca= 320.0, VonMises= 334.0, Tabor= 220.0
+cuivre ecroui  : Tresca= 496.0, VonMises= 517.7, Tabor= 341.0
+acier doux     : Tresca=1040.0, VonMises=1085.5, Tabor= 715.0
+acier allié    : Tresca=3520.0, VonMises=3674.0, Tabor=2420.0
+polymère       : Tresca=  80.0, VonMises=  83.5, Tabor=  55.0
+
+
+2. FORCES DE LIMITE ÉLASTIQUE POUR R=1mm (N)
+----------------------------------------
+Plomb          : Tresca=1.03e+07, VonMises=1.17e+07, Tabor=3.35e+06
+cuivre         : Tresca=1.96e+09, VonMises=2.23e+09, Tabor=6.37e+08
+cuivre ecroui  : Tresca=7.30e+09, VonMises=8.30e+09, Tabor=2.37e+09
+acier doux     : Tresca=4.96e+10, VonMises=5.64e+10, Tabor=1.61e+10
+acier allié    : Tresca=1.80e+12, VonMises=2.04e+12, Tabor=5.84e+11
+polymère       : Tresca=2.42e+09, VonMises=2.75e+09, Tabor=7.86e+08
+
+
+3. RECOMMANDATIONS POUR LA CONCEPTION
+----------------------------------------
+- Utiliser le critère de Tabor pour des applications critiques
+- Considérer l'influence significative du rayon sur la force
+- Vérifier que δ < δ₁ pour éviter toute déformation plastique
+- Pour les polymères, considérer le comportement viscoélastique

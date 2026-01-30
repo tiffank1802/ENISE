@@ -1,0 +1,458 @@
+\documentclass{RapportECL}
+\usepackage{lipsum}
+\usepackage{overpic}
+\usepackage{tcolorbox}
+\title{Rapport ECL - Template} %Titre du fichier
+
+\begin{document}
+
+%----------- Informations du rapport ---------
+
+\titre{CALCULS DES STRUCTURES} %Titre du fichier .pdf
+% \UE{ DIMENSIONNEMENT DES STRUCTURES} %Nom de la UE
+%\enseignant{Frédéri \textsc{ BONNAVAND}} %Nom de l'enseignant
+
+\eleves{Vicent \textsc{Lucie} \\ Kevin \textsc{TONGUE}\\ BIAOU \textsc{Adebayo Landry}\\  Gaston \textsc{KAMDEM TCHOMTHOUA} }
+\UE{ENISE-5GM}
+
+\enseignant {BONNAVAND  \textsc{FRÉDÉRICK}}
+ %\eleves{Kevin \textsc{TONGUE} }
+\UEU{ENISE-5GM}
+
+%----------- Initialisation -------------------
+        
+\fairemarges %Afficher les marges
+\fairepagedegarde %Créer la page de garde
+\tabledematieres %Créer la table de matières
+ 
+
+%----------- Informations du rapport ---------
+
+\titre{CALCULS DES STRUCTURES} %Titre du fichier .pdf
+% \UE{ DIMENSIONNEMENT DES STRUCTURES} %Nom de la UE
+%\enseignant{Frédéri \textsc{ BONNAVAND}} %Nom de l'enseignant
+
+\eleves{Kevin \textsc{TONGUE}\\ BIAOU \textsc{Adebayo Landry}\\  Gaston \textsc{KAMDEM TCHOMTHOUA} }
+\UE{ENISE-5GM}
+
+
+% \eleves{Kevin \textsc{TONGUE} }
+\UEU{ENISE-4GM}
+
+%----------- Initialisation -------------------
+        
+\fairemarges %Afficher les marges
+\fairepagedegarde %Créer la page de garde
+\tabledematieres %Créer la table de matières
+
+
+ \section{Introduction}
+
+\subsection{Contexte}
+
+Un industriel fabriquant des tracteurs pour enfants a constaté des ruptures répétées de l’axe de la roue motrice lors de l’utilisation du produit. Cette défaillance entraîne un dysfonctionnement du tracteur et peut poser des problèmes de sécurité pour l’utilisateur. Face à cette situation, l’industriel a sollicité une analyse afin de comprendre les causes de la rupture et de proposer des solutions techniques permettant de corriger ce problème.
+
+\subsection{Objectifs du projet}
+
+Le présent rapport porte sur l’analyse par éléments finis de l’axe de roue motrice d’un tracteur pour enfant. L’objectif principal est d’identifier les causes mécaniques de la rupture observée en service, puis de proposer des solutions permettant d’améliorer la fiabilité du système.
+\\
+\textbf{Les objectifs spécifiques du projet sont les suivants :}
+
+\begin{itemize}
+    \item Identifier les causes de la rupture de l’axe de roue motrice.
+    \item Proposer des modifications de conception afin d’éviter ces ruptures.
+    \item Valider les solutions proposées à l’aide de simulations numériques.
+\end{itemize}
+
+La démarche adoptée consiste à modéliser et simuler le système existant afin de mettre en évidence les zones de fortes contraintes. À partir des résultats obtenus, plusieurs modifications sont étudiées et testées par simulation dans le but d’aboutir à une solution optimale, à la fois efficace sur le plan mécanique et compatible avec les contraintes de coût et de fabrication du produit.
+
+
+\section{Présentation du système existant}
+
+\subsection{Description du tracteur et de l’axe}
+
+Les figures ci-dessous présentent un exemple du tracteur étudié ainsi qu’une vue de dessous permettant d’observer la configuration du système.
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{image1.png}
+        \caption{Exemple du tracteur étudié}
+        \label{fig:tracteur_1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{image2.png}
+        \caption{Vue de dessous du tracteur}
+        \label{fig:vue_dessous_1}
+    \end{minipage}
+\end{figure}
+
+
+Le tracteur pour enfant étudié possède une masse totale (enfant + tracteur) de 50 kg, correspondant à un poids d’environ 500 N. L’axe de roue motrice est en acier C9D, de diamètre 10 mm et de longueur 480 mm. Il transmet le couple moteur à la roue motrice par un méplat.
+\\\\
+La roue arrière libre est montée sur un guidage en polyéthylène. La transmission du mouvement est assurée par une chaîne dont la tension est estimée à 200 N.
+
+\subsection{Configuration des liaisons}
+
+Les figures ci-après présentent le schéma des liaisons de l’axe arrière du tracteur.  
+L’ensemble est constitué des éléments suivants :
+
+\begin{itemize}
+    \item \textbf{Une roue motrice} reliée à l’axe par un \textbf{méplat de liaison}.
+    \item \textbf{Une roue libre} associée à une \textbf{liaison pivot}.
+    \item Un \textbf{second méplat} destiné à la fixation du \textbf{pignon d’entraînement}.
+\end{itemize}
+
+\noindent Dans le cadre de cette étude, \textbf{les charges} et \textbf{les efforts} seront appliqués sur l’axe arrière du tracteur, conformément aux conditions réelles d’utilisation.
+
+Les résultats seront particulièrement analysés au niveau de la zone de \textbf{rupture} observée sur le bord du méplat de liaison axe/pignon (voir Figure~\ref{fig:liaisons}).
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{image4.png}
+    \caption{Schéma des liaisons de l'axe arrière du tracteur.}
+    \label{fig:liaisons_1}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{image6.png}
+        \caption{Le pignon}
+        \label{fig:pignon_vue_1}
+    \end{minipage}
+    \hspace{0.05\linewidth}
+    \begin{minipage}{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{image7.png}
+        \caption{Schéma des liaisons de l’axe arrière avec la fixation du pignon}
+        \label{fig:liaisonn_1}
+    \end{minipage}
+\end{figure}
+
+\section{Méthodologie d'analyse}
+
+\subsection{Identification des causes de rupture}
+Pour mieux cerner le problème, il est essentiel d’identifier les causes de rupture afin de déterminer les actions correctives appropriées.  
+
+L’analyse de l’axe arrière et de son système de liaison met en évidence plusieurs causes potentielles de rupture, que l’on peut classer selon leur nature : statique, fatigue, processus de fabrication et qualité du matériau.
+
+
+\begin{itemize}
+    \item \textbf{Rupture statique} : 
+    La concentration des contraintes au niveau de la zone critique (zone de rupture) peut entraîner une rupture immédiate lorsque l’axe est soumis à des charges exceptionnelles ou à des efforts ponctuels importants.  
+
+    \item \textbf{Rupture par fatigue} : 
+    Sous l’effet de charges cycliques répétées lors de l’utilisation normale du tracteur, des concentrations de contraintes au niveau de la zone de rupture peuvent provoquer des fissures progressives, menant à une rupture par fatigue.  
+    \item \textbf{Effets liés au processus de fabrication} : 
+    Les opérations de formage, d’usinage ou d’assemblage peuvent générer des contraintes résiduelles et des déformations permanentes, favorisant l’apparition de fissures et réduisant la durabilité de l’axe.
+
+    \item \textbf{Qualité du matériau} : 
+    Les imperfections dans le matériau, telles que les inclusions ou les hétérogénéités, peuvent créer des points faibles qui facilitent l’apparition de fissures et augmentent le risque de rupture de l’axe.
+
+\end{itemize}
+
+
+\subsection{Approche par éléments finis}
+ 
+\subsection{Données d'entrée}
+\begin{itemize}
+    \item \textbf{Charges appliquées} :
+    \begin{itemize}
+        \item Poids total de l’ensemble : \SI{500}{N}.
+        \item Tension de la chaîne : \SI{200}{N}.
+    \end{itemize}
+
+    \item \textbf{Caractéristiques des matériaux} :
+    \begin{itemize}
+        \item \textbf{Acier C9D} :
+        \begin{itemize}
+            \item Module d’Young : \SI{210}{GPa}.
+            \item Coefficient de Poisson : 0.3.
+            \item Limite élastique : \SI{300}{MPa}.
+        \end{itemize}
+
+        \item \textbf{Nylon} :
+        \begin{itemize}
+            \item Module d’Young : \SI{3}{GPa}.
+            \item Coefficient de Poisson : 0.4.
+        \end{itemize}
+
+        \item \textbf{Polyéthylène} :
+        \begin{itemize}
+            \item Module d’Young : \SI{1}{GPa}.
+            \item Coefficient de Poisson : 0.45.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+
+ \subsection{Schéma des efforts, moments et liaisons appliqués à l’axe arrière}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{image8.png}
+\caption{}
+        \label{fig:placeholder1_1}
+\end{figure}
+
+\subsection{Critères d'évaluation}
+Les critères d'évaluation retenus sont :
+\begin{itemize}
+    \item La contrainte de Von Mises maximale.
+    \item Le coefficient de sécurité basé sur la limite élastique de l'acier C9D.
+    \item Les déformations maximales.
+\end{itemize}
+
+
+\section{Simulation du système actuel}
+\subsubsection{Modélisation}
+
+Cette partie est consacrée à la modélisation du système existant, en particulier de l’axe arrière. Elle comprend la représentation des différentes liaisons mécaniques, l’application des efforts et des chargements agissant sur l’axe, ainsi que le choix des matériaux pour chaque composant du système, notamment le pignon et l’axe arrière.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{image9.png}
+    \caption{Modélisation de l'axe arrière et répartition des liaisons}
+    \label{fig:placeholder1_2}
+\end{figure}
+ 
+\subsection{Analyse par éléments finis}
+
+L’analyse a été réalisée par la méthode des éléments finis à l’aide du logiciel \textit{SolidWorks Simulation}.
+
+\subsubsection{Conditions aux limites et chargements}
+
+Dans le cadre de la simulation numérique, un chargement de type masse à distance a été appliqué sur chaque partie du l'axe afin de représenter les efforts dus au poids du tracteur et de l’utilisateur. Des déplacements imposés ont également été appliqués au niveau des zones de liaison afin de représenter les conditions d’appui et de guidage de l’axe arrière.
+
+\textbf{\textit{Les translations seront bloquées dans les directions correspondantes afin de reproduire correctement le comportement statique de l’axe arrière.
+}}
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{image10.png}
+    \caption{Système de coordonné pour l'application de masse a distance}
+    \label{fig:placeholder1_3}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{image11.png}
+    \caption{Application des efforts et les chargements sur l'axe}
+    \label{fig:placeholder1_4}
+\end{figure}
+\subsubsection{Maillage}
+
+Concernant le maillage, un maillage par défaut a été retenu pour l’ensemble des simulations. Ce choix est justifié par le caractère comparatif de l’étude, l’objectif étant d’analyser l’évolution relative des contraintes et des déplacements afin d’identifier la solution optimale.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{image12.png}
+    \caption{Modèle de maillage}
+    \label{fig:placeholder1_5}
+\end{figure}
+
+\subsection{Résultats des simulations du système existant}
+
+Les figures ci-dessous présentent les principaux résultats obtenus à l’issue des simulations numériques du système existant. Les zones apparaissant en rouge correspondent aux niveaux de contraintes les plus élevés. On observe que ces zones sont localisées au niveau de l’axe arrière, ce qui correspond à la position de la rupture constatée en service.
+
+
+\begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.75\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Screenshot 2025-12-10 at 10.24.37.png}
+        \caption{}
+        \label{fig:pignon_1}
+    \end{minipage}
+\end{figure}
+
+ \subsubsection{Interpretations du Resultat}
+ On observe une concentration de contraintes dans la zone de transition entre la section circulaire de l’axe et le méplat, ce qui constitue le point le plus critique de la pièce. Sous l’effet combiné de la torsion, due à la transmission du couple moteur, et de la flexion, provoquée par le poids de l’enfant et du tracteur, ce pic de contrainte atteint des valeurs élevées. De plus, les contraintes résiduelles de traction introduites par le matriçage à froid du méplat viennent s’ajouter aux contraintes d’utilisation, réduisant ainsi la limite d’endurance effective du matériau. Cette combinaison de facteurs favorise l’amorçage et la propagation des fissures, expliquant la rupture par fatigue observée dans cette zone.
+
+\subsection{Analyse des faiblesses}
+Les faiblesses identifiées sont :
+\begin{itemize}
+    \item La section réduite due au méplat crée une concentration de contraintes.
+    \item Les jeux dans les guidages plastiques provoquent des chocs et des charges dynamiques non prises en compte dans le modèle statique, mais qui aggravent la situation.
+\end{itemize}
+
+\section{Proposition de solutions d'amélioration}
+
+Afin d’optimiser la répartition des contraintes dans la zone critique, plusieurs solutions ont été étudiées et retenues augmenter la durée de vie de l'axe :
+
+\begin{enumerate}
+    \item \textbf{Renfort local} : ajout de \textbf{nervures} ou \textbf{goussets} et \textbf{renures} dans les zones de concentration de contraintes pour augmenter la rigidité et mieux répartir les efforts.
+    \item \textbf{Amélioration des fixations} : utilisation de \textbf{goupilles}, vis de pression et collage pour sécuriser l’assemblage.
+    \item \textbf{Optimisation de la géométrie de la clavette} : adaptation de la forme de la clavette pour réduire les concentrations locales de contraintes.
+\end{enumerate}
+
+
+
+\section{Simulation des solutions proposées \& Observation}
+Chaque solution a été simulée individuellement afin de pouvoir analyser précisément ses effets sur les résultats.
+
+\subsection{Renfort local}
+\subsubsection{Nervures et goussets}
+Les \textbf{nervures} et \textbf{goussets} sont des renforts ajoutés aux zones critiques d'une pièce afin d'augmenter la rigidité et de mieux répartir les contraintes. Ils permettent également de limiter les déformations locales et d'améliorer la durabilité de l'assemblage.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{image18.png}
+\caption{}
+        \label{fig:placeholder1_6}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Screenshot 2025-12-10 at 11.27.21.png}
+\caption{}
+        \label{fig:placeholder1_7}
+\end{figure}
+
+\subsubsection{Rainures}
+Les \textbf{rainures} sont des rainures ou découpes réalisées dans la matière pour guider ou loger un élément, ou encore pour réduire les concentrations de contraintes. Elles contribuent à la redistribution des efforts et à la stabilité de la structure.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Screenshot 2025-12-11 at 18.15.51.png}
+\caption{}
+        \label{fig:placeholder1_8}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Screenshot 2025-12-12 at 11.07.40.png}
+\caption{}
+        \label{fig:placeholder1_9}
+\end{figure}
+
+\subsection{Amélioration des fixations}
+\subsubsection{Goupilles}
+Une \textbf{goupille} est une tige cylindrique, en métal insérée dans un trou crée a l'intérieur de l'axe pour maintenir ensemble les deux pièces ( pignon et l'axe ).
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Screenshot 2025-12-13 at 17.16.50.png}
+\caption{}
+        \label{fig:placeholder1_10}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Screenshot 2025-12-13 at 17.16.01.png}
+\caption{}
+        \label{fig:placeholder1_11}
+\end{figure}
+
+\subsubsection{Vis de pression}
+Les \textbf{vis de pression} sont des dispositifs de fixation qui exercent une force localisée sur une pièce pour la maintenir en position sans nécessiter de perçage permanent. Elles permettent un assemblage démontable et sécurisé.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Screenshot 2025-12-12 at 20.03.46.png}
+\caption{}
+        \label{fig:placeholder1_12}
+\end{figure}
+
+\textbf{Interprétation :}  
+Tout comme la solution utilisant la vis de pression, cette approche permet de réduire l’initiation des fissures en limitant les concentrations de contraintes. Toutefois, elle nécessite des opérations d’usinage supplémentaires, ce qui engendre des coûts de fabrication plus élevés.
+
+\subsubsection{Collage}
+Le \textbf{collage} consiste à assembler deux pièces en utilisant un adhésif chimique ou époxy. Cette méthode répartit les contraintes sur une large surface et peut compléter ou remplacer des fixations mécaniques.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Screenshot 2025-12-13 at 17.13.18.png}
+\caption{}
+        \label{fig:placeholder1_13}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Screenshot 2025-12-12 at 20.28.11.png}
+        \caption{Description image 1}
+        \label{fig:collage1_1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Screenshot 2025-12-12 at 20.28.56.png}
+        \caption{Description image 2}
+        \label{fig:collage2_1}
+    \end{minipage}
+\end{figure}
+
+
+\textbf{Interprétation :}  
+La simulation montre que le collage permet une répartition des contraintes sur l'ensemble de la surface de contact, alors qu'à l'état initial, elles étaient fortement localisées en un point. Néanmoins, la zone collée présente un module plus faible, ce qui peut générer des concentrations locales de contraintes. Un traitement de surface approprié pourrait être envisagé pour limiter l'usure prématurée de la pièce.
+
+\subsection{Optimisation de la géométrie de la clavette}
+Les figures ci-après illustrent les différentes modifications de la forme de la clavette envisagées dans le cadre de la simulation.
+
+
+\begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Screenshot 2025-12-10 at 18.27.50.png}
+        \caption{Clavette optimisée 1}
+        \label{fig:clavette1_1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{Screenshot 2025-12-10 at 18.27.10.png}
+        \caption{Clavette optimisée 2}
+        \label{fig:clavette2_1}
+    \end{minipage}
+\end{figure}
+
+ 
+
+\subsection{Matrice de Choix des solutions proposées }
+ 
+Dans le cadre de l’étude comparative, une matrice de choix a été élaborée afin d’évaluer les différentes solutions proposées. Une pondération élevée a été attribuée aux critères jugés prioritaires, à savoir l’efficacité mécanique, la faisabilité de mise en œuvre et la durabilité, tandis que le coût de fabrication a été pris en compte dans une optique de minimisation. Cette approche permet d’identifier la solution offrant le meilleur compromis entre performances mécaniques, viabilité industrielle et contraintes économiques.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.85\linewidth]{image21.png}
+% \caption{}
+%         \label{fig:placeholder1_14}
+% \end{figure}
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.75\linewidth]{image22.png}
+% \caption{}
+        \label{fig:placeholder1_15}
+% \end{figure}
+\newpage
+\subsection{Solution retenue}
+
+À l’issue de l’étude comparative des résultats obtenus à partir de la matrice de choix, la solution par collage apparaît comme la plus appropriée, avec une note de \textbf{11/12}. Elle présente le meilleur compromis entre efficacité mécanique, faisabilité de mise en œuvre, durabilité et coût de fabrication.  
+
+Les solutions utilisant la \textbf{vis de pression} et la \textbf{goupille} obtiennent chacune une note de \textbf{9/12}. Bien qu’elles offrent de bonnes performances mécaniques, elles nécessitent des opérations d’usinage supplémentaires, ce qui impacte leur coût et leur mise en œuvre.  
+
+Toutefois, ces solutions restent envisageables comme alternatives selon les contraintes industrielles, les exigences de démontabilité ou les conditions d’exploitation spécifiques.
+
+
+\section{Conclusion}
+
+À l’issue de ce projet, il a été mis en évidence que la rupture de l’axe est principalement due à une forte concentration de contraintes localisée au niveau de la transition entre la section circulaire et le méplat. Ce phénomène est aggravé par la combinaison des efforts de flexion, de torsion ainsi que par les contraintes résiduelles issues du procédé de fabrication.
+
+L’étude comparative menée à l’aide d’une matrice de choix, portant sur six solutions techniques, a permis d’identifier la \textbf{modification géométrique de la clavette}, notamment par l’ajout d’un congé de raccordement, comme la solution la plus pertinente. Cette approche permet une réduction significative des concentrations de contraintes tout en garantissant un coût de fabrication maîtrisé, une mise en œuvre simple et une amélioration notable de la durée de vie de la pièce.
+
+Ainsi, cette solution répond efficacement aux exigences techniques et économiques de l’industriel, tout en assurant une fiabilité accrue pour les utilisateurs finaux.
+
+
+
+\end{document}

@@ -1,0 +1,332 @@
+\documentclass{rapportECL}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{siunitx}
+
+\title{Analyse des Effets des Efforts et Pressions sur les Limites Elastiques}
+
+\begin{document}
+
+\titre{Analyse des Effets des Efforts et Pressions sur les Limites Elastiques}
+\UE{Tribologie et Contacts Mecaniques}
+\sujet{Evaluation des criteres de limite elastique en contact sphere-plan}
+
+\enseignant{Hassan ZAHOUANI}
+
+\eleves{Kevin TONGUE}
+
+\fairemarges
+\fairepagedegarde
+\tabledematieres
+
+\section{Introduction}
+
+Cette etude analyse les effets des differents efforts et pressions sur les limites elastiques selon les modeles de Tresca, Von Mises et Tabor pour le contact sphere-plan. L'objectif est d'evaluer et de comparer ces differents criteres pour plusieurs materiaux et geometries, en s'appuyant sur les equations fournies dans le modele elasto-plastique.
+
+\section{Modeles theoriques de limite elastique}
+
+\subsection{Critere de Tresca}
+
+Le critere de Tresca, base sur la contrainte de cisaillement maximale, donne pour la pression de limite elastique :
+
+\[
+P_y^{\text{Tresca}} = 1.6 \cdot Y
+\]
+
+\subsection{Critere de Von Mises}
+
+Le critere de Von Mises, base sur l'energie de distortion, donne :
+
+\[
+P_y^{\text{Von Mises}} = 1.67 \cdot Y
+\]
+
+\subsection{Critere de Tabor}
+
+Le critere de Tabor, base sur des observations experimentales en indentation, donne :
+
+\[
+P_y^{\text{Tabor}} = 1.1 \cdot Y
+\]
+
+\subsection{Force de limite elastique}
+
+Pour un contact sphere-plan, la force correspondant au debut de la plasticite est donnee par :
+
+\[
+F_y = \frac{\pi^3 R^2 P_y^3}{6 E^*}
+\]
+
+ou $E^*$ est le module effectif defini par :
+
+\[
+\frac{1}{E^*} = \frac{1 - \nu_1^2}{E_1} + \frac{1 - \nu_2^2}{E_2}
+\]
+
+\section{Materiaux et parametres etudies}
+
+\subsection{Proprietes des materiaux}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Materiau} & \textbf{H (MPa)} & \textbf{Y (MPa)} & \textbf{E (GPa)} & \textbf{nu} \\
+\midrule
+Plomb & 60 & 20 & 16 & 0.3 \\
+Cuivre & 600 & 200 & 120 & 0.3 \\
+Cuivre ecroui & 930 & 310 & 120 & 0.3 \\
+Acier doux & 2000 & 650 & 200 & 0.3 \\
+Acier alle & 6000 & 2200 & 200 & 0.45 \\
+Polymere & 100 & 50 & 1 & 0.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Geometries etudiees}
+
+\begin{itemize}
+\item Rayon de sphere : $R =$ \SI{1}{\micro\meter}, $R =$ \SI{100}{\micro\meter}, $R =$ \SI{1}{mm}
+\item Contact avec un plan en acier alle
+\end{itemize}
+
+\section{Resultats et analyse}
+
+\subsection{Pressions de limite elastique}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/comparaison_pressions_limite.png}
+    \caption{Comparaison des pressions de limite elastique selon differents criteres}
+    \label{fig:comparaison_pressions}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Materiau} & \textbf{Tresca (MPa)} & \textbf{Von Mises (MPa)} & \textbf{Tabor (MPa)} \\
+        \midrule
+        Plomb & 32.0 & 33.4 & 22.0 \\
+        Cuivre & 320.0 & 334.0 & 220.0 \\
+        Cuivre ecroui & 496.0 & 517.7 & 341.0 \\
+        Acier doux & 1040.0 & 1085.5 & 715.0 \\
+        Acier alle & 3520.0 & 3674.0 & 2420.0 \\
+        Polymere & 80.0 & 83.5 & 55.0 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Pressions de limite elastique calculees}
+    \label{tab:pressions_limite}
+\end{table}
+
+\subsection{Forces de limite elastique}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/comparaison_forces_limite.png}
+    \caption{Forces de limite elastique pour differents rayons}
+    \label{fig:comparaison_forces}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/evolution_forces_rayon.png}
+    \caption{Evolution des forces de limite elastique avec le rayon}
+    \label{fig:evolution_forces}
+\end{figure}
+
+\subsection{Deplacements critiques}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Materiau} & \textbf{delta1 (um)} & \textbf{delta2 (um)} & \textbf{delta2/delta1} \\
+        \midrule
+        Plomb & 0.012 & 0.65 & 54 \\
+        Cuivre & 0.043 & 2.34 & 54 \\
+        Cuivre ecroui & 0.104 & 5.63 & 54 \\
+        Acier doux & 0.262 & 14.17 & 54 \\
+        Acier alle & 2.061 & 111.28 & 54 \\
+        Polymere & 7.518 & 405.99 & 54 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Deplacements critiques pour $R =$ \SI{1}{mm}}
+    \label{tab:deplacements_critiques}
+\end{table}
+
+\subsection{Comparaison des criteres}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/ratios_criteres_limite.png}
+    \caption{Ratios entre les differents criteres de limite elastique}
+    \label{fig:ratios_criteres}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Materiau} & \textbf{VonMises/Tresca} & \textbf{Tabor/Tresca} & \textbf{Tabor/VonMises} \\
+        \midrule
+        Plomb & 1.044 & 0.688 & 0.659 \\
+        Cuivre & 1.044 & 0.688 & 0.659 \\
+        Cuivre ecroui & 1.044 & 0.688 & 0.659 \\
+        Acier doux & 1.044 & 0.688 & 0.659 \\
+        Acier alle & 1.044 & 0.688 & 0.659 \\
+        Polymere & 1.044 & 0.688 & 0.659 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Ratios entre les differents criteres}
+    \label{tab:ratios}
+\end{table}
+
+\section{Analyse detaillee des resultats}
+
+\subsection{Variation avec le rayon}
+
+La force de limite elastique varie avec le carre du rayon :
+
+\[
+F_y \propto R^2
+\]
+
+Ce qui signifie qu'une augmentation du rayon par un facteur 10 entraine une augmentation de la force par un facteur 100. Cette dependance quadratique explique les grandes differences observees entre les forces pour differents rayons.
+
+\subsection{Comparaison des criteres}
+
+\begin{itemize}
+\item \textbf{Critere de Tresca} : Donne des valeurs intermediaires, plus conservative que Von Mises mais moins que Tabor.
+\item \textbf{Critere de Von Mises} : Donne les valeurs les plus elevees (4.4\% plus elevees que Tresca).
+\item \textbf{Critere de Tabor} : Donne les valeurs les plus basses (31.2\% plus basses que Tresca).
+\end{itemize}
+
+L'ecart constant entre les criteres vient du fait qu'ils sont tous proportionnels a la limite elastique $Y$, avec des coefficients differents.
+
+\subsection{Influence des proprietes materiaux}
+
+\textbf{Durete H vs Limite elastique Y}
+Le rapport $H/Y$ varie selon les materiaux :
+\begin{itemize}
+    \item Metaux : $H/Y \approx 3$
+    \item Polymeres : $H/Y \approx 2$
+    \item Acier alle : $H/Y \approx 2.73$
+\end{itemize}
+
+\textbf{Module effectif $E^*$}
+Le module effectif influence directement :
+\begin{itemize}
+    \item La force de limite elastique : $F_y \propto 1/E^*$
+    \item Le deplacement critique $\delta_1$ : $\delta_1 \propto 1/(E^*)^2$
+\end{itemize}
+
+\section{Interpretation physique}
+
+\subsection{Signification des deplacements critiques}
+
+\begin{itemize}
+    \item $\delta_1$ : Debut de la deformation plastique sous la surface
+    \item $\delta_2$ : Transition vers le comportement plastique pur
+    \item Le rapport constant $\delta_2/\delta_1 = 54$ vient de la modelisation du comportement elasto-plastique
+\end{itemize}
+
+\subsection{Zones de contraintes}
+
+\begin{enumerate}
+    \item \textbf{Zone elastique} ($\delta < \delta_1$) : Les contraintes sont inferieures a la limite elastique
+    \item \textbf{Zone elasto-plastique} ($\delta_1 < \delta < \delta_2$) : Zone de transition avec ecrouissage
+    \item \textbf{Zone plastique} ($\delta > \delta_2$) : Etat de contraintes pleinement plastique
+\end{enumerate}
+
+\subsection{Critere de choix}
+
+Le choix du critere depend de :
+\begin{itemize}
+    \item \textbf{Precision requise} : Von Mises pour une modelisation fine
+    \item \textbf{Securite} : Tabor pour une approche conservative
+    \item \textbf{Simplicite} : Tresca pour des calculs rapides
+\end{itemize}
+
+\section{Applications pratiques}
+
+\subsection{Conception de contacts}
+
+Pour eviter la deformation plastique dans un contact sphere-plan :
+\begin{enumerate}
+    \item Calculer la pression de contact maximale $p_0$
+    \item Verifier que $p_0 < P_y$ selon le critere choisi
+    \item Considerer un coefficient de securite approprie
+\end{enumerate}
+
+\subsection{Indentation instrumentee}
+
+Les resultats peuvent etre utilises pour :
+\begin{itemize}
+    \item Determiner les proprietes mecaniques par indentation
+    \item Evaluer la resistance a l'endommagement de surface
+    \item Optimiser les parametres de traitement de surface
+\end{itemize}
+
+\subsection{Microsystemes}
+
+Pour les applications en microtechnologie :
+\begin{itemize}
+    \item Les forces critiques sont tres faibles (de l'ordre du microNewton)
+    \item La precision du critere est cruciale
+    \item Les effets de surface deviennent significatifs
+\end{itemize}
+
+\section{Conclusion}
+
+\subsection{Principales conclusions}
+
+\begin{enumerate}
+    \item Les trois criteres donnent des predictions differentes mais coherentes entre elles
+    \item La force de limite elastique varie quadratiquement avec le rayon
+    \item Le critere de Tabor est le plus conservateur, celui de Von Mises le moins
+    \item Les deplacements critiques sont tres faibles pour les metaux mais significatifs pour les polymeres
+    \item Le rapport $H/Y$ est un parametre important pour caracteriser le comportement elasto-plastique
+\end{enumerate}
+
+\subsection{Recommandations}
+
+\begin{itemize}
+    \item Pour les applications de securite critique, utiliser le critere de Tabor
+    \item Pour les calculs de precision, preferer le critere de Von Mises
+    \item Pour les estimations rapides, le critere de Tresca est adequate
+    \item Tenir compte de la dependance en $R^2$ pour le dimensionnement
+\end{itemize}
+
+\appendix
+
+\section{Code Python - Analyse des limites elastiques}
+
+\section{Tableau des forces de limite elastique}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Materiau} & \textbf{R = 1 um} & \textbf{R = 100 um} & \textbf{R = 1 mm} \\
+        \midrule
+        Plomb & 1.03e1 N & 1.03e5 N & 1.03e9 N \\
+        Cuivre & 1.96e3 N & 1.96e7 N & 1.96e11 N \\
+        Cuivre ecroui & 7.30e3 N & 7.30e7 N & 7.30e11 N \\
+        Acier doux & 4.96e4 N & 4.96e8 N & 4.96e12 N \\
+        Acier alle & 1.80e6 N & 1.80e10 N & 1.80e14 N \\
+        Polymere & 2.42e3 N & 2.42e7 N & 2.42e11 N \\
+        \bottomrule
+    \end{tabular}
+    \caption{Forces de limite elastique (critere Tresca)}
+    \label{tab:forces_limite}
+\end{table}
+
+\end{document}

@@ -1,0 +1,152 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+% Awesome CV LaTeX Template for Cover Letter
+%
+% This template has been downloaded from:
+% https://github.com/posquit0/Awesome-CV
+%
+% Authors:
+% Claud D. Park <posquit0.bj@gmail.com>
+% Lars Richter <mail@ayeks.de>
+%
+% Template license:
+% CC BY-SA 4.0<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer nofollow"></a>
+%
+%-------------------------------------------------------------------------------
+% CONFIGURATIONS
+%-------------------------------------------------------------------------------
+% A4 paper size by default, use 'letterpaper' for US letter
+\documentclass[11pt, a4paper]{awesome-cv}
+
+% Configure page margins with geometry
+\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+
+% Specify the location of the included fonts
+\fontdir[fonts/]
+
+% Color for highlights
+% Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
+% awesome-nephritis, awesome-concrete, awesome-darknight
+\colorlet{awesome}{awesome-red}
+% Uncomment if you would like to specify your own color
+% \definecolor{awesome}{HTML}{CA63A8}
+
+% Colors for text
+% Uncomment if you would like to specify your own color
+% \definecolor{darktext}{HTML}{414141}
+% \definecolor{text}{HTML}{333333}
+% \definecolor{graytext}{HTML}{5D5D5D}
+% \definecolor{lighttext}{HTML}{999999}
+
+% Set false if you don't want to highlight section with awesome color
+\setbool{acvSectionColorHighlight}{true}
+
+% If you would like to change the social information separator from a pipe (|) to something else
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+%-------------------------------------------------------------------------------
+% PERSONAL INFORMATION
+% Comment any of the lines below if they are not required
+%-------------------------------------------------------------------------------
+% Available options: circle|rectangle,edge/noedge,left/right
+\photo[circle,noedge,left]{./examples/profile}
+\name{Kevin}{TONGUE}
+\position{5th year student{\enskip\cdotp\enskip}Mechanical engineer}
+\address{65, Rue Jean Parot , Saint-Étienne,France}
+
+\mobile{(+33) 06 98 06 37 69}
+\email{tonguekevin00@gmail.com}
+% \homepage{www.posquit0.com}
+\github{tittank1802}
+\linkedin{tongue-kevin-52b100330}
+% \gitlab{gitlab-id}
+% \stackoverflow{SO-id}{SO-name}
+% \twitter{@twit}
+% \skype{skype-id}
+% \reddit{reddit-id}
+% \medium{madium-id}
+% \googlescholar{googlescholar-id}{name-to-display}
+%% \firstname and \lastname will be used
+% \googlescholar{googlescholar-id}{}
+% \extrainfo{extra informations}
+
+% \quote{``Be the change that you want to see in the world."}
+
+%-------------------------------------------------------------------------------
+% LETTER INFORMATION
+% All of the below lines must be filled out
+%-------------------------------------------------------------------------------
+% The company being applied to
+\recipient{Recruitment Team}{CESI}
+
+% The date on the letter, default is the date of compilation
+\letterdate{\today}
+
+% The title of the letter
+\lettertitle{Application for M2 Internship: Physics-Informed Neural Networks (PINNs) for Modeling Coupled Heat and Humidity Transfers in Building Walls}
+
+% How the letter is opened
+\letteropening{Dear Recruitment Team,}
+
+% How the letter is closed
+\letterclosing{Sincerely,}
+
+% Any enclosures with the letter
+% \letterenclosure[Attached]{Curriculum Vitae}
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+% Print the header with above personal informations
+% Give optional argument to change alignment(C: center, L: left, R: right)
+\makecvheader[R]
+
+% Print the footer with 3 arguments(<left>, <center>, <right>)
+% Leave any of these blank if they are not needed
+\makecvfooter
+  {\today}
+  {Kevin TONGUE~~~·~~~Cover Letter}
+  {}
+
+% Print the title with above letter informations
+\makelettertitle
+
+%-------------------------------------------------------------------------------
+% LETTER CONTENT
+%-------------------------------------------------------------------------------
+\begin{cvletter}
+
+\lettersection{About Me}
+As a fifth-year Mechanical Engineering student specializing in numerical simulation at Centrale Lyon-ENISE, I am writing to express my strong interest in the M2 internship on "Physics-Informed Neural Networks (PINNs) for the Modeling of Coupled Heat and Humidity Transfers in a Building Wall." My academic background in mechanical engineering, combined with my specialized training in physics-informed artificial intelligence methods, aligns perfectly with the requirements of this research project.
+
+\lettersection{Why This Internship?}
+The challenge of modeling coupled heat and humidity transfers in building materials using innovative AI approaches represents exactly the type of interdisciplinary problem that fuels my passion for engineering and computational physics. The opportunity to apply Physics-Informed Neural Networks (PINNs) to predict and simulate hygrothermal behavior in building walls particularly appeals to me for several reasons:
+• The project bridges fundamental physics modeling with practical applications in sustainable building design and energy efficiency
+• It combines advanced machine learning techniques with physical laws to solve complex coupled partial differential equations
+• The use of PINNs for multi-physics simulations represents a cutting-edge method in scientific computing
+• The possibility to contribute to improved building performance models aligns with my career aspirations in sustainable engineering
+
+The research-oriented environment at CESI provides an ideal setting for deepening my expertise in AI-driven physical modeling.
+
+\lettersection{Why My Profile Fits?}
+Throughout my academic journey, particularly in the MIAM (Méthodes d'Intelligence Artificielle pour la Physique) module, I have developed a strong foundation in physics-informed models that directly applies to this internship:
+• \textbf{Physics-Informed Neural Networks:} In the MIAM module, I acquired solid skills in modeling Physics-Informed Neural Networks (PINNs), including their implementation for solving physical equations such as heat transfer and diffusion problems
+• \textbf{Numerical Modeling:} My Master's specialization in Numerical Solid Mechanics has equipped me with advanced knowledge of computational methods, finite elements, and multi-physics simulations relevant to hygrothermal transfers
+• \textbf{Programming Skills:} I have substantial experience with Python development, including neural network frameworks like TensorFlow or PyTorch for physics-constrained models, as demonstrated in my MIAM projects
+• \textbf{MATLAB Proficiency:} I have completed multiple MATLAB certifications (Simulink, Power System OnRamp, Computer Vision), enhancing my capabilities in scientific computing and simulation
+• \textbf{Mechanical and Thermal Understanding:} My background in mechanical engineering provides the necessary foundation to comprehend coupled heat and mass transfer phenomena in porous media like building walls
+• \textbf{Research Experience:} My previous projects in numerical method validation and material analysis have prepared me for rigorous research involving experimental validation and model optimization
+
+My hands-on experience in developing and training PINNs for physical systems, combined with my programming expertise and engineering background, positions me well to contribute to the implementation, training, and validation of PINNs for coupled heat and humidity modeling in this project.
+
+I am particularly excited about the prospect of working on a project that advances sustainable building technologies through innovative AI methods. The opportunity to engage in cutting-edge research at the intersection of AI and physics is highly motivating.
+
+Thank you for considering my application. I am confident that my technical skills in physics-informed modeling and research capabilities align well with your requirements, and I would welcome the opportunity to contribute to your team's work on hygrothermal simulations for building applications.
+
+\end{cvletter}
+
+%-------------------------------------------------------------------------------
+% Print the signature and enclosures with above letter informations
+\makeletterclosing
+
+\end{document}

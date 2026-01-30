@@ -1,0 +1,156 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+% Awesome CV LaTeX Template for Cover Letter
+%
+% This template has been downloaded from:
+% https://github.com/posquit0/Awesome-CV
+%
+% Authors:
+% Claud D. Park <posquit0.bj@gmail.com>
+% Lars Richter <mail@ayeks.de>
+%
+% Template license:
+% CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+%
+
+
+%-------------------------------------------------------------------------------
+% CONFIGURATIONS
+%-------------------------------------------------------------------------------
+% A4 paper size by default, use 'letterpaper' for US letter
+\documentclass[11pt, a4paper]{awesome-cv}
+
+% Configure page margins with geometry
+\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+
+% Specify the location of the included fonts
+\fontdir[fonts/]
+
+% Color for highlights
+% Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
+%                 awesome-nephritis, awesome-concrete, awesome-darknight
+\colorlet{awesome}{awesome-red}
+% Uncomment if you would like to specify your own color
+% \definecolor{awesome}{HTML}{CA63A8}
+
+% Colors for text
+% Uncomment if you would like to specify your own color
+% \definecolor{darktext}{HTML}{414141}
+% \definecolor{text}{HTML}{333333}
+% \definecolor{graytext}{HTML}{5D5D5D}
+% \definecolor{lighttext}{HTML}{999999}
+
+% Set false if you don't want to highlight section with awesome color
+\setbool{acvSectionColorHighlight}{true}
+
+% If you would like to change the social information separator from a pipe (|) to something else
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+
+%-------------------------------------------------------------------------------
+%	PERSONAL INFORMATION
+%	Comment any of the lines below if they are not required
+%-------------------------------------------------------------------------------
+% Available options: circle|rectangle,edge/noedge,left/right
+\photo[circle,noedge,left]{./examples/profile}
+\name{Kevin}{TONGUE}
+\position{5th year student{\enskip\cdotp\enskip}Mechanical engineer}
+\address{65, Rue Jean Parot , Saint-Étienne,France}
+
+\mobile{(+33) 06 98 06 37 69}
+\email{tonguekevin00@gmail.com}
+% \homepage{www.posquit0.com}
+\github{tittank1802}
+\linkedin{tongue-kevin-52b100330}
+% \gitlab{gitlab-id}
+% \stackoverflow{SO-id}{SO-name}
+% \twitter{@twit}
+% \skype{skype-id}
+% \reddit{reddit-id}
+% \medium{madium-id}
+% \googlescholar{googlescholar-id}{name-to-display}
+%% \firstname and \lastname will be used
+% \googlescholar{googlescholar-id}{}
+% \extrainfo{extra informations}
+
+% \quote{``Be the change that you want to see in the world."}
+
+
+%-------------------------------------------------------------------------------
+%	LETTER INFORMATION
+%	All of the below lines must be filled out
+%-------------------------------------------------------------------------------
+% The company being applied to
+\recipient
+  {IMT Mines Albi Recruitment Team}
+  {IMT Mines Albi\\Campus Jarlard, 81013 Albi, France}
+% The date on the letter, default is the date of compilation
+\letterdate{\today}
+% The title of the letter
+\lettertitle{Application for Internship: Modeling of Granular Segregation Phenomena using Inhomogeneous Markov Chains}
+% How the letter is opened
+\letteropening{Dear Dr. Gatumel, Dr. Dumazer, and Selection Committee,}
+% How the letter is closed
+\letterclosing{Sincerely,}
+% Any enclosures with the letter
+% \letterenclosure[Attached]{Curriculum Vitae}
+
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+% Print the header with above personal informations
+% Give optional argument to change alignment(C: center, L: left, R: right)
+\makecvheader[R]
+
+% Print the footer with 3 arguments(<left>, <center>, <right>)
+% Leave any of these blank if they are not needed
+\makecvfooter
+  {\today}
+  {Kevin TONGUE~~~·~~~Cover Letter}
+  {}
+
+% Print the title with above letter informations
+\makelettertitle
+
+%-------------------------------------------------------------------------------
+%	LETTER CONTENT
+%-------------------------------------------------------------------------------
+\begin{cvletter}
+
+\lettersection{About Me}
+As a fifth-year Mechanical Engineering student specializing in numerical simulation at Centrale Lyon-ENISE, I am writing to express my strong interest in the internship focused on "Modeling of Granular Segregation Phenomena using Inhomogeneous Markov Chains." My academic background in mechanical engineering, coupled with my extensive experience in numerical modeling and programming, aligns perfectly with the requirements of this research project.
+
+\lettersection{Why This Internship?}
+The challenge of modeling granular mixing processes represents exactly the type of complex mechanical problem that drives my passion for engineering. The opportunity to work on stochastic modeling using inhomogeneous Markov chains to predict segregation phenomena in granular materials particularly appeals to me for several reasons:
+
+• The project bridges fundamental research and industrial applications in sectors I find compelling - pharmaceuticals, food processing, and energy
+• It combines advanced mathematical modeling with practical engineering applications
+• The use of DEM simulations to develop stochastic models represents a cutting-edge approach to granular flow analysis
+• The possibility to contribute to digital twin development for industrial processes aligns with my career aspirations
+
+The interdisciplinary nature of this research, involving collaboration between IMT Mines Albi and IMT Mines Saint-Étienne, provides an ideal environment for academic and professional growth.
+
+\lettersection{Why My Profile Fits?}
+Throughout my academic journey, I have developed a strong foundation in numerical methods and programming that directly applies to this internship:
+
+• \textbf{Numerical Modeling:} My Master's specialization in Numerical Solid Mechanics has provided me with advanced knowledge of computational methods and simulation techniques
+• \textbf{Programming Skills:} I have substantial experience with Python development, including my work on microstructure partitioning models at École des Mines de Saint-Étienne
+• \textbf{MATLAB Proficiency:} I have completed multiple MATLAB certifications (Simulink, Power System OnRamp, Computer Vision) demonstrating my capability with scientific computing
+• \textbf{Mechanical Understanding:} My background in mechanical engineering gives me the necessary foundation to understand granular material behavior and flow mechanics
+• \textbf{Research Experience:} My fatigue analysis project involving numerical method validation has prepared me for rigorous research work
+
+My experience in developing Python models for material analysis, combined with my MATLAB expertise and mechanical engineering background, positions me well to contribute to the DEM simulation analysis and Markov chain modeling required for this project.
+
+I am particularly excited about the prospect of working on a project that has both strong academic value and immediate industrial applications. The opportunity to potentially continue this research through a PhD pathway is also highly appealing.
+
+Thank you for considering my application. I am confident that my technical skills and research capabilities align well with your requirements, and I would welcome the opportunity to contribute to your team's important work on granular flow modeling.
+
+\end{cvletter}
+
+
+%-------------------------------------------------------------------------------
+% Print the signature and enclosures with above letter informations
+\makeletterclosing
+
+\end{document}

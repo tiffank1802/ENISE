@@ -1,0 +1,24 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Données du problème}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Sphère en acier}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Forces appliquées}{2}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Matériaux des plans}{2}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Formules de Hertz}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Module effectif}{3}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Paramètres de contact}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Profil de pression}{3}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Résultats des calculs}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Tableau récapitulatif des 12 cas}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Hauteurs de bourlet}{4}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Visualisations}{4}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Profils de pression hertziens}{4}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Raideurs de contact}{5}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Hauteurs des bourlets}{6}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Synthèse comparative}{7}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Analyse des résultats}{7}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Influence du rayon de la sphère}{7}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Influence de la force appliquée}{8}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Influence du matériau du plan}{8}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Matrice de corrélation}{8}{subsection.6.4}%
+\contentsline {section}{\numberline {7}Conclusion}{8}{section.7}%

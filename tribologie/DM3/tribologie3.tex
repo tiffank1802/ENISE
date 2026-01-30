@@ -1,0 +1,520 @@
+\documentclass{rapportECL}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{booktabs}
+
+\title{Analyse Complète des Contacts Non-Adhésifs Sphère-Plan et des Raideurs de Contact}
+
+\begin{document}
+
+\titre{Analyse Complète des Contacts Non-Adhésifs Sphère-Plan et des Raideurs de Contact}
+\UE{Tribologie et Contacts Mécaniques}
+\sujet{Modélisation des régimes élastique, élasto-plastique et plastique, et étude des raideurs}
+
+\enseignant{Hassan ZAHOUANI}
+
+\eleves{Kévin TONGUE}
+
+\fairemarges
+\fairepagedegarde
+\tabledematieres
+
+\section{Introduction}
+
+Cette étude analyse le contact non-adhésif entre une sphère et un plan dans trois régimes distincts : élastique, élasto-plastique et plastique. L'objectif est de caractériser l'évolution de la force \(F\), de la pression moyenne \(P_{\text{moy}}\) et de l'aire de contact \(A\) en fonction du déplacement \(\delta\) pour différentes combinaisons matériau-rayon. De plus, cette étude examine la raideur de contact \(k = 2aE^*\) dans ces mêmes régimes. Les calculs sont basés sur un modèle théorique et implémentés en Python.
+
+\section{Modèle théorique}
+
+\subsection{Régime élastique (\(\delta \leq \delta_1\))}
+
+\begin{align}
+F_e &= \frac{4}{3} E^* \sqrt{R} \delta^{3/2} \\
+A_e &= \pi R \delta \\
+P_e &= \frac{4E^*}{3\pi} \sqrt{\frac{\delta}{R}} \\
+k_e &= 2E^* \sqrt{R\delta}
+\end{align}
+
+\subsection{Régime élasto-plastique (\(\delta_1 < \delta \leq \delta_2\))}
+
+\begin{align}
+P_{ep}(\delta) &= H \left( 1 - 0.6 \frac{\ln \delta_2 - \ln \delta}{\ln \delta_2 - \ln \delta_1} \right) \\
+A_{ep} &= \pi R \delta \left[ 1 - 2 \left( \frac{\delta - \delta_1}{\delta_2 - \delta_1} \right)^3 + 3 \left( \frac{\delta - \delta_1}{\delta_2 - \delta_1} \right)^2 \right] \\
+F_{ep} &= P_{ep} \cdot A_{ep} \\
+k_{ep} &= 2E^* \sqrt{\frac{A_{ep}}{\pi}}
+\end{align}
+
+\subsection{Régime plastique (\(\delta > \delta_2\))}
+
+\begin{align}
+A_p &= 2\pi R \delta \\
+P_p &= H \\
+F_p &= 2\pi R \delta H \\
+k_p &= 2E^* \sqrt{2R\delta}
+\end{align}
+
+\subsection{Paramètres de transition}
+
+\begin{align}
+\delta_1 &\approx 0.9 R \left( \frac{H}{E^*} \right)^2 \\
+\delta_2 &= 54 \delta_1 \\
+E^* &= \left( \frac{1 - \nu_1^2}{E_1} + \frac{1 - \nu_2^2}{E_2} \right)^{-1}
+\end{align}
+
+\section{Paramètres d'étude}
+
+\subsection{Matériaux}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Matériau} & \textbf{Dureté } \(H\) (MPa) & \textbf{Module } \(E\) (GPa) & \(\nu\) \\
+\midrule
+Cuivre écroui & 93 & 120 & 0.3 \\
+Acier allié & 200 & 200 & 0.3 \\
+\bottomrule
+\end{tabular}
+\caption{Propriétés des matériaux étudiés}
+\label{tab:materiaux}
+\end{table}
+
+\subsection{Géométrie}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lc}
+\toprule
+\textbf{Description} & \textbf{Valeur} \\
+\midrule
+Rayon de sphère 1 & \SI{5}{mm} \\
+Rayon de sphère 2 & \SI{50}{mm} \\
+\bottomrule
+\end{tabular}
+\caption{Paramètres géométriques}
+\label{tab:geometrie}
+\end{table}
+
+\subsection{Paramètres de transition calculés}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Contact} & \(\delta_1\) (µm) & \(\delta_2\) (µm) & \(E^*\) (GPa) \\
+\midrule
+Cuivre - R5mm & 0.57 & 30.94 & 82.4 \\
+Cuivre - R50mm & 5.73 & 309.41 & 82.4 \\
+Acier - R5mm & 13.42 & 724.42 & 109.9 \\
+Acier - R50mm & 134.15 & 7244.22 & 109.9 \\
+\bottomrule
+\end{tabular}
+\caption{Paramètres de transition pour chaque contact}
+\label{tab:transitions}
+\end{table}
+
+\section{Résultats des tracés des forces, pressions et aires}
+
+\subsection{Tracés des forces}
+
+Les figures \ref{fig:comparaison_forces} et \ref{fig:evolution_forces} montrent l'évolution des forces de limite élastique selon les différents critères et rayons. L'échelle logarithmique révèle la forte dépendance quadratique avec le rayon R, confirmant la relation théorique \(F_y \propto R^2\).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/comparaison_forces_tous_contacts.png}
+\caption{Comparaison des forces pour tous les contacts par régime}
+\label{fig:comparaison_forces}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/evolution_forces_rayon.png}
+\caption{Évolution des forces de limite élastique avec le rayon}
+\label{fig:evolution_forces}
+\end{figure}
+
+\subsection{Tracés des pressions}
+
+La figure \ref{fig:comparaison_pressions} compare les pressions de limite élastique pour tous les matériaux selon les trois critères. Les valeurs numériques sont données dans le tableau \ref{tab:pressions_limite}, montrant que l'acier allié présente la plus haute résistance (3674 MPa selon Von Mises) tandis que le cuivre écroui a la plus faible (517.7 MPa).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/comparaison_pressions_tous_contacts.png}
+\caption{Comparaison des pressions pour tous les contacts par régime}
+\label{fig:comparaison_pressions}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Matériau} & \textbf{Tresca (MPa)} & \textbf{Von Mises (MPa)} & \textbf{Tabor (MPa)} \\
+\midrule
+Cuivre écroui & 496.0 & 517.7 & 341.0 \\
+Acier allié & 3520.0 & 3674.0 & 2420.0 \\
+\bottomrule
+\end{tabular}
+\caption{Pressions de limite élastique calculées}
+\label{tab:pressions_limite}
+\end{table}
+
+\subsection{Tracés des aires}
+
+Les aires de contact évoluent de manière linéaire en régime élastique (\(A_e = \pi R \delta\)) et plastique (\(A_p = 2\pi R \delta\)), avec une transition complexe en régime élasto-plastique. Les figures individuelles par contact montrent ces évolutions, illustrant l'augmentation progressive de la zone de contact avec le déplacement.
+
+\subsection{Évolution en fonction du déplacement}
+
+Les tracés des pressions et aires en fonction du déplacement \(\delta\) sont illustrés dans les figures des évolutions complètes pour chaque contact. Ces figures montrent les trois régimes : élastique, élasto-plastique et plastique.
+
+- \textbf{Régime élastique (\(\delta \leq \delta_1\)) :} La pression diminue avec \(\delta\), suivant la loi \(P_e \propto \delta^{-1/2}\). L'aire augmente linéairement avec \(\delta\), \(A_e = \pi R \delta\).
+
+- \textbf{Régime élasto-plastique (\(\delta_1 < \delta \leq \delta_2\)) :} La pression décroît lentement selon la formule donnée, atteignant la dureté à la transition plastique. L'aire augmente de manière non-linéaire.
+
+- \textbf{Régime plastique (\(\delta > \delta_2\)) :} La pression se stabilise à la valeur de la dureté \(H\). L'aire continue d'augmenter linéairement avec \(\delta\), \(A_p = 2\pi R \delta\).
+
+Ces évolutions confirment le modèle théorique et permettent de prédire le comportement mécanique des contacts pour différentes applications en tribologie.
+
+\section{Résultats par contact individuel}
+
+\subsection{Contact cuivre écroui - Rayon \SI{5}{mm}}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/contact_cuivre ecroui_R5_par_regime.png}
+\caption{Évolution de \(F\), \(P\) et \(A\) par régime pour le contact cuivre écroui - R=\SI{5}{mm}}
+\label{fig:cuivre_R5_regimes}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/contact_cuivre ecroui_R5_complet.png}
+\caption{Évolution complète pour le contact cuivre écroui - R=\SI{5}{mm}}
+\label{fig:cuivre_R5_complet}
+\end{figure}
+
+\subsection{Contact cuivre écroui - Rayon \SI{50}{mm}}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/contact_cuivre ecroui_R50_par_regime.png}
+\caption{Évolution de \(F\), \(P\) et \(A\) par régime pour le contact cuivre écroui - R=\SI{50}{mm}}
+\label{fig:cuivre_R50_regimes}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/contact_cuivre ecroui_R50_complet.png}
+\caption{Évolution complète pour le contact cuivre écroui - R=\SI{50}{mm}}
+\label{fig:cuivre_R50_complet}
+\end{figure}
+
+\subsection{Contact acier allié - Rayon \SI{5}{mm}}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/contact_acier allié_R5_par_regime.png}
+\caption{Évolution de \(F\), \(P\) et \(A\) par régime pour le contact acier allié - R=\SI{5}{mm}}
+\label{fig:acier_R5_regimes}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/contact_acier allié_R5_complet.png}
+\caption{Évolution complète pour le contact acier allié - R=\SI{5}{mm}}
+\label{fig:acier_R5_complet}
+\end{figure}
+
+\subsection{Contact acier allié - Rayon \SI{50}{mm}}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/contact_acier allié_R50_par_regime.png}
+\caption{Évolution de \(F\), \(P\) et \(A\) par régime pour le contact acier allié - R=\SI{50}{mm}}
+\label{fig:acier_R50_regimes}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/contact_acier allié_R50_complet.png}
+\caption{Évolution complète pour le contact acier allié - R=\SI{50}{mm}}
+\label{fig:acier_R50_complet}
+\end{figure}
+
+\section{Synthèse par matériau}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/synthese_forces_par_materiau.png}
+\caption{Synthèse des forces en échelle logarithmique pour chaque matériau}
+\label{fig:synthese_materiaux}
+\end{figure}
+
+\section{Analyse et interprétation}
+
+\subsection{Influence du rayon}
+
+\begin{itemize}
+\item \textbf{Augmentation des déplacements critiques} : Pour un même matériau, un rayon multiplié par 10 entraîne une multiplication par 10 de \(\delta_1\) et \(\delta_2\).
+\item \textbf{Réduction de la pression} : À déplacement égal, la pression est inversement proportionnelle à la racine carrée du rayon.
+\item \textbf{Augmentation de l'aire} : L'aire de contact augmente linéairement avec le rayon pour un même \(\delta\).
+\item \textbf{Effet sur la force} : La force nécessaire pour atteindre un même déplacement augmente avec le rayon, particulièrement en régime plastique.
+\end{itemize}
+
+\subsection{Influence du matériau}
+
+\begin{itemize}
+\item \textbf{Dureté} : L'acier allié (\(H = \SI{200}{MPa}\)) présente des transitions à plus faible déplacement que le cuivre écroui (\(H = \SI{93}{MPa}\)).
+\item \textbf{Module d'Young} : Le module plus élevé de l'acier entraîne une rigidité plus importante en régime élastique.
+\item \textbf{Rapport \(H/E\)} : Ce rapport détermine la résistance à l'indentation. Un rapport élevé favorise la transition vers le régime plastique.
+\end{itemize}
+
+\subsection{Comportement par régime}
+
+\subsubsection{Régime élastique}
+\begin{itemize}
+\item La force varie en \(\delta^{3/2}\), caractéristique du contact hertzien.
+\item La pression augmente avec la racine carrée du déplacement.
+\item L'aire de contact est linéaire avec \(\delta\).
+\end{itemize}
+
+\subsubsection{Régime élasto-plastique}
+\begin{itemize}
+\item Transition progressive entre comportements élastique et plastique.
+\item La pression tend asymptotiquement vers la dureté \(H\).
+\item L'aire présente une évolution cubique caractéristique.
+\end{itemize}
+
+\subsubsection{Régime plastique}
+\begin{itemize}
+\item La pression est constante et égale à la dureté.
+\item La force varie linéairement avec le déplacement.
+\item L'aire augmente linéairement, indiquant une géométrie de contact parfaitement plastique.
+\end{itemize}
+
+\subsection{Points de transition}
+
+\begin{itemize}
+\item \(\delta_1\) : Début de la déformation plastique. Pour \(\delta < \delta_1\), la déformation est réversible.
+\item \(\delta_2\) : Transition vers le régime plastique pur. Pour \(\delta > \delta_2\), la déformation est entièrement plastique.
+\item Le rapport \(\delta_2/\delta_1 = 54\) est constant pour tous les contacts.
+\end{itemize}
+
+\section{Implications pour la conception}
+
+\subsection{Choix des matériaux}
+
+\begin{itemize}
+\item Pour les applications nécessitant une grande résistance à l'indentation : privilégier les matériaux à haute dureté.
+\item Pour les contacts répétés : maintenir les déplacements en dessous de \(\delta_1\) pour éviter l'accumulation de déformation plastique.
+\item Considérer le rapport \(H/E\) comme indicateur de la résistance à l'indentation élastique.
+\end{itemize}
+
+\subsection{Choix de la géométrie}
+
+\begin{itemize}
+\item Grand rayon : favorise le régime élastique, répartit mieux la charge.
+\item Petit rayon : concentrations de contraintes plus importantes, transition plastique plus rapide.
+\item Pour les contacts à faible charge : privilégier les grands rayons pour rester en régime élastique.
+\end{itemize}
+
+\subsection{Applications pratiques}
+
+\begin{itemize}
+\item \textbf{Indentation instrumentée} : Utiliser les courbes force-déplacement pour caractériser les propriétés mécaniques.
+\item \textbf{Conception de paliers} : Dimensionner pour rester en régime élastique sous charge nominale.
+\item \textbf{Étude de l'usure} : Les déformations plastiques répétées conduisent à l'initiation de fissures.
+\end{itemize}
+
+\section{Raideur de contact}
+
+\subsection{Formulation théorique}
+
+La raideur de contact est définie comme la dérivée de la force par rapport au déplacement : \(k = \frac{dF}{d\delta}\).
+
+Pour un contact sphère-plan, la formule générale est \(k = 2aE^*\), où \(a\) est le rayon de contact et \(E^*\) le module effectif.
+
+\subsubsection{Régime élastique (\(\delta \leq \delta_1\))}
+\[
+a_e = \sqrt{R\delta}, \quad k_e = 2E^*\sqrt{R\delta}
+\]
+
+\subsubsection{Régime élasto-plastique (\(\delta_1 < \delta \leq \delta_2\))}
+\[
+a_{ep} = \sqrt{\frac{A_{ep}}{\pi}}, \quad k_{ep} = 2E^* a_{ep}
+\]
+avec \(A_{ep}\) donnée par la formule de l'aire.
+
+\subsubsection{Régime plastique (\(\delta > \delta_2\))}
+\[
+a_p = \sqrt{2R\delta}, \quad k_p = 2E^*\sqrt{2R\delta}
+\]
+
+\subsection{Résultats calculés}
+
+Les raideurs ont été calculées pour les mêmes contacts que précédemment.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Contact} & \(\delta_1\) (\si{\micro\meter}) & \(\delta_2\) (\si{\micro\meter}) & \(a(\delta_1)\) (\si{mm}) & \(k(\delta_1)\) (\si{MN/m}) & \(E^*\) (\si{GPa}) \\
+\midrule
+Cuivre - R5mm & 0.57 & 30.94 & 0.054 & 8.82 & 82.4 \\
+Cuivre - R50mm & 5.73 & 309.41 & 0.535 & 88.23 & 82.4 \\
+Acier - R5mm & 13.42 & 724.42 & 0.259 & 56.92 & 109.9 \\
+Acier - R50mm & 134.15 & 7244.22 & 2.590 & 569.21 & 109.9 \\
+\bottomrule
+\end{tabular}
+\caption{Valeurs caractéristiques des raideurs aux points de transition}
+\label{tab:raideurs}
+\end{table}
+
+\subsection{Figures des raideurs}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/raideur_cuivre ecroui_R5mm.png}
+\caption{Raideur pour cuivre écroui - R=5 mm}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/raideur_cuivre ecroui_R50mm.png}
+\caption{Raideur pour cuivre écroui - R=50 mm}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/raideur_acier allié_R5mm.png}
+\caption{Raideur pour acier allié - R=5 mm}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/raideur_acier allié_R50mm.png}
+\caption{Raideur pour acier allié - R=50 mm}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/comparaison_raideurs_tous_contacts.png}
+\caption{Comparaison des raideurs pour tous les contacts}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{images/raideur_3D.png}
+\caption{Vue 3D de la raideur en fonction du déplacement et R}
+\end{figure}
+
+\section{Analyse quantitative des raideurs}
+
+\subsection{Comportement asymptotique}
+
+\subsubsection{Petits déplacements (\(\delta \ll \delta_1\))}
+\[
+k \approx 2E^*\sqrt{R\delta} \quad \Rightarrow \quad \frac{dk}{d\delta} = E^*\sqrt{\frac{R}{\delta}} \to \infty \quad \text{quand } \delta \to 0
+\]
+
+\subsubsection{Grands déplacements (\(\delta \gg \delta_2\))}
+\[
+k \approx 2E^*\sqrt{2R\delta} \quad \Rightarrow \quad k \propto \sqrt{\delta}
+\]
+
+\subsection{Influence des paramètres}
+
+\subsubsection{Influence du rayon \(R\)}
+Pour un même matériau et un même \(\delta\) :
+\[
+\frac{k(R_2)}{k(R_1)} = \sqrt{\frac{R_2}{R_1}}
+\]
+Exemple : \(R_2 = 10R_1 \Rightarrow k_2 \approx 3.16k_1\)
+
+\subsubsection{Influence du module effectif \(E^*\)}
+Pour un même \(a\) :
+\[
+k \propto E^*
+\]
+\[
+\frac{k_{\text{acier}}}{k_{\text{cuivre}}} = \frac{E^*_{\text{acier}}}{E^*_{\text{cuivre}}} = 1.33
+\]
+
+\section{Conclusion}
+
+\subsection{Principales conclusions}
+
+\begin{enumerate}
+\item Les trois critères donnent des prédictions différentes mais cohérentes entre elles pour les limites élastiques.
+\item La force de limite élastique varie quadratiquement avec le rayon.
+\item Le critère de Tabor est le plus conservateur, celui de Von Mises le moins.
+\item Les déplacements critiques sont très faibles pour les métaux mais significatifs pour les polymères.
+\item Le rapport \(H/Y\) est un paramètre important pour caractériser le comportement élasto-plastique.
+\item La raideur de contact évolue selon des lois spécifiques à chaque régime, avec une dépendance à \(E^*\) et au rayon de contact.
+\end{enumerate}
+
+\subsection{Recommandations}
+
+\begin{itemize}
+\item Pour les applications de sécurité critique, utiliser le critère de Tabor pour les limites élastiques.
+\item Pour les calculs de précision et tu y maintiendra en fin de document le tracé des raideurs de contacts. Toutes les figures et résultats seront expliquées.
+\item Considérer l'influence significative du rayon sur la force et la raideur critiques.
+\item Vérifier que \(\delta < \delta_1\) pour éviter toute déformation plastique.
+\end{itemize}
+
+\section{Perspectives}
+
+\begin{itemize}
+\item Étendre l'étude à d'autres géométries de contact (cylindre-plan, pointe conique).
+\item Intégrer les effets d'adhésion selon le modèle JKR.
+\item Étudier l'influence de l'écrouissage sur le comportement élasto-plastique.
+\item Valider le modèle par des expériences d'indentation instrumentée.
+\end{itemize}
+
+\appendix
+
+\section{Code Python - Fonctions principales}
+
+\begin{lstlisting}[language=Python, caption=Fonctions de calcul des différents régimes]
+def calcul_regime_elastique(delta, R, E_star):
+    F = (4/3) * E_star * np.sqrt(R) * delta**1.5
+    A = np.pi * R * delta
+    P = (4 * E_star) / (3 * np.pi) * np.sqrt(delta / R)
+    return F, A, P
+
+def calcul_regime_elastoplastique(delta, delta1, delta2, R, H, E_star):
+    terme_log = (np.log(delta2) - np.log(delta)) / (np.log(delta2) - np.log(delta1))
+    P = H * (1 - 0.6 * terme_log)
+    x = (delta - delta1) / (delta2 - delta1)
+    A = np.pi * R * delta * (1 - 2*x**3 + 3*x**2)
+    F = P * A
+    return F, A, P
+
+def calcul_regime_plastique(delta, R, H):
+    A = 2 * np.pi * R * delta
+    P = H * np.ones_like(delta)
+    F = A * P
+    return F, A, P
+\end{lstlisting}
+
+\section{Récapitulatif des valeurs caractéristiques}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Contact} & \(\delta_1\) (µm) & \(\delta_2\) (µm) & \(F(\delta_1)\) (N) & \(F(\delta_2)\) (N) & \(P(\delta_2)\) (MPa) \\
+\midrule
+Cuivre - R5mm & 0.57 & 30.94 & 0.002 & 7.8 & 93 \\
+Cuivre - R50mm & 5.73 & 309.41 & 0.07 & 78 & 93 \\
+Acier - R5mm & 13.42 & 724.42 & 0.003 & 15.4 & 200 \\
+Acier - R50mm & 134.15 & 7244.22 & 0.03 & 154 & 200 \\
+\bottomrule
+\end{tabular}
+\caption{Valeurs caractéristiques aux points de transition}
+\label{tab:val_caracteristiques}
+\end{table}
+
+\end{document}

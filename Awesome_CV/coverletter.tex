@@ -1,0 +1,146 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+% Awesome CV LaTeX Template for Cover Letter
+%
+% This template has been downloaded from:
+% https://github.com/posquit0/Awesome-CV
+%
+% Authors:
+% Claud D. Park <posquit0.bj@gmail.com>
+% Lars Richter <mail@ayeks.de>
+%
+% Template license:
+% CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+%
+
+
+%-------------------------------------------------------------------------------
+% CONFIGURATIONS
+%-------------------------------------------------------------------------------
+% A4 paper size by default, use 'letterpaper' for US letter
+\documentclass[11pt, a4paper]{awesome-cv}
+
+% Configure page margins with geometry
+\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+
+% Specify the location of the included fonts
+\fontdir[fonts/]
+
+% Color for highlights
+% Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
+%                 awesome-nephritis, awesome-concrete, awesome-darknight
+\colorlet{awesome}{awesome-red}
+% Uncomment if you would like to specify your own color
+% \definecolor{awesome}{HTML}{CA63A8}
+
+% Colors for text
+% Uncomment if you would like to specify your own color
+% \definecolor{darktext}{HTML}{414141}
+% \definecolor{text}{HTML}{333333}
+% \definecolor{graytext}{HTML}{5D5D5D}
+% \definecolor{lighttext}{HTML}{999999}
+
+% Set false if you don't want to highlight section with awesome color
+\setbool{acvSectionColorHighlight}{true}
+
+% If you would like to change the social information separator from a pipe (|) to something else
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+
+%-------------------------------------------------------------------------------
+%	PERSONAL INFORMATION
+%	Comment any of the lines below if they are not required
+%-------------------------------------------------------------------------------
+% Available options: circle|rectangle,edge/noedge,left/right
+\photo[circle,noedge,left]{./examples/profile}
+\name{Kevin}{TONGUE}
+\position{5th year student{\enskip\cdotp\enskip}Mechanical engineer}
+\address{65, Rue Jean Parot , Saint-Étienne,France}
+
+\mobile{(+33) 06 98 06 37 69}
+\email{tonguekevin00@gmail.com}
+% \homepage{www.posquit0.com}
+\github{tittank1802}
+\linkedin{tongue-kevin-52b100330}
+% \gitlab{gitlab-id}
+% \stackoverflow{SO-id}{SO-name}
+% \twitter{@twit}
+% \skype{skype-id}
+% \reddit{reddit-id}
+% \medium{madium-id}
+% \googlescholar{googlescholar-id}{name-to-display}
+%% \firstname and \lastname will be used
+% \googlescholar{googlescholar-id}{}
+% \extrainfo{extra informations}
+
+% \quote{``Be the change that you want to see in the world."}
+
+
+%-------------------------------------------------------------------------------
+%	LETTER INFORMATION
+%	All of the below lines must be filled out
+%-------------------------------------------------------------------------------
+% The company being applied to
+\recipient
+  {CEA Recruitment Team}
+  {CEA GRAMAT\\46500 Gramat, France}
+% The date on the letter, default is the date of compilation
+\letterdate{\today}
+% The title of the letter
+\lettertitle{Internship Application for Mechanical Engineer}
+% How the letter is opened
+\letteropening{Dear Mr./Ms./Dr.,}
+% How the letter is closed
+\letterclosing{Sincerely,}
+% Any enclosures with the letter
+% \letterenclosure[Attached]{Curriculum Vitae}
+
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+% Print the header with above personal informations
+% Give optional argument to change alignment(C: center, L: left, R: right)
+\makecvheader[R]
+
+% Print the footer with 3 arguments(<left>, <center>, <right>)
+% Leave any of these blank if they are not needed
+\makecvfooter
+  {\today}
+  {Kevin TONGUE~~~·~~~Cover Letter}
+  {}
+
+% Print the title with above letter informations
+\makelettertitle
+
+%-------------------------------------------------------------------------------
+%	LETTER CONTENT
+%-------------------------------------------------------------------------------
+\begin{cvletter}
+
+\lettersection{About Me}
+Currently a fifth-year student in a double degree program at the École Nationale d’Ingénieurs de Saint-Étienne (ENISE), I am eager to take the opportunity to apply for the internship offer available.
+Passionate about mechanics, I have oriented my studies in this field to contribute to the technological advances revolutionizing design and production processes. 
+
+As a driving member of the group, I see myself as a hardworking person, someone reliable who completes tasks efficiently and adapts flexibly to academic and professional projects.
+My weakness is sometimes being a perfectionist in situations that do not require it—a flaw I have been working on for quite some time now.
+\lettersection{Why CEA?}
+CEA offers a unique environment at the intersection of scientific excellence and major societal challenges, notably in innovative research on materials, mechanics, and thermal sciences. I am particularly attracted by the CEA's multidisciplinary and collaborative approach, where teamwork, autonomy, and communication are highly valued. The opportunity to be involved in advanced numerical simulation, dynamic modeling, and experimental characterization fits perfectly with my academic path and career goals.
+
+CEA's projects require interns to demonstrate strong analytical skills, motivation for scientific problem-solving, familiarity with simulation software (such as Abaqus, LS-DYNA, Python, or Matlab), as well as the ability to work both independently and as part of a team. The possibility to work on concrete applications related to mechanical and thermal behavior of innovative materials in a cutting-edge research facility is truly motivating. I am eager to contribute my skills to such an ambitious and dynamic context.
+
+
+
+\lettersection{Why Me?}
+Throughout my education, I have developed a solid foundation in mechanics and materials science, with practical experience in numerical modeling and programming. My proficiency in Python and my adaptability with other scientific software enable me to quickly take on simulation and data analysis tasks. I am recognized for my organizational skills, resourcefulness, and the ability to work effectively in multidisciplinary teams. My commitment to continuous learning and my drive to contribute to high-level technical projects make me a strong fit for CEA's expectations for interns.
+
+Thank you for considering my application. I look forward to the possibility of discussing how my background, skills, and enthusiasm can add value to CEA. Please feel free to contact me at your convenience.
+
+\end{cvletter}
+
+
+%-------------------------------------------------------------------------------
+% Print the signature and enclosures with above letter informations
+\makeletterclosing
+
+\end{document}

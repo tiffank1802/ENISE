@@ -1,0 +1,272 @@
+\documentclass[11pt, a4paper]{awesome-cv}
+% Configure page margins with geometry
+\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+
+% Specify the location of the included fonts
+\fontdir[fonts/]
+
+% Color for highlights
+\colorlet{awesome}{awesome-red}
+
+% Uncomment if you would like to specify your own color
+% \colorlet{awesome}{HTML}{CA63A8}
+
+% Colors for text
+% Uncomment if you would like to specify your own color
+% \definecolor{darktext}{HTML}{414141}
+% \definecolor{text}{HTML}{333333}
+% \definecolor{graytext}{HTML}{5D5D5D}
+% \definecolor{lighttext}{HTML}{999999}
+
+% Set false if you don't want to highlight section with awesome color
+\setbool{acvSectionColorHighlight}{true}
+
+% If you would like to change the social information separator from a pipe (|) to something else
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+%-------------------------------------------------------------------------------
+%	PERSONAL INFORMATION
+%	Comment any of the lines below if they are not required
+%-------------------------------------------------------------------------------
+
+% Available options: circle|rectangle,edge/noedge,left/right
+% \photo[circle,noedge,left]{./examples/profile}
+\name{Kevin}{TONGUE}
+\position{5th year student{\enskip\cdotp\enskip}Mechanical engineering}
+\address{65, Rue Jean Parot , Saint-Étienne,France}
+
+\mobile{(+33) 06 98 06 37 69}
+\email{tonguekevin00@gmail.com}
+% \homepage{www.posquit0.com}
+\github{tittank1802}
+\linkedin{tongue-kevin-52b100330}
+% \gitlab{gitlab-id}
+% \stackoverflow{SO-id}{SO-name}
+% \twitter{@twit}
+% \skype{skype-id}
+% \reddit{reddit-id}
+% \medium{medium-id}
+% \googlescholar{googlescholar-id}{name-to-display}
+%% \firstname and \lastname will be used
+% \googlescholar{googlescholar-id}{}
+% \extrainfo{extra informations}
+% \quote{``Be the change that you want to see in the world."}
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+% Print the header with above personal informations
+% Give optional argument to change alignment(C: center, L: left, R: right)
+\makecvheader
+
+% Print the footer with 3 arguments(<left>, <center>, <right>)
+% Leave any of these blank if they are not needed
+\makecvfooter
+  {\today}
+  {Kevin TONGUE~~~·~~~Curriculum Vitae}
+  {\thepage}
+
+%-------------------------------------------------------------------------------
+%	CV/RESUME CONTENT
+%	Each section is imported separately, open each file in turn to modify content
+%-------------------------------------------------------------------------------
+
+\cvsection{Education}
+
+\begin{cventries}
+\cventry
+    {M2 in Mechanical Engineering \textbullet{} Design and Numerical Simulation} % Degree
+    {Centrale Lyon-ENISE} % Institution
+    {Saint-Étienne, France} % Location
+    {2026} % Date(s)
+    {
+      \begin{cvitems} % Description(s) bullet points
+        \item {Pursuing a Master's degree in mechanical engineering with a focus on design and advanced numerical simulation techniques, including multi-physics modeling.}
+      \end{cvitems}
+    }
+\cventry
+    {M2 in Numerical Solid Mechanics} % Degree
+    {Centrale Lyon-ENISE} % Institution
+    {Saint-Étienne, France} % Location
+    {2026} % Date(s)
+    {
+      \begin{cvitems} % Description(s) bullet points
+        \item {Pursuing a Master's degree in Numerical Solid Mechanics, emphasizing computational methods for solving partial differential equations in solid mechanics and heat/mass transfer problems.}
+        \item {Completed the MIAM (Méthodes d'Intelligence Artificielle pour la Physique) module, acquiring expertise in physics-informed neural networks (PINNs) for modeling physical phenomena such as coupled heat and diffusion processes.}
+      \end{cvitems}
+    }
+\end{cventries}
+
+\cvsection{Skills}
+
+\begin{cvskills}
+\cvskill
+    {Programming} % Category
+    {Python (including TensorFlow/PyTorch for neural networks), MATLAB, C, C++, C\#, Java, Fortran, LaTeX} % Skills
+\cvskill
+    {CAD \& Simulation} % Category
+    {SolidWorks, CATIA, 3DEXPERIENCE, PLM} % Skills
+\cvskill
+    {Office \& Tools} % Category
+    {Word, Excel, PowerPoint} % Skills
+\cvskill
+    {Soft Skills} % Category
+    {Problem-Solving, Flexibility, Commitment, Team Collaboration, Team Player} % Skills
+\cvskill
+    {Languages} % Category
+    {French (Native), English (Fluent), German (Intermediate)} % Skills
+\end{cvskills}
+
+\cvsection{Experience}
+
+\begin{cventries}
+\cventry
+    {Fatigue Analysis of Industrial Structures Subjected to Complex Loads} % Affiliation/role
+    {Centrale Lyon ENISE} % Organisation
+    {Saint-Étienne, France} % Location
+    {Oct. 2025 -- Now} % Date(s)
+    {
+      \begin{cvitems} % Description(s) of tasks/responsibilities
+        \item {Testing and validation of the non-regression of the numerical method of Agard et al. for the optimization of the Dang Van method based on the determination of critical planes, applying advanced numerical simulation techniques.}
+      \end{cvitems}
+    }
+\cventry
+    {Microstructure Partitioning Model (Python)} % Affiliation/role
+    {École des Mines de Saint-Étienne} % Organisation
+    {Saint-Étienne, France} % Location
+    {Feb. 2025 -- June 2025} % Date(s)
+    {
+      \begin{cvitems} % Description(s) of tasks/responsibilities
+        \item {Developed a Python-based model for partitioning microstructures to analyze material properties, leveraging numerical methods for material science simulations.}
+      \end{cvitems}
+    }
+\cventry
+    {Library Management Web Application (Symfony, PHP)} % Affiliation/role
+    {École des Mines de Saint-Étienne} % Organisation
+    {Saint-Étienne, France} % Location
+    {Feb. 2025 -- June 2025} % Date(s)
+    {
+      \begin{cvitems} % Description(s) of tasks/responsibilities
+        \item {Designed and implemented a web application for library management using Symfony and PHP, demonstrating software development skills applicable to simulation tools.}
+      \end{cvitems}
+    }
+\cventry
+    {Design of a Food Industry Lifting Trolley} % Affiliation/role
+    {Centrale Lyon ENISE} % Organisation
+    {Saint-Étienne, France} % Location
+    {Mar. 2025 -- June 2025} % Date(s)
+    {
+      \begin{cvitems} % Description(s) of tasks/responsibilities
+        \item {Engineered a lifting trolley for the food industry, focusing on ergonomic and safety aspects using CAD and numerical analysis.}
+      \end{cvitems}
+    }
+\cventry
+    {Design of a Gardening Assistance Cart} % Affiliation/role
+    {Centrale Lyon ENISE} % Organisation
+    {Saint-Étienne, France} % Location
+    {Sep. 2024 -- Dec. 2024} % Date(s)
+    {
+      \begin{cvitems} % Description(s) of tasks/responsibilities
+        \item {Developed a gardening assistance cart to improve user comfort and efficiency, incorporating mechanical design and simulation.}
+      \end{cvitems}
+    }
+\cventry
+    {Design and Manufacturing of a 3-Axis CNC Machine} % Affiliation/role
+    {Fablab ENSPY} % Organisation
+    {Yaoundé, Cameroon} % Location
+    {Sep. 2023 -- Dec. 2023} % Date(s)
+    {
+      \begin{cvitems} % Description(s) of tasks/responsibilities
+        \item {Designed and built a 3-axis CNC machine for prototyping and educational purposes, applying mechanical engineering principles.}
+      \end{cvitems}
+    }
+\cventry
+    {Engineer Internship in Maintenance of Newspaper Printing Machines} % Affiliation/role
+    {SOPECAM (Société de Presse et d'Éditions du Cameroun)} % Organisation
+    {Yaoundé, Cameroon} % Location
+    {May 2024 -- Sep. 2024} % Date(s)
+    {
+      \begin{cvitems} % Description(s) of tasks/responsibilities
+        \item {Determined the causes of pump failures on the KBA machine and proposed methods to prevent these failures.}
+        \item {Designed a software package for managing the preventive maintenance of the pump, using programming for reliability analysis.}
+      \end{cvitems}
+    }
+\cventry
+    {Technician Internship at Fablab of ENSPY} % Affiliation/role
+    {ENSPY (École Nationale Supérieure Polytechnique Yaoundé)} % Organisation
+    {Yaoundé, Cameroon} % Location
+    {May 2023 -- Sep. 2023} % Date(s)
+    {
+      \begin{cvitems} % Description(s) of tasks/responsibilities
+        \item {Analyzed causes of equipment failures and proposed preventive measures, gaining hands-on experience in mechanical systems maintenance.}
+      \end{cvitems}
+    }
+\end{cventries}
+
+\cvsection{Extracurricular Activities}
+
+\begin{cventries}
+\cventry
+    {Core Member, Robotic Group} % Affiliation/role
+    {ENISE} % Organisation
+    {} % Location
+    {Nov. 2024 -- Present} % Date(s)
+    {
+      \begin{cvitems} % Description(s) of tasks/responsibilities
+        \item {Gained expertise in designing electronic devices and participated in multiple competitions, enhancing problem-solving in mechatronics.}
+      \end{cvitems}
+    }
+\cventry
+    {Member, Social Group} % Affiliation/role
+    {ENISE} % Organisation
+    {} % Location
+    {Sep. 2024 -- Present} % Date(s)
+    {
+      \begin{cvitems} % Description(s) of tasks/responsibilities
+        \item {Developed skills in team collaboration and networking.}
+      \end{cvitems}
+    }
+\cventry
+    {Member, Football Group} % Affiliation/role
+    {ENISE} % Organisation
+    {} % Location
+    {Sep. 2024 -- Present} % Date(s)
+    {
+      \begin{cvitems} % Description(s) of tasks/responsibilities
+        \item {Played in a team and took charge of responsibilities, fostering leadership and teamwork.}
+      \end{cvitems}
+    }
+\end{cventries}
+
+\cvsection{Honors \& Awards}
+
+\begin{cvhonors}
+\cvhonor
+    {MATLAB Onramp, Simulink Onramp} % Name
+    {MathWorks Online Training} % Organization
+    {2025} % Date
+    {}
+\cvhonor
+    {MATLAB Power System Onramp, Computer Vision Onramp} % Name
+    {MathWorks Online Training} % Organization
+    {2025} % Date
+    {}
+\cvhonor
+    {SOLIDWORKS 3D CAD for Education, SOLIDWORKS xDesign for Education} % Name
+    {Coursera Online} % Organization
+    {2025} % Date
+    {}
+\cvhonor
+    {Google Advanced Data Analytics} % Name
+    {Coursera Online} % Organization
+    {2024} % Date
+    {}
+\cvhonor
+    {IBM Data Analyst} % Name
+    {Coursera Online} % Organization
+    {2024} % Date
+    {}
+\end{cvhonors}
+
+%-------------------------------------------------------------------------------
+\end{document}

@@ -1,0 +1,206 @@
+\documentclass{rapportECL}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{siunitx}
+
+\title{Analyse du Contact Élastique Sphère-Plan et Calcul des Contraintes}
+
+\begin{document}
+
+\titre{Analyse du Contact Élastique Sphère-Plan et Calcul des Contraintes}
+\UE{Tribologie et Contacts Mécaniques}
+\sujet{Contact Hertzien et Calcul des Contraintes}
+
+\enseignant{Hassan {ZAHOUANI}}
+
+\eleves{
+        {Kévin TONGUE}}
+
+\fairemarges
+\fairepagedegarde
+\tabledematieres
+
+\section{Introduction}
+
+Ce rapport présente l'analyse du contact élastique entre une sphère en acier et un plan métallique, conformément aux données fournies dans le DM2. L'étude repose sur la théorie de Hertz pour les contacts élastiques, qui permet de déterminer les paramètres mécaniques essentiels tels que le rayon de contact, les pressions, les déplacements et les contraintes internes. Un programme Python a été développé pour réaliser les calculs et générer les visualisations requises.
+
+\section{Données du problème}
+
+Les paramètres d'étude sont les suivants :
+
+\begin{itemize}
+    \item \textbf{Sphère en acier} : Diamètre $d = \SI{6}{mm}$, module d'Young $E_1 = \SI{210}{GPa}$, coefficient de Poisson $\nu_1 = 0.3$
+    \item \textbf{Effort maximal} : $F_{\max} = \SI{0.5}{N}$
+    \item \textbf{Enfoncement} : $\delta = \SI{50}{\micro m}$
+    \item \textbf{Plan métallique} : Coefficient de Poisson $\nu_2 = 0.3$ (supposé)
+\end{itemize}
+
+\section{Méthodologie de calcul}
+
+Les calculs sont basés sur la théorie de Hertz pour le contact élastique entre une sphère et un plan. Les principales relations utilisées sont :
+
+\begin{itemize}
+    \item \textbf{Rayon de contact} : $a = \sqrt{R \delta}$
+    \item \textbf{Module effectif} : $E^* = \frac{3F_{\max} R}{4a^3}$
+    \item \textbf{Pression maximale} : $p_0 = \frac{3}{2} p_{\text{moy}} = \frac{3F_{\max}}{2\pi a^2}$
+    \item \textbf{Pression moyenne} : $p_{\text{moy}} = \frac{F_{\max}}{\pi a^2}$
+    \item \textbf{Raideur de contact} : $K = 2aE^*$
+\end{itemize}
+
+Le module d'Young du plan $E_2$ est déduit de la relation :
+\[
+\frac{1}{E^*} = \frac{1-\nu_1^2}{E_1} + \frac{1-\nu_2^2}{E_2}
+\]
+
+\section{Résultats principaux}
+
+\subsection{Question 1 : Rayon de contact}
+
+Le rayon de contact calculé est :
+\[
+a = \sqrt{R \delta} = \sqrt{3\times10^{-3} \times 50\times10^{-6}} = \SI{0.387}{mm}
+\]
+
+\subsection{Question 2 : Pressions moyenne et maximale}
+
+\begin{itemize}
+    \item Pression moyenne : $p_{\text{moy}} = \SI{1.06}{MPa}$
+    \item Pression maximale : $p_0 = \SI{1.59}{MPa}$
+\end{itemize}
+
+\subsection{Question 3 : Module d'élasticité du plan}
+
+Le module effectif est $E^* = \SI{68.3}{GPa}$. En supposant $\nu_2 = 0.3$, on obtient :
+\[
+E_2 = \SI{101.2}{GPa}
+\]
+
+\subsection{Question 4 : Raideur de contact}
+
+\[
+K = 2aE^* = \SI{52.8}{N/m}
+\]
+
+\subsection{Question 5 : Profil de pression Hertzien}
+
+Le profil de pression suit la distribution hertzienne :
+\[
+p(r) = p_0 \sqrt{1 - \left(\frac{r}{a}\right)^2} \quad \text{pour } 0 \leq r \leq a
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/hertz_pressure_profile.png}
+    \caption{Profil de pression hertzien}
+    \label{fig:hertz_pressure}
+\end{figure}
+
+\subsection{Question 6 : Courbe force-déplacement et contrainte-déformation}
+
+La relation force-déplacement est non-linéaire :
+\[
+F = \frac{4}{3} E^* \sqrt{R} \delta^{3/2}
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/force_displacement_curve.png}
+    \caption{Courbes force-déplacement et contrainte-déformation}
+    \label{fig:force_displacement}
+\end{figure}
+
+\subsection{Questions 7-8 : Déplacements à la surface}
+
+Les déplacements verticaux et radiaux à la surface ($z=0$) sont calculés selon les formules de Boussinesq. Pour les points situés à \SI{1}{mm} et \SI{2}{mm} du centre de contact :
+
+\begin{itemize}
+    \item À $r = \SI{1}{mm}$ : $u_r = \SI{-0.008}{\micro m}$, $u_z = \SI{0.016}{\micro m}$
+    \item À $r = \SI{2}{mm}$ : $u_r = \SI{-0.004}{\micro m}$, $u_z = \SI{0.008}{\micro m}$
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/surface_displacements.png}
+    \caption{Déplacements verticaux et radiaux à la surface}
+    \label{fig:surface_displacements}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/displacements_bars.png}
+    \caption{Déplacements à 1 mm et 2 mm du centre de contact}
+    \label{fig:displacements_bars}
+\end{figure}
+
+\subsection{Question 9 : Évolution des contraintes dans le cercle de contact}
+
+Les contraintes normalisées $\sigma_r/p_0$, $\sigma_\theta/p_0$ et $\sigma_z/p_0$ sont représentées en fonction de $r/a$ :
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/stress_evolution.png}
+    \caption{Évolution des contraintes dans le cercle de contact}
+    \label{fig:stress_evolution}
+\end{figure}
+
+\subsection{Question 10 : Contrainte $\sigma_z$ en fonction de la profondeur}
+
+Sur l'axe de symétrie ($r=0$), la contrainte normale décroît avec la profondeur :
+\[
+\frac{\sigma_z}{p_0} = -\frac{1}{1 + (z/a)^2}
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/sigma_z_depth.png}
+    \caption{Variation de $\sigma_z$ avec la profondeur}
+    \label{fig:sigma_z_depth}
+\end{figure}
+
+\subsection{Question 11 : Contrainte de cisaillement}
+
+La contrainte de cisaillement maximale se situe sous la surface. Pour ce cas :
+\[
+\tau_{\max} = \SI{0.48}{MPa} \quad \text{à } z = \SI{0.24}{mm}
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/shear_stress.png}
+    \caption{Distribution de la contrainte de cisaillement}
+    \label{fig:shear_stress}
+\end{figure}
+
+\section{Conclusion}
+
+Cette étude a permis d'analyser complètement le contact élastique entre une sphère en acier et un plan métallique selon la théorie de Hertz. Les résultats obtenus (rayon de contact, pressions, déplacements, contraintes) sont cohérents avec les attentes pour un contact de faible charge. La contrainte de cisaillement maximale est située sous la surface, ce qui est caractéristique des contacts hertziens et explique souvent l'initiation de fissures en fatigue de contact.
+
+\section{Annexe : Code Python}
+
+Le code Python complet utilisé pour les calculs et les visualisations est disponible dans le fichier \texttt{tribologie\_dm2.py}. Il implémente toutes les formules de la théorie de Hertz et génère les figures présentées dans ce rapport.
+
+\appendix
+
+\section{Récapitulatif des valeurs numériques}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Paramètre} & \textbf{Valeur} & \textbf{Unité} \\
+        \hline
+        Rayon de contact $a$ & 0.387 & mm \\
+        Pression moyenne $p_{\text{moy}}$ & 1.06 & MPa \\
+        Pression maximale $p_0$ & 1.59 & MPa \\
+        Module effectif $E^*$ & 68.3 & GPa \\
+        Module du plan $E_2$ & 101.2 & GPa \\
+        Raideur de contact $K$ & 52.8 & N/m \\
+        Cisaillement max $\tau_{\max}$ & 0.48 & MPa \\
+        Profondeur du $\tau_{\max}$ & 0.24 & mm \\
+        \hline
+    \end{tabular}
+    \caption{Récapitulatif des résultats principaux}
+    \label{tab:results}
+\end{table}
+
+\end{document}

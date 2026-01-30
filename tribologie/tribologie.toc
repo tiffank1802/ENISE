@@ -1,0 +1,18 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Données du problème}{2}{section.2}%
+\contentsline {section}{\numberline {3}Méthodologie de calcul}{2}{section.3}%
+\contentsline {section}{\numberline {4}Résultats principaux}{2}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Question 1 : Rayon de contact}{2}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Question 2 : Pressions moyenne et maximale}{2}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Question 3 : Module d'élasticité du plan}{3}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Question 4 : Raideur de contact}{3}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Question 5 : Profil de pression Hertzien}{3}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Question 6 : Courbe force-déplacement et contrainte-déformation}{3}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Questions 7-8 : Déplacements à la surface}{4}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Question 9 : Évolution des contraintes dans le cercle de contact}{5}{subsection.4.8}%
+\contentsline {subsection}{\numberline {4.9}Question 10 : Contrainte $\sigma _z$ en fonction de la profondeur}{5}{subsection.4.9}%
+\contentsline {subsection}{\numberline {4.10}Question 11 : Contrainte de cisaillement}{6}{subsection.4.10}%
+\contentsline {section}{\numberline {5}Conclusion}{7}{section.5}%
+\contentsline {section}{\numberline {6}Annexe : Code Python}{7}{section.6}%
+\contentsline {section}{\numberline {A}Récapitulatif des valeurs numériques}{7}{appendix.A}%

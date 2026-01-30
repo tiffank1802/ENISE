@@ -1,0 +1,293 @@
+\documentclass{rapportECL}
+\usepackage{lipsum}
+\usepackage{overpic}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tcolorbox}
+\title{Rapport ECL - Template} %Titre du fichier
+
+
+
+\begin{document}
+
+%----------- Informations du rapport ---------
+
+\titre{Système de Gestion de Données Technique - PLM} %Titre du fichier .pdf
+% \UE{ DIMENSIONNEMENT DES STRUCTURES} %Nom de la UE
+% \sujet{GAMME DE FABRICATION} %Nom du sujet
+
+\enseignant{Frédérick \textsc{ BONNAVAND}} %Nom de l'enseignant
+
+\eleves{Kevin \textsc{TONGUE}\\ BIAOU \textsc{Adebayo Landry}\\  Gaston \textsc{KAMDEM TCHOMTHOUA} }
+\UE{ENISE-5GM}
+
+%----------- Initialisation -------------------
+        
+\fairemarges %Afficher les marges
+\fairepagedegarde %Créer la page de garde
+\tabledematieres %Créer la table de matières
+
+\section{Rappels des Règles de base de PLM}
+
+\subsection{Définition du PLM (Product Lifecycle Management)}
+
+Le \textbf{PLM }(Product Lifecycle Management), ou \textit{Gestion du cycle de vie du produit}, est une approche intégrée qui vise à gérer l’ensemble des informations, des processus et des ressources liés à un produit tout au long de son cycle de vie, depuis son \textbf{émergence (conception)} jusqu’à sa \textbf{fin de vie (recyclage ou destruction)}.
+\\
+Autrement dit, ce dernier permet de \textbf{centraliser, structurer et partager} toutes les données techniques, documentaires et organisationnelles d’un produit, afin de \textbf{faciliter la collaboration}, d’\textbf{assurer la traçabilité} et d’\textbf{améliorer la qualité} tout en \textbf{réduisant les coûts et les délais}.
+
+\subsubsection{Objectifs du PLM}
+Le \textbf{Product Lifecycle Management (PLM)} vise à améliorer la performance globale de l’entreprise à travers une gestion intégrée et cohérente des produits tout au long de leur cycle de vie. 
+Ses principaux objectifs peuvent être résumés comme suit :
+\begin{itemize}
+    \item Assurer la cohérence et la continuité des données produit tout au long de son cycle de vie.
+    \item Faciliter la collaboration entre les différents acteurs (concepteurs, ingénieurs, production, maintenance, clients).
+    \item Garantir la traçabilité des modifications et des versions (gestion des révisions, historique, validation).
+    \item Optimiser les processus industriels en intégrant conception, fabrication, maintenance et recyclage.
+    \item Améliorer la compétitivité en maîtrisant le triptyque \textbf{coût – qualité – délai}.
+\end{itemize}
+
+
+\subsubsection{Composantes principales}
+Le PLM intègre et coordonne plusieurs systèmes :
+\begin{itemize}
+    \item \textbf{PDM (Product Data Management)} : gestion des données techniques du produit.
+    \item \textbf{CAO/FAO/IAO} : outils de conception et de simulation.
+    \item \textbf{ERP (Enterprise Resource Planning)} : gestion des ressources de l’entreprise.
+    \item \textbf{GPAO (Gestion de Production Assistée par Ordinateur)} : planification et suivi de la production.
+\end{itemize}
+
+Ainsi, le PLM relie les \textbf{cycles de vie du projet et du produit}, garantissant une synchronisation entre les \textbf{tâches de conception} et les \textbf{états d’évolution du produit}.
+
+\subsection{Architecture de base du PLM}
+L’architecture de base du PLM repose sur une organisation en trois niveaux : 
+la couche de \textbf{présentation}, qui permet l’interaction des utilisateurs avec le système ; 
+la couche \textbf{applicative}, qui gère les règles métiers et les processus (workflows, révisions, droits d’accès) ; 
+et la couche de \textbf{données}, qui centralise et sécurise toutes les informations techniques du produit. 
+Cette architecture assure une communication efficace entre les outils de conception (CAO), de gestion (ERP, GPAO) et les différents acteurs impliqués dans le cycle de vie du produit.
+
+
+\subsection{Gestion des droits d'accès}
+La \textbf{gestion des droits d'accès} dans un système PLM consiste à définir et contrôler les autorisations d’utilisation, de consultation et de modification des données. 
+Ces droits varient selon le \textbf{poste occupé par l’utilisateur} dans l’entreprise, son \textbf{rôle au sein du projet}, ainsi que les \textbf{privilèges qui lui sont attribués} dans l’espace de travail. 
+Ainsi, chaque acteur dispose d’un niveau d’accès adapté à ses responsabilités, garantissant à la fois la \textbf{sécurité des informations} et la \textbf{traçabilité des actions effectuées}.
+
+
+\subsection{Liens}
+\subsubsection{Les types de liens}
+
+Dans un système PLM, les différents objets (produits, documents, composants, etc.) sont reliés entre eux par des \textbf{liens} qui traduisent leurs relations fonctionnelles ou documentaires.  
+Ces liens assurent la cohérence des données et la traçabilité entre les éléments du cycle de vie produit.
+
+\paragraph{Liens hiérarchiques}
+Les liens hiérarchiques relient les \textbf{produits entre eux} selon une structure parent–enfant.  
+Ils sont orientés du \textbf{parent vers l’enfant} lors de leur création.  
+Cependant, le \textbf{sens de validation} est inverse au sens de création, c’est-à-dire de l’enfant vers le parent.
+
+\paragraph{Liens maître–esclave}
+Ces liens relient les \textbf{documents entre eux}.  
+L’origine de la flèche représente l’\textbf{esclave}, et son extrémité correspond au \textbf{maître}.  
+Le sens de création du lien est donc de l’esclave vers le maître, tandis que le sens de validation est inverse, c’est-à-dire du maître vers l’esclave.
+
+\paragraph{Liens de spécifications}
+Les liens de spécifications permettent d’associer un \textbf{produit} à ses \textbf{documents de spécifications}.  
+Dans ce cas, le maître est le \textbf{produit} et les esclaves sont les \textbf{documents associés}.  
+Ces liens sont orientés du produit vers les documents de spécifications.  
+
+Il existe plusieurs architectures possibles entre un produit et ses documents de spécification.  
+L’architecture la plus simple consiste à établir un lien individuel entre le produit et chaque document, mais cette approche devient rapidement contraignante car elle ne définit \textbf{aucune logique de validation} entre les documents.
+\\
+
+Une autre architecture correspondrait à la nature des fichiers , à la date de création , par services, au métier. Il y a choix du critère de regroupement entre les documents. Et une architecture basée sur les liens maîtres esclaves entre les documents
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{images/SGDT/type de liens.png}
+    \caption{Types de liens et sens de création et de validation}
+    \label{fig:placeholder}
+\end{figure}
+
+
+% \subsubsection{Ordre de création des liens}
+% Généralement les maîtres ou parents sont créés avant les esclaves ou enfants.
+% \subsubsection{Ordre de validation des liens}
+% Les liens se valident des enfants ou esclaves vers les parents ou maîtres. 
+% Il existe quatre cas typiques de validation:
+
+
+\subsection{Cycle de vie}
+\subsubsection{Cycle de vie produit}
+\textbf{Le cycle de vie d'un produit} constitue l'ensemble des étapes par lesquelles passe le produit depuis sa conception passant par sa consommation jusqu'à sa fin de vie, c'est lensemble des états du produit.\\ Les différents concepts PLM(Product Lifecyle Management) pour gérer le cycle de vie d'un produit sont:
+
+\paragraph{L'état de maturité d'un produit} permet d’évaluer le \textbf{niveau d’avancement ou de concrétisation} d’un produit tout au long de son cycle de vie. 
+Il constitue un indicateur essentiel pour le pilotage du développement et la gestion des versions.  
+
+Dans la plateforme \textbf{3DExperience}, les principaux états de maturité sont :
+\begin{itemize}
+    \item \textbf{Privé} : seul le propriétaire du produit peut le modifier.
+    \item \textbf{Distribué} : le produit est accessible à l’ensemble des utilisateurs de l’espace de travail.
+    \item \textbf{En traitement} : seul le propriétaire peut le modifier, les autres utilisateurs disposent d’un accès en lecture seule.
+    \item \textbf{Obsolète} : le produit est remplacé par une version plus récente ou n’est plus utilisé.
+\end{itemize}
+
+\paragraph{Les révisions}
+Les révisions permettent de créer une \textbf{nouvelle version} d’un produit en intégrant des améliorations ou des corrections. 
+Une révision ne peut être effectuée que lorsque le produit est à un \textbf{état de maturité validé}, afin de garantir la cohérence et la traçabilité des modifications apportées au cours de son cycle de vie.
+
+% On peut faire une révision soit:
+% \begin{itemize}
+%     \item À partir de la révision précédente
+%     \item  À partir d'une autre version plus ancienne , ou
+%     \item À partir 
+% \end{itemize}
+\paragraph{Les branches}
+Une branche d'un produit constitue une duplication du produit dans le but d'en modifier certaines composantes, ou constitue un point de départ pour un nouveau produit.
+\subsubsection{Cycle de vie projet}
+Le cycle de vie projet est l'ensemble des étapes du projet à l'issue de chacune d'elles un nouvel état du produit est créé.
+\paragraph{Les processus}
+
+\newline
+
+\textbf{Les processus }sont un regroupement de tâches qui sont faits à une date donnée sur un produit. un tâche a un signal d'entrée et une sortie. Pour qu'une tâche commence, il faudrait que la tâche précédente soit terminée.\\ Le processus mis en place doit être compatible avec la structure documentaire mise en place dans la base de données. Autrement dit, doit tenir compte des \textbf{liens maîtres esclaves} entre les documents.
+Chaque tâche produit des livrables qui doivent être compatibles . \\
+
+On se rend compte que si l'architecture documentaire est \textbf{basique}, c'est-à-dire tous les fichiers sont directement liés au produit, on n'est pas très sécuritaire dans le processus. Il est possible de l’implémenter dans une PME.
+Pour une structure documentaire type 2, elle un peu plus sécuritaire mais nécessite un contrôle régulier . Le type 3 bien meilleur mais prend beaucoup de temps à l’implémenter. En général il faudrait faire un compromis entre les types documentaires 1 et 2 pour mettre en place le processus dans une entreprise dans l'optique qu'il soit le plus souple et le plus sécuritaire (trouver un juste milieu ou plutôt en fonction des attentes de l'entreprise).
+
+
+\paragraph{Les éléments nécessaire (indispensables) à la création d'un processus sont:}
+
+\begin{itemize}
+    \item à quoi: le livrable
+    \item type de tâche: description
+    \item objectifs: pièces jointes
+\end{itemize}
+
+
+Il existe différents types de processus notamment \textbf{les processus standards} et \textbf{les processus d'approbation}.Pour un processus d'approbation qui n'est pas terminé qui redémarrer, une autre version du processus est créée et un historique des versions est sauvegardé. La nouvelle version du processus est mis en marche lors du redémarrage.
+
+
+Pour le cas de notre microentreprise, le processus mis en place est tel que  à chaque étape du processus la validation passe par un responsable du service.
+Avant que le processus soit terminé, le produit physique est figé et il est distribué par le manager
+
+\newpage
+
+\section{CAS DU MICROMOTEUR}
+
+Cette section vise à analyser les différents produits physiques constituant le \textbf{micro-moteur} et à mettre en place une démarche de gestion documentaire selon l’approche \textbf{PLM}.
+
+
+\paragraph{L’objectif est de :}
+\begin{itemize}
+    \item Identifier et lister les documents techniques associés à chaque produit physique ;
+    \item Définir une structure documentaire adaptée pour chacun de ces éléments ;
+    \item Proposer un processus de gestion et de validation correspondant à chaque article.
+\end{itemize}
+
+Pour une meilleure clarté, l’ensemble de ces éléments est présenté dans le tableau suivant.
+
+
+\subsection{Listes associées à chaque produit physique}
+Les différents produits physiques du micro-moteur sont: \textbf{moteur complet (2,5 cm\textsuperscript{3})}, \textbf{culasse}, \textbf{bielle}, \textbf{roulements}, \textbf{Carter inférieur}.
+\\
+La figure ci-après présente la \textbf{liste des éléments et documents techniques} pouvant être associés à chaque produit physique.Nous avons tenu compte de la structure interne de la PME, des documents que pourrait nécessiter le produit dans chacun des centres et du processus par lequel le produit sera mis en œuvre.
+
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Capture d’écran du 2025-11-09 19-53-04.png}
+    \caption{Liste des éléments associés au \textbf{moteur complet (2,5 cm\textsuperscript{3})}}
+    \label{fig:carter_inferieur}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Capture d’écran du 2025-11-09 20-05-30.png}
+    \caption{Liste des éléments associés à la \textbf{culasse}}
+    \label{fig:culasse}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Capture d’écran du 2025-11-09 20-03-32.png}
+    \caption{Liste des éléments associés à la \textbf{bielle}.}
+    \label{fig:bielle}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Capture d’écran du 2025-11-09 19-51-28.png}
+    \caption{Liste des éléments associés aux \textbf{roulements}.}
+    \label{fig:roulements}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Capture d’écran du 2025-11-09 19-59-51.png}
+    \caption{Liste des éléments associés au \textbf{Carter inférieur}}
+    \label{fig:moteur_complet}
+\end{figure}
+
+
+\newpage
+\subsection{Structure documentaire et processus associé à chacun des produits}
+
+\subsubsection{Carter inférieur}
+
+Le carter inférieur suit un processus de fabrication complet en interne. Le bureau d'études crée les modèles 3D et les plans, puis les services méthodes préparent les gammes et programmes d'usinage. La fabrication est réalisée sur le parc machines, tandis que les achats gèrent l'approvisionnement des matières premières et outils. Ce processus assure une coordination optimale entre tous les services pour produire une pièce conforme aux exigences techniques.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{images//SGDT/Structure documentaire carter inférieur.png}
+    \caption{Structure documentaire et processus associé au Carter inférieur}
+    \label{fig:placeholder}
+\end{figure}
+
+\newpage
+\subsubsection{Culasse}
+La culasse provient d'un brut de fonderie dont le matériau et les spécifications géométriques ont été fixés par le bureau d'étude. Une fois réceptionnée et contrôlée, elle sera par la suite usinée en interne pour une partie de sa gamme et l'autre, sous-traitée tel que prévue le bureau de méthode compte tenu des contraintes notamment technologiques et économiques de la pièce .
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{images//SGDT/Structure documentaire Culasse.png}
+    \caption{Structure documentaire et processus associé à la Culasse}
+    \label{fig:placeholder}
+\end{figure}
+\newpage
+\subsubsection{Bielle}
+La solution adoptée par le bureau de méthodes compte tenu du potentiel technique de le PME est d'usiner la bielle chez un sou-traitant.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{images//SGDT/Structure documentaire Bielle.png}
+    \caption{Structure documentaire et processus associé à la Bielle}
+    \label{fig:placeholder}
+\end{figure}
+\newpage
+\subsubsection{Roulements}
+Les roulements suivent un processus d'acquisition standardisé. Le bureau d'études valide le choix technique via des simulations et calculs mécaniques. La fonction achats gère ensuite l'approvisionnement en établissant les devis et factures. Ce processus simplifié garantit la disponibilité des composants tout en assurant leur conformité aux exigences techniques du micro-moteur.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{images//SGDT/Structure documentaire Roulements.png}
+    \caption{Structure documentaire et processus associé aux Roulements}
+    \label{fig:placeholder}
+\end{figure}
+
+\newpage
+\subsubsection{Moteur $2.5~cm^3$}
+
+Le moteur $2.5~cm^3$ suit un cycle de développement intégré. La conception définit l'architecture globale, tandis que les calculs et le prototypage valident les performances via des simulations et des notes de calcul. \textbf{Les méthodes} établissent les gammes d'assemblage, et les essais sont conduits selon un cahier des charges strict, produisant rapports et documentation de validation. Les achats gèrent les devis et factures des composants. Ce processus assure la coordination de toutes les activités pour obtenir un moteur certifié et fonctionnel.
+
+ \begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{Liens Maitres exclaves-Moteur 2.5 cm3.drawio.png}
+    \caption{Structure documentaire et processus associé au Moteur $2.5~cm^3$ }
+    \label{fig:placeholder}
+\end{figure}
+
+\subsection{Conclusion}
+Pour ce cas concret dans cette PME, nous avons choisit la structure documentaire type 2 comme solution  de notre modèle de données car elle plus flexible car moins contraignante; la traçabilité n'est d'une rigueur absolue pour cette entreprise car est à ses débuts probablement. 
+Pour une grande nous aurions probablement choisi le type 3, plus contraignant mais permet une meilleure traçabilité.
+\section{Conclusion générale}
+Les concepts PLM et PDM sont incontournables dans l'industrie d'aujourd'hui et encore plus demain. Ils connaissent des applications industrielles novatrices tels les jumeaux numériques qui permettent de suivre tout le cycle de vie d'un produit surtout lors de sa phase d'utilisation.
+\end{document}
