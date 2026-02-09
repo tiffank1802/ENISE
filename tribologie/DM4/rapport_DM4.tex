@@ -1,0 +1,290 @@
+\documentclass{rapportECL}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{booktabs}
+
+\title{Analyse des Contacts Adhésifs sur Élastomères Silicone}
+
+\begin{document}
+
+\titre{Analyse des Contacts Adhésifs sur Élastomères Silicone : Modèles de Hertz et JKR}
+\UE{Tribologie et Contacts Mécaniques}
+\sujet{DM4 - Contact Adhésif et Frottement}
+
+\enseignant{Hassan \textsc{Zahouani}}
+
+\eleves{Kévin \textsc{Tongue}}
+
+\fairemarges
+\fairepagedegarde
+\tabledematieres
+
+\section{Introduction}
+
+Ce rapport présente l'analyse du contact adhésif entre un indenteur sphérique et des échantillons d'élastomères silicone de différentes rigidités. L'étude compare les modèles de Hertz (contact élastique sans adhésion) et de JKR (Johnson-Kendall-Roberts, avec adhésion) pour le calcul du rayon de contact et du coefficient de frottement.
+
+Trois échantillons ont été testés :
+\begin{itemize}
+    \item \textbf{Jaune} : silicone de rigidité moyenne ($E \approx \SI{45}{kPa}$)
+    \item \textbf{Rouge} : silicone le plus rigide ($E \approx \SI{88}{kPa}$)
+    \item \textbf{Vert} : silicone le plus souple ($E \approx \SI{21}{kPa}$)
+\end{itemize}
+
+\section{Théorie}
+
+\subsection{Rayon de contact de Hertz}
+
+Le modèle de Hertz considère un contact purement élastique sans adhésion. Le rayon de contact est donné par :
+\begin{equation}
+    a_{Hertz} = \left( \frac{3FR}{4E^*} \right)^{1/3}
+\end{equation}
+où $F$ est la force normale appliquée, $R$ le rayon de l'indenteur, et $E^*$ le module élastique réduit.
+
+\subsection{Rayon de contact JKR}
+
+Le modèle JKR prend en compte l'énergie d'adhésion de surface $\gamma$. Le rayon de contact devient :
+\begin{equation}
+    a_{JKR} = \left( \frac{3R}{4E^*} \left( F + 3\pi\gamma R + \sqrt{6\pi\gamma R F + (3\pi\gamma R)^2} \right) \right)^{1/3}
+\end{equation}
+
+Le modèle JKR prédit toujours un rayon de contact plus grand que Hertz en raison de l'effet attractif de l'adhésion.
+
+\subsection{Coefficient de frottement dû à la déformation}
+
+Le coefficient de frottement dû à la déformation (hystérésis) est donné par :
+\begin{equation}
+    \mu_{def} = \frac{4a}{3\pi R}
+\end{equation}
+
+\subsection{Décomposition du coefficient de frottement}
+
+Le coefficient de frottement total peut être décomposé en :
+\begin{equation}
+    \mu_{total} = \mu_{def} + \mu_{adh}
+\end{equation}
+où $\mu_{adh}$ est la composante due à l'adhésion interfaciale.
+
+\section{Données expérimentales}
+
+\subsection{Paramètres d'indentation}
+
+Les mesures d'indentation ont été réalisées avec un indenteur sphérique de rayon $R = \SI{2}{mm}$. Le tableau suivant présente les données mesurées pour chaque échantillon :
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lccccc}
+        \toprule
+        \textbf{Échantillon} & $F_{max}$ (mN) & $\delta_{max}$ ($\mu$m) & $F_{adh}$ (mN) & $\gamma$ (J/m$^2$) & $E$ (Pa) \\
+        \midrule
+        Jaune & 5.12--5.14 & 179--180 & -0.93 à -1.00 & 0.31--0.33 & 44000--46000 \\
+        Rouge & 5.20--5.25 & 115--117 & -1.12 à -1.20 & 0.37--0.40 & 85000--93000 \\
+        Vert  & 5.07--5.15 & 293--298 & -0.63 à -0.66 & 0.21--0.22 & 20000--22000 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Paramètres d'indentation mesurés}
+    \label{tab:indentation}
+\end{table}
+
+\section{Résultats}
+
+\subsection{Rayons de contact}
+
+Les rayons de contact calculés selon les modèles de Hertz et JKR sont présentés dans le tableau suivant :
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Échantillon} & $a_{Hertz}$ ($\mu$m) & $a_{JKR}$ ($\mu$m) & Ratio JKR/Hertz \\
+        \midrule
+        Jaune & 550--560 & 880--897 & 1.60 \\
+        Rouge & 440--452 & 724--755 & 1.67 \\
+        Vert  & 706--727 & 1054--1074 & 1.48 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Rayons de contact calculés}
+    \label{tab:rayons}
+\end{table}
+
+\textbf{Observations :}
+\begin{itemize}
+    \item L'échantillon \textbf{Vert} (le plus souple) présente les plus grands rayons de contact
+    \item L'échantillon \textbf{Rouge} (le plus rigide) présente les plus petits rayons de contact
+    \item Le ratio JKR/Hertz est d'environ 1.5--1.7, confirmant l'importance de l'adhésion
+\end{itemize}
+
+\subsection{Coefficients de frottement de déformation}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Échantillon} & $\mu_{def}$ (Hertz) & $\mu_{def}$ (JKR) & Ratio JKR/Hertz \\
+        \midrule
+        Jaune & 0.118 & 0.189 & 1.60 \\
+        Rouge & 0.095 & 0.157 & 1.65 \\
+        Vert  & 0.153 & 0.226 & 1.48 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Coefficients de frottement de déformation}
+    \label{tab:mu_def}
+\end{table}
+
+\subsection{Coefficient de frottement total}
+
+Les essais de frottement ont été réalisés avec une vitesse de $\SI{1000}{\mu m/s}$ sur une longueur de $\SI{5}{mm}$. Le coefficient de frottement total est calculé comme la moyenne du rapport $|F_t|/F_n$ :
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Échantillon} & $\mu_{total}$ \\
+        \midrule
+        Jaune & 1.80 \\
+        Rouge & 1.89 \\
+        Vert  & 1.63 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Coefficients de frottement total mesurés}
+    \label{tab:mu_total}
+\end{table}
+
+\subsection{Coefficient d'adhérence}
+
+Le coefficient d'adhérence est obtenu par soustraction : $\mu_{adh} = \mu_{total} - \mu_{def}$
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Échantillon} & $\mu_{adh}$ (Hertz) & $\mu_{adh}$ (JKR) & \% du total (JKR) \\
+        \midrule
+        Jaune & 1.68 & 1.61 & 89\% \\
+        Rouge & 1.79 & 1.73 & 92\% \\
+        Vert  & 1.48 & 1.40 & 86\% \\
+        \bottomrule
+    \end{tabular}
+    \caption{Coefficients d'adhérence calculés}
+    \label{tab:mu_adh}
+\end{table}
+
+\subsection{Visualisation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/coefficients_frottement.png}
+    \caption{Décomposition du coefficient de frottement total pour les trois échantillons}
+    \label{fig:coefficients}
+\end{figure}
+
+\subsection{Évolution des efforts en fonction du temps}
+
+Les figures suivantes présentent l'évolution temporelle des efforts de frottement pour les trois échantillons. Les essais ont été réalisés avec une vitesse de glissement de $\SI{1000}{\mu m/s}$ sur une longueur de $\SI{5}{mm}$, soit une durée totale d'environ 5 secondes.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/efforts_temps.png}
+    \caption{Évolution des efforts tangentiel ($F_t$) et normal ($F_n$) en fonction du temps pour les trois échantillons : Jaune (haut), Rouge (milieu) et Vert (bas)}
+    \label{fig:efforts_temps}
+\end{figure}
+
+\textbf{Observations :}
+\begin{itemize}
+    \item L'effort normal $F_n$ reste relativement stable autour de $\SI{5}{mN}$ pour les trois échantillons
+    \item L'effort tangentiel $F_t$ atteint rapidement un régime stationnaire après une phase transitoire initiale
+    \item L'échantillon \textbf{Rouge} présente l'effort tangentiel le plus élevé ($F_t \approx 9$--$\SI{10}{mN}$)
+    \item L'échantillon \textbf{Vert} présente l'effort tangentiel le plus faible ($F_t \approx \SI{8}{mN}$)
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/coefficient_frottement_temps.png}
+    \caption{Évolution du coefficient de frottement instantané $\mu = |F_t|/F_n$ en fonction du temps pour les trois échantillons. La ligne pointillée indique la valeur moyenne.}
+    \label{fig:mu_temps}
+\end{figure}
+
+\textbf{Observations :}
+\begin{itemize}
+    \item Le coefficient de frottement se stabilise rapidement après la phase de mise en charge
+    \item Les fluctuations autour de la moyenne sont faibles, indiquant un glissement stable
+    \item L'échantillon \textbf{Rouge} présente le coefficient de frottement moyen le plus élevé ($\mu \approx 1.89$)
+    \item L'échantillon \textbf{Vert} présente le coefficient de frottement moyen le plus faible ($\mu \approx 1.63$)
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/comparaison_efforts.png}
+    \caption{Comparaison des efforts tangentiels pour les trois échantillons sur un même graphique}
+    \label{fig:comparaison}
+\end{figure}
+
+Cette comparaison directe met en évidence les différences de comportement tribologique entre les trois matériaux. On observe clairement que :
+\begin{itemize}
+    \item L'échantillon \textbf{Rouge} (le plus rigide) génère les efforts tangentiels les plus importants
+    \item L'échantillon \textbf{Jaune} (rigidité intermédiaire) présente un comportement intermédiaire
+    \item L'échantillon \textbf{Vert} (le plus souple) génère les efforts tangentiels les plus faibles
+\end{itemize}
+
+\section{Discussion}
+
+\subsection{Importance de l'adhésion}
+
+Les résultats montrent que la composante d'adhésion domine largement le coefficient de frottement total (86--92\%). Ceci est caractéristique des élastomères silicone qui présentent une forte adhésion interfaciale.
+
+\subsection{Influence de la rigidité}
+
+Contrairement à l'intuition, l'échantillon le plus rigide (Rouge) présente le coefficient de frottement total le plus élevé. Ceci peut s'expliquer par :
+\begin{itemize}
+    \item Une énergie de surface plus élevée ($\gamma \approx \SI{0.4}{J/m^2}$ vs $\SI{0.2}{J/m^2}$ pour le Vert)
+    \item Une aire de contact réelle plus favorable aux interactions adhésives
+\end{itemize}
+
+\subsection{Comparaison Hertz vs JKR}
+
+Le modèle JKR est plus approprié pour ces matériaux car :
+\begin{itemize}
+    \item Les élastomères silicone présentent une forte adhésion
+    \item Le paramètre de Tabor $\mu_T > 1$ (matériaux souples avec forte adhésion)
+    \item Les rayons de contact mesurés sont mieux prédits par JKR
+\end{itemize}
+
+\section{Conclusion}
+
+Cette étude a permis de caractériser le comportement tribologique de trois élastomères silicone de rigidités différentes. Les principales conclusions sont :
+
+\begin{enumerate}
+    \item Le modèle JKR est indispensable pour prédire correctement le rayon de contact sur ces matériaux adhésifs
+    \item La composante d'adhésion représente environ 90\% du coefficient de frottement total
+    \item La rigidité seule ne permet pas de prédire le coefficient de frottement ; l'énergie de surface joue un rôle majeur
+    \item Le coefficient de frottement total varie de 1.6 à 1.9 selon l'échantillon
+\end{enumerate}
+
+\section{Annexe : Formules utilisées}
+
+\subsection{Rayon de contact Hertz}
+\begin{equation}
+    a_{Hertz} = \left( \frac{3FR}{4E^*} \right)^{1/3}
+\end{equation}
+
+\subsection{Rayon de contact JKR}
+\begin{equation}
+    a_{JKR} = \left( \frac{3R}{4E^*} \left( F + 3\pi\gamma R + \sqrt{6\pi\gamma R F + (3\pi\gamma R)^2} \right) \right)^{1/3}
+\end{equation}
+
+\subsection{Coefficient de frottement de déformation}
+\begin{equation}
+    \mu_{def} = \frac{4a}{3\pi R}
+\end{equation}
+
+\subsection{Coefficient de frottement total}
+\begin{equation}
+    \mu_{total} = \frac{\langle |F_t| \rangle}{F_n}
+\end{equation}
+
+\subsection{Coefficient d'adhérence}
+\begin{equation}
+    \mu_{adh} = \mu_{total} - \mu_{def}
+\end{equation}
+
+\end{document}

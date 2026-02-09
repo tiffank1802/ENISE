@@ -1,0 +1,27 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Théorie}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Rayon de contact de Hertz}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Rayon de contact JKR}{2}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Coefficient de frottement dû à la déformation}{2}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Décomposition du coefficient de frottement}{2}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Données expérimentales}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Paramètres d'indentation}{3}{subsection.3.1}%
+\contentsline {section}{\numberline {4}Résultats}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Rayons de contact}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Coefficients de frottement de déformation}{3}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Coefficient de frottement total}{3}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Coefficient d'adhérence}{4}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Visualisation}{4}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Évolution des efforts en fonction du temps}{5}{subsection.4.6}%
+\contentsline {section}{\numberline {5}Discussion}{7}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Importance de l'adhésion}{7}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Influence de la rigidité}{7}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Comparaison Hertz vs JKR}{7}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Conclusion}{8}{section.6}%
+\contentsline {section}{\numberline {7}Annexe : Formules utilisées}{8}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Rayon de contact Hertz}{8}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Rayon de contact JKR}{8}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Coefficient de frottement de déformation}{8}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Coefficient de frottement total}{8}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Coefficient d'adhérence}{8}{subsection.7.5}%
