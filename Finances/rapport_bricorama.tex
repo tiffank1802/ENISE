@@ -1,0 +1,520 @@
+\documentclass{rapportECL}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{eurosym}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{colortbl}
+
+\title{Étude de Cas : Acquisition de Bricorama France}
+
+\begin{document}
+
+%----------- Informations du rapport ---------
+
+\UE{Finance d'Entreprise}
+\sujet{Valorisation DCF et Montage LBO}
+\titre{Étude de Cas : Acquisition de Bricorama France}
+
+\enseignant{Vincent \textsc{NOURRISSON}
+            }
+
+\eleves{Kevin \textsc{TONGUE} \\}
+
+%----------- Initialisation -------------------
+        
+\fairemarges
+\fairepagedegarde
+\tabledematieres
+
+%------------ Corps du rapport ----------------
+
+\section{Présentation de l'entreprise}
+
+\subsection{Identité de Bricorama France}
+
+\textbf{Bricorama France} est une filiale du groupe Les Mousquetaires, qui intègre ses comptes selon la méthode de l'intégration globale. L'entreprise est spécialisée dans la \textbf{distribution de matériaux de construction et de produits de bricolage}.
+
+\begin{itemize}
+    \item \textbf{Activité :} Commerce de détail de produits de bricolage en magasin spécialisé
+    \item \textbf{Taille :} Entre 250 et 499 salariés (donnée 2023)
+    \item \textbf{Implantation :} Siège social à Noisy-le-Grand (93160)
+    \item \textbf{Forme juridique :} Société par Actions Simplifiée (SAS)
+\end{itemize}
+
+\subsection{Marché et perspectives}
+
+Le marché du bricolage en France est un marché mature mais dynamique, porté par plusieurs facteurs :
+
+\begin{itemize}
+    \item La rénovation énergétique des logements (incitations gouvernementales MaPrimeRénov')
+    \item Le mouvement "Do It Yourself" (DIY) culturellement ancré en France
+    \item Un marché de la réparation et de l'amélioration de l'habitat résilient
+\end{itemize}
+
+\subsubsection{Opportunités}
+
+\begin{itemize}
+    \item Développement du e-commerce et du click \& collect
+    \item Offre renforcée sur les matériaux écologiques et la rénovation énergétique
+    \item Optimisation de l'assortiment et de l'expérience client en magasin
+\end{itemize}
+
+\subsubsection{Défis}
+
+\begin{itemize}
+    \item Concurrence forte des leaders du secteur (Leroy Merlin, Castorama, Brico Dépôt)
+    \item Nécessaire adaptation aux nouvelles habitudes de consommation (digitalisation)
+    \item Pression sur les marges dans un contexte inflationniste
+\end{itemize}
+
+%----------------------------------------------------------
+\section{Analyse financière historique (2022-2024)}
+%----------------------------------------------------------
+
+L'analyse repose sur les comptes annuels complets publiés et accessibles sur des plateformes d'informations légales (Pappers, Le Figaro Entreprises).
+
+\subsection{Ratios de liquidité et de vulnérabilité financière}
+
+\begin{table}[H]
+\centering
+\caption{Définition des ratios d'analyse financière}
+\begin{tabular}{|p{4cm}|p{5cm}|p{4cm}|}
+\hline
+\rowcolor{blue!20}
+\textbf{Ratio} & \textbf{Formule} & \textbf{Objectif} \\
+\hline
+Liquidité Générale & $\frac{\text{Actif Circulant}}{\text{Passif Circulant}}$ & $> 1$ \\
+\hline
+Liquidité Réduite & $\frac{\text{Actif Circ.} - \text{Stocks}}{\text{Passif Circ.}}$ & $> 0.5$ \\
+\hline
+Autonomie Financière & $\frac{\text{Capitaux Propres}}{\text{Total Passif}}$ & Plus élevé = mieux \\
+\hline
+Ratio Dettes/EBE & $\frac{\text{Dettes Financières}}{\text{EBE}}$ & $< 3\text{-}4$ ans \\
+\hline
+Rentabilité économique & $\frac{\text{EBIT}}{\text{Total Actif}}$ & Variable selon secteur \\
+\hline
+Marge nette & $\frac{\text{Résultat Net}}{\text{CA}}$ & Variable selon secteur \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Interprétation pour le secteur du bricolage}
+
+\begin{itemize}
+    \item \textbf{Liquidité générale :} Un ratio $> 1$ indique que l'entreprise peut couvrir ses dettes à court terme. Les distributeurs comme Bricorama ont souvent un ratio élevé du fait de leurs stocks importants.
+    \item \textbf{Liquidité réduite :} Ce ratio exclut les stocks, parfois moins liquides. Il donne une vue plus stricte de la capacité à payer rapidement les dettes.
+    \item \textbf{Autonomie financière :} Mesure la part de financement apportée par les actionnaires. Un ratio faible signale une dépendance importante aux dettes.
+    \item \textbf{Ratio Dettes/EBE :} Indique en combien d'années l'entreprise pourrait rembourser ses dettes avec son EBE actuel. C'est un indicateur clé de vulnérabilité financière.
+\end{itemize}
+
+%----------------------------------------------------------
+\section{Hypothèses de valorisation}
+%----------------------------------------------------------
+
+\subsection{Données de l'année de base (2024)}
+
+Les hypothèses suivantes sont utilisées pour la valorisation DCF :
+
+\begin{table}[H]
+\centering
+\caption{Données financières de base (Année N = 2024)}
+\begin{tabular}{|l|r|l|}
+\hline
+\rowcolor{blue!20}
+\textbf{Élément} & \textbf{Valeur} & \textbf{Unité} \\
+\hline
+Chiffre d'Affaires (CA) & 500 000 000 & \euro \\
+\hline
+Excédent Brut d'Exploitation (EBE) & 40 000 000 & \euro \\
+\hline
+Résultat d'Exploitation (EBIT) & 30 000 000 & \euro \\
+\hline
+Besoin en Fonds de Roulement (BFR) & 50 000 000 & \euro \\
+\hline
+Investissements (Capex) & 12 000 000 & \euro \\
+\hline
+Dettes financières totales & 80 000 000 & \euro \\
+\hline
+Trésorerie & 10 000 000 & \euro \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Hypothèses de croissance et taux}
+
+\begin{table}[H]
+\centering
+\caption{Hypothèses de taux pour la valorisation}
+\begin{tabular}{|l|r|p{6cm}|}
+\hline
+\rowcolor{blue!20}
+\textbf{Paramètre} & \textbf{Valeur} & \textbf{Justification} \\
+\hline
+Taux de croissance du volume & 5\% & Croissance saine mais maîtrisée \\
+\hline
+Inflation sur prix de vente & 5\% & Contexte inflationniste actuel \\
+\hline
+Inflation sur coûts de production & 5\% & Hypothèse de pass-through complet \\
+\hline
+\textbf{Croissance nominale du CA} & \textbf{10,25\%} & $(1+5\%) \times (1+5\%) - 1$ \\
+\hline
+Taux d'actualisation (WACC) & 8\% & Coût moyen pondéré du capital \\
+\hline
+Taux de croissance long terme ($g_{\infty}$) & 2\% & Croissance perpétuelle prudente \\
+\hline
+Taux d'impôt sur les sociétés & 25\% & Taux standard en France \\
+\hline
+Taux dette senior & 5\% & Conditions de marché actuelles \\
+\hline
+Multiple EBE pour dette max & 3,5x & Norme bancaire LBO \\
+\hline
+Horizon de projection & 5 ans & Standard pour valorisation DCF \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Ratios structurels calculés}
+
+À partir des données de base, les ratios suivants sont déterminés :
+
+\begin{table}[H]
+\centering
+\caption{Ratios structurels}
+\begin{tabular}{|l|c|l|}
+\hline
+\rowcolor{blue!20}
+\textbf{Ratio} & \textbf{Valeur} & \textbf{Formule} \\
+\hline
+Marge EBE & 8,00\% & $\frac{\text{EBE}}{\text{CA}} = \frac{40}{500}$ \\
+\hline
+Marge EBIT & 6,00\% & $\frac{\text{EBIT}}{\text{CA}} = \frac{30}{500}$ \\
+\hline
+Ratio Capex/CA & 2,40\% & $\frac{\text{Capex}}{\text{CA}} = \frac{12}{500}$ \\
+\hline
+Ratio BFR/CA & 10,00\% & $\frac{\text{BFR}}{\text{CA}} = \frac{50}{500}$ \\
+\hline
+Dette nette & 70 M\euro & Dettes - Trésorerie = $80 - 10$ \\
+\hline
+\end{tabular}
+\end{table}
+
+%----------------------------------------------------------
+\section{Valorisation par la méthode DCF}
+%----------------------------------------------------------
+
+\subsection{Méthodologie}
+
+La méthode des Discounted Cash Flows (DCF) consiste à :
+\begin{enumerate}
+    \item Projeter les Flux de Trésorerie Disponibles (FTD ou FCF) sur un horizon explicite (5 ans)
+    \item Calculer une Valeur Terminale représentant la valeur au-delà de l'horizon
+    \item Actualiser tous ces flux au taux WACC pour obtenir la Valeur d'Entreprise
+\end{enumerate}
+
+\subsection{Calcul du Flux de Trésorerie Disponible (FCF)}
+
+Le FCF représente le cash généré par l'entreprise après tous ses investissements opérationnels :
+
+\begin{equation}
+\boxed{\text{FCF} = \text{EBE} - \text{Impôt sur EBIT} - \Delta\text{BFR} - \text{Capex}}
+\end{equation}
+
+Où :
+\begin{itemize}
+    \item \textbf{EBE} : Capacité de l'entreprise à générer du cash de son activité
+    \item \textbf{Impôt} : Calculé sur le résultat d'exploitation (EBIT), pas sur l'EBE
+    \item \textbf{$\Delta$BFR} : Variation du BFR (consomme du cash si l'entreprise croît)
+    \item \textbf{Capex} : Dépenses pour maintenir/développer l'outil de travail
+\end{itemize}
+
+\subsection{Projection des flux sur 5 ans}
+
+\begin{table}[H]
+\centering
+\caption{Tableau des flux de trésorerie prévisionnels (en millions d'\euro)}
+\small
+\begin{tabular}{|l|r|r|r|r|r|r|}
+\hline
+\rowcolor{blue!20}
+\textbf{Poste} & \textbf{N} & \textbf{N+1} & \textbf{N+2} & \textbf{N+3} & \textbf{N+4} & \textbf{N+5} \\
+\hline
+Chiffre d'Affaires & 500,0 & 551,3 & 607,7 & 670,0 & 738,7 & 814,4 \\
+\hline
+Croissance CA (\%) & - & 10,25\% & 10,25\% & 10,25\% & 10,25\% & 10,25\% \\
+\hline
+EBE (marge 8\%) & 40,0 & 44,1 & 48,6 & 53,6 & 59,1 & 65,2 \\
+\hline
+EBIT (marge 6\%) & 30,0 & 33,1 & 36,5 & 40,2 & 44,3 & 48,9 \\
+\hline
+- Impôt (25\%) & 7,5 & 8,3 & 9,1 & 10,1 & 11,1 & 12,2 \\
+\hline
+- Capex (2,4\%) & 12,0 & 13,2 & 14,6 & 16,1 & 17,7 & 19,5 \\
+\hline
+BFR (10\% CA) & 50,0 & 55,1 & 60,8 & 67,0 & 73,9 & 81,4 \\
+\hline
+- $\Delta$BFR & - & 5,1 & 5,6 & 6,2 & 6,9 & 7,6 \\
+\hline
+\textbf{= FCF} & - & \textbf{17,5} & \textbf{19,3} & \textbf{21,3} & \textbf{23,5} & \textbf{25,9} \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Actualisation et Valeur d'Entreprise}
+
+\subsubsection{Facteurs d'actualisation}
+
+Le facteur d'actualisation pour l'année $t$ est :
+\begin{equation}
+\text{Facteur}_t = \frac{1}{(1 + \text{WACC})^t} = \frac{1}{(1,08)^t}
+\end{equation}
+
+\begin{table}[H]
+\centering
+\caption{Actualisation des FCF}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\rowcolor{blue!20}
+& \textbf{N+1} & \textbf{N+2} & \textbf{N+3} & \textbf{N+4} & \textbf{N+5} \\
+\hline
+Facteur d'actualisation & 0,9259 & 0,8573 & 0,7938 & 0,7350 & 0,6806 \\
+\hline
+FCF actualisé (M\euro) & 16,2 & 16,6 & 16,9 & 17,3 & 17,6 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Valeur Terminale}
+
+La Valeur Terminale représente la valeur de l'entreprise au-delà de l'horizon explicite, selon le modèle de Gordon-Shapiro :
+
+\begin{equation}
+\text{VT} = \frac{\text{FCF}_{T+1}}{\text{WACC} - g_{\infty}} = \frac{\text{FCF}_T \times (1 + g_{\infty})}{\text{WACC} - g_{\infty}}
+\end{equation}
+
+\begin{align}
+\text{FCF}_{N+6} &= 25,9 \times (1 + 2\%) = 26,4 \text{ M\euro} \\
+\text{VT (non actualisée)} &= \frac{26,4}{8\% - 2\%} = \frac{26,4}{6\%} = 440,3 \text{ M\euro} \\
+\text{VT actualisée} &= \frac{440,3}{(1,08)^5} = 299,6 \text{ M\euro}
+\end{align}
+
+\subsubsection{Synthèse de la valorisation}
+
+\begin{table}[H]
+\centering
+\caption{Synthèse de la Valorisation DCF}
+\begin{tabular}{|l|r|l|}
+\hline
+\rowcolor{blue!20}
+\textbf{Élément} & \textbf{Valeur} & \textbf{Formule} \\
+\hline
+Somme des FCF actualisés (5 ans) & 84,6 M\euro & $\sum_{t=1}^{5} \frac{\text{FCF}_t}{(1,08)^t}$ \\
+\hline
+Valeur Terminale actualisée & 299,6 M\euro & $\frac{\text{VT}}{(1,08)^5}$ \\
+\hline
+\rowcolor{green!20}
+\textbf{Valeur d'Entreprise (VE)} & \textbf{384,2 M\euro} & VAN + VT actualisée \\
+\hline
+- Dette nette & 70,0 M\euro & Dettes - Trésorerie \\
+\hline
+\rowcolor{yellow!30}
+\textbf{Valeur des Titres (Equity)} & \textbf{314,2 M\euro} & VE - Dette nette \\
+\hline
+\end{tabular}
+\end{table}
+
+%----------------------------------------------------------
+\section{Structure de financement de l'acquisition}
+%----------------------------------------------------------
+
+L'acquisition serait réalisée par une \textbf{Holding de reprise} (montage LBO) qui contracterait la dette.
+
+\subsection{Capacité d'endettement}
+
+La capacité d'endettement est déterminée par la règle empirique bancaire :
+
+\begin{equation}
+\text{Dette Max} \approx \text{Multiple} \times \text{EBE moyen prévisionnel}
+\end{equation}
+
+\begin{table}[H]
+\centering
+\caption{Calcul de la capacité d'endettement}
+\begin{tabular}{|l|r|l|}
+\hline
+\rowcolor{blue!20}
+\textbf{Élément} & \textbf{Valeur} & \textbf{Formule} \\
+\hline
+EBE moyen prévisionnel (N+1 à N+5) & 54,1 M\euro & Moyenne des EBE projetés \\
+\hline
+Multiple EBE & 3,5x & Norme bancaire LBO \\
+\hline
+\textbf{Dette maximale} & \textbf{189,4 M\euro} & $54,1 \times 3,5$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Apport en capital minimum}
+
+\begin{equation}
+\boxed{\text{Apport Minimum} = \text{MAX}(0, \text{Valeur des Titres} - \text{Dette Max})}
+\end{equation}
+
+\begin{align}
+\text{Apport Minimum} &= \text{MAX}(0, 314,2 - 189,4) \\
+&= \textbf{124,8 M\euro}
+\end{align}
+
+\subsection{Cas 1 : Endettement uniquement sur la Holding}
+
+Dans ce scénario, seule la Holding contracte la dette. La cible conserve sa propre structure financière.
+
+\begin{itemize}
+    \item Dette Senior de la Holding : 189,4 M\euro
+    \item Apport en capital : 124,8 M\euro
+    \item Total : 314,2 M\euro\ (= Valeur des Titres)
+\end{itemize}
+
+\subsection{Cas 2 : Endettement consolidé avec la cible}
+
+On considère la dette globale (Holding + dette existante de Bricorama). La capacité d'endettement globale est réduite, ce qui \textbf{augmente mécaniquement l'apport en capital minimum}.
+
+\begin{align}
+\text{Dette totale existante cible} &= 80 \text{ M\euro} \\
+\text{Capacité résiduelle} &= 189,4 - 80 = 109,4 \text{ M\euro} \\
+\text{Apport minimum (cas consolidé)} &= 314,2 - 109,4 = \textbf{204,8 M\euro}
+\end{align}
+
+%----------------------------------------------------------
+\section{Budget de trésorerie de la Holding}
+%----------------------------------------------------------
+
+Le budget de trésorerie montre la capacité de la Holding à faire face à ses obligations de remboursement.
+
+\subsection{Paramètres de la dette}
+
+\begin{itemize}
+    \item Dette Senior contractée : 189,4 M\euro
+    \item Taux d'intérêt : 5\% par an
+    \item Durée : 5 ans
+    \item Remboursement : linéaire (37,9 M\euro/an)
+\end{itemize}
+
+\subsection{Tableau de trésorerie prévisionnel}
+
+\begin{table}[H]
+\centering
+\caption{Budget de trésorerie de la Holding (en millions d'\euro)}
+\small
+\begin{tabular}{|l|r|r|r|r|r|}
+\hline
+\rowcolor{blue!20}
+\textbf{Élément} & \textbf{N+1} & \textbf{N+2} & \textbf{N+3} & \textbf{N+4} & \textbf{N+5} \\
+\hline
+Trésorerie début & 124,8 & 94,9 & 68,2 & 44,7 & 24,5 \\
+\hline
++ FCF remonté de la cible & 17,5 & 19,3 & 21,3 & 23,5 & 25,9 \\
+\hline
+- Intérêts dette (5\%) & 9,5 & 7,6 & 5,7 & 3,8 & 1,9 \\
+\hline
+- Remboursement principal & 37,9 & 37,9 & 37,9 & 37,9 & 37,9 \\
+\hline
+\rowcolor{green!20}
+\textbf{Trésorerie fin} & \textbf{94,9} & \textbf{68,7} & \textbf{45,9} & \textbf{26,5} & \textbf{10,6} \\
+\hline
+Dette restante & 151,5 & 113,6 & 75,8 & 37,9 & 0,0 \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Conclusion :} La trésorerie reste \textbf{positive sur l'ensemble de la période}, ce qui valide la faisabilité du montage financier. L'apport en capital de 124,8 M\euro\ est suffisant pour assurer le service de la dette.
+
+%----------------------------------------------------------
+\section{Annexes : Relation Finance et Ingénierie}
+%----------------------------------------------------------
+
+\subsection{Valoriser les compétences d'ingénieur via la finance}
+
+En tant qu'ingénieur, la compréhension des principes financiers apporte une vision transverse :
+
+\begin{enumerate}
+    \item \textbf{Traduire technique en économique :} Chiffrer la rentabilité d'un investissement (nouvelle ligne de production, automatisation) et le justifier financièrement via ROI, VAN, TRI.
+    
+    \item \textbf{Communication avec la direction financière :} Parler le même langage. Comprendre pourquoi un projet peut être rejeté pour des raisons de trésorerie ou de BFR, même s'il est techniquement pertinent.
+    
+    \item \textbf{Optimisation globale :} Proposer des solutions qui réduisent les coûts (production, approvisionnement) ou optimisent le BFR (gestion des stocks, délais clients), avec un impact direct sur la trésorerie et la valeur de l'entreprise.
+\end{enumerate}
+
+\subsection{Critères de décision pour un investissement significatif}
+
+Pour un investissement majeur (agrandissement d'entrepôt, nouveau système logistique), les critères clés sont :
+
+\begin{table}[H]
+\centering
+\caption{Critères de décision d'investissement}
+\begin{tabular}{|l|p{8cm}|}
+\hline
+\rowcolor{blue!20}
+\textbf{Critère} & \textbf{Description} \\
+\hline
+TRI (Taux de Rentabilité Interne) & Doit être supérieur au WACC (ici 8\%) \\
+\hline
+VAN (Valeur Actuelle Nette) & Doit être positive pour créer de la valeur \\
+\hline
+Délai de récupération (Payback) & Temps pour rembourser l'investissement \\
+\hline
+Impact stratégique & Parts de marché, différenciation, réglementation \\
+\hline
+Flexibilité et risque & Modularité, risques de dépassement de coûts \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Synthèse des relations Finance / Opérationnel}
+
+\textbf{Points de friction potentiels :}
+\begin{itemize}
+    \item Les opérationnels trouvent les financiers trop "contraints" (procédures, budgets rigides)
+    \item Les financiers trouvent les opérationnels trop "optimistes" sur leurs prévisions
+\end{itemize}
+
+\textbf{Pratiques vertueuses :}
+\begin{itemize}
+    \item Réunions régulières de budgétisation et suivi mensuel (reporting)
+    \item Tableaux de bord partagés (KPIs financiers et opérationnels)
+    \item Implication des financiers dès le départ dans les projets d'investissement
+\end{itemize}
+
+\textbf{Rôle de l'ingénieur :} Interface idéale entre technique et finance, capable de traduire les aspects techniques en termes financiers et d'expliquer les contraintes financières aux équipes opérationnelles.
+
+%----------------------------------------------------------
+\section{Conclusion}
+%----------------------------------------------------------
+
+Cette étude de cas sur l'acquisition de Bricorama France a permis de mettre en pratique les concepts fondamentaux de la finance d'entreprise :
+
+\begin{enumerate}
+    \item \textbf{Analyse financière :} Compréhension des ratios de liquidité et de vulnérabilité financière pour évaluer la santé de l'entreprise cible.
+    
+    \item \textbf{Valorisation DCF :} Application de la méthode des flux de trésorerie actualisés pour déterminer la valeur d'entreprise (384,2 M\euro) et la valeur des titres (314,2 M\euro).
+    
+    \item \textbf{Montage LBO :} Structuration du financement avec une dette senior (189,4 M\euro) et un apport en capital minimum (124,8 M\euro).
+    
+    \item \textbf{Budget de trésorerie :} Validation de la faisabilité du montage avec une trésorerie positive sur toute la durée du remboursement.
+\end{enumerate}
+
+La maîtrise de ces outils financiers est essentielle pour un ingénieur souhaitant participer activement aux décisions stratégiques de l'entreprise et dialoguer efficacement avec les directions financières.
+
+%----------------------------------------------------------
+\section*{Sources}
+%----------------------------------------------------------
+
+\begin{itemize}
+    \item Pappers - Comptes annuels Bricorama France (2022-2024)
+    \item Le Figaro Entreprises - Informations légales Bricorama
+    \item Données de marché du secteur du bricolage en France
+\end{itemize}
+
+\end{document}

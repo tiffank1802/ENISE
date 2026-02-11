@@ -1,0 +1,122 @@
+*Heading
+** TRC RVE - Modèle de test avec Matrice et Fibre
+** Volume Élémentaire Représentatif (VER) pour composite TRC
+** Dimensions: 5.5 x 5.5 x 6.69 mm
+** Fibre cylindrique centrée (verre) dans matrice (béton)
+**
+** Test: Traction uniaxiale en direction Y
+**
+*Preprint, echo=NO, model=NO, history=NO, contact=NO
+**
+** =============================================================
+** INCLUDE DES PARTS (Matrice et Fibre depuis TRC_RVE.inp)
+** =============================================================
+** Note: Ce fichier utilise les Parts définies dans TRC_RVE.inp
+** Pour un fichier autonome, copier les Parts depuis TRC_RVE.inp
+**
+*Include, input=TRC_RVE.inp
+**
+** =============================================================
+** OVERRIDE ASSEMBLY (remplace celui de TRC_RVE.inp)
+** =============================================================
+*Assembly, name=Assembly
+**
+*Instance, name=MATRICE-1, part=Matrice
+*End Instance
+**
+*Instance, name=FIBRE-1, part=Fibre
+*End Instance
+**
+** -------------------------------------------------------------
+** Node Sets for Boundary Conditions
+** -------------------------------------------------------------
+** Face Y=0 (bottom)
+*Nset, nset=FACE_Y0, instance=MATRICE-1
+  12, 27, 28, 29, 30, 31, 32, 33, 40, 148, 163, 164, 165, 166, 167, 168
+  169, 176
+** Face Y=5.5 (top)  
+*Nset, nset=FACE_Y55, instance=MATRICE-1
+  9, 10, 13, 14, 15, 16, 17, 18, 19, 145, 146, 149, 150, 151, 152, 153
+  154, 155
+**
+** Tie constraint between Matrice and Fibre
+*Surface, type=NODE, name=FIBRE_SURFACE, internal
+FIBRE-1.ALL_NODES, 1.0
+*Surface, type=NODE, name=MATRICE_INNER, internal
+MATRICE-1.V1, 1.0
+MATRICE-1.V2, 1.0
+MATRICE-1.V3, 1.0
+MATRICE-1.V4, 1.0
+MATRICE-1.V5, 1.0
+MATRICE-1.V6, 1.0
+MATRICE-1.V7, 1.0
+MATRICE-1.V8, 1.0
+**
+*End Assembly
+**
+** =============================================================
+** MATERIALS (avec propriétés corrigées)
+** =============================================================
+**
+** Matrice (béton)
+*Material, name=Matrice
+*Elastic
+ 30000., 0.2
+**
+** Fibre (verre)
+*Material, name=Fibre
+*Elastic
+ 72000., 0.22
+**
+** =============================================================
+** SECTION ASSIGNMENTS
+** =============================================================
+*Solid Section, elset=MATRICE-1.ALL_ELEMENTS, material=Matrice
+ 1.,
+*Solid Section, elset=FIBRE-1.ALL_ELEMENTS, material=Fibre
+ 1.,
+**
+** =============================================================
+** TIE CONSTRAINT (liaison Matrice-Fibre)
+** =============================================================
+** Note: Dans un vrai modèle, utiliser *TIE ou *EQUATION pour
+** assurer la continuité des déplacements à l'interface
+**
+** =============================================================
+** INITIAL BOUNDARY CONDITIONS
+** =============================================================
+*Boundary
+** Blocage face Y=0
+FACE_Y0, 2, 2, 0.0
+** Blocage point origine (évite mouvement rigide)
+MATRICE-1.12, 1, 1, 0.0
+MATRICE-1.12, 3, 3, 0.0
+**
+** =============================================================
+** STEP: Traction uniaxiale en Y
+** =============================================================
+*Step, name=Traction_Y, nlgeom=NO
+Traction uniaxiale - déplacement imposé en Y
+*Static
+0.1, 1., 1e-05, 0.1
+**
+** Déplacement imposé sur face Y=5.5 (0.1 mm = ~1.8% de déformation)
+*Boundary
+FACE_Y55, 2, 2, 0.1
+**
+** -------------------------------------------------------------
+** OUTPUT REQUESTS
+** -------------------------------------------------------------
+*Restart, write, frequency=0
+**
+** FIELD OUTPUT
+*Output, field
+*Node Output
+U, RF
+*Element Output, directions=YES
+S, E, MISES
+**
+** HISTORY OUTPUT
+*Output, history, variable=PRESELECT
+**
+*End Step
