@@ -1,0 +1,37 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Synthèse exécutive}{3}{section.1}%
+\contentsline {section}{\numberline {2}Présentation de Bricorama France}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Identité et activité}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Marché et perspectives}{4}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Graphique d'analyse financière}{5}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Analyse financière historique (2022-2024)}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Comptes de résultat simplifiés}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Graphique CA et EBE historique}{6}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Bilans simplifiés}{7}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Calcul des ratios}{7}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Graphique des ratios de liquidité}{8}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Ratios de liquidité}{8}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Graphique de capacité de remboursement}{9}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}Ratios de vulnérabilité financière}{9}{subsection.3.8}%
+\contentsline {section}{\numberline {4}Valorisation par la méthode des DCF}{10}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Hypothèses de travail}{10}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Calcul du BFR normatif}{10}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Graphique de projection FCF}{11}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Prévisionnel des Free Cash Flows (2025-2029)}{11}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Graphique de décomposition de la valeur}{12}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Valeur terminale et valeur d'entreprise}{12}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Valeur des titres}{12}{subsection.4.7}%
+\contentsline {section}{\numberline {5}Structure de financement et apport en capital}{13}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Hypothèses de financement}{13}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Capacité d'endettement}{13}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Cas 1 : Endettement non consolidé (dette holding seule)}{13}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Cas 2 : Endettement consolidé (holding + cible)}{13}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Comparaison des deux scénarios}{14}{subsection.5.5}%
+\contentsline {section}{\numberline {6}Budget de trésorerie de la holding}{14}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Graphique du budget de trésorerie}{15}{subsection.6.1}%
+\contentsline {section}{\numberline {7}Partie qualitative -- Valorisation des compétences d'ingénieur}{15}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Critères de décision pour un investissement significatif}{15}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Synthèse des relations Finance / Opérations}{16}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Apport de la compréhension des principes financiers pour un ingénieur}{16}{subsection.7.3}%
+\contentsline {section}{Conclusion}{17}{Item.9}%
+\contentsline {section}{Sources}{17}{Item.9}%
