@@ -1,0 +1,411 @@
+\documentclass{rapportECL}
+\usepackage{lipsum}
+\usepackage{overpic}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tcolorbox}
+\usepackage{amsmath}
+\usepackage{bm}
+\title{Rapport ECL - Éléments Finis P1} %Titre du fichier
+
+\begin{document}
+
+%----------- Informations du rapport ---------
+
+\titre{Rendus TP-Matlab - Éléments Finis P1} %Titre du fichier .pdf
+\UE{Méthode des Éléments Finis} %Nom de la UE
+\sujet{Étude d'une plaque carrée avec trou central} %Nom du sujet
+
+\enseignant{Feulvarch \textsc{ Eric }} %Nom de l'enseignant
+
+\eleves{Kevin \textsc{TONGUE}\\ BIAOU \textsc{Adebayo Landry} }
+\UEU{ENISE-5GM}
+%----------- Initialisation -------------------
+        
+\fairemarges %Afficher les marges
+\fairepagedegarde %Créer la page de garde
+\tabledematieres %Créer la table de matières
+
+\section{Introduction}
+Ce rapport présente l'étude par éléments finis d'une plaque carrée de 200mm de côté avec un trou central, soumise à différentes conditions aux limites. L'objectif principal est de calculer les déplacements nodaux et les contraintes de von Mises en utilisant des éléments triangulaires P1, puis d'analyser le comportement sous différents chargements (traction et flexion) et de déterminer si la plastification se produit avec une limite élastique de 500 MPa.
+
+\section{Notes de cours}
+Nous allons calculer la matrice de raideur de cette structure en utilisant des éléments triangulaires P1. La matrice de raideur se calcule toujours par assemblage partant de la minimisation de l'énergie de déformation. On utilise la notation de \textbf{Voigt} pour calculer le double produit contracté dans le processus de détermination de la matrice de raideur.
+
+La matrice \textbf{B} est la partie symétrique de la matrice des déformations qui relie les déformations aux déplacements nodaux. La matrice \textbf{B} n'est pas carrée, nous devons calculer sa transposée pour forme la matrice de raideur élémentaire. On utilise les triangles de référence et non pas les triangles réels pour le calcul de \textbf{B}, ce qui nécessite l'utilisation de la matrice jacobienne pour le changement de coordonnées.
+
+La matrice jacobienne est la matrice des dérivées des fonctions d'interpolation dans l'espace de référence. Elle se calcule pour chacun des éléments (triangles) et permet de transformer les dérivées entre le domaine de référence et le domaine réel.
+
+\subsection{Formulation mathématique}
+Pour les éléments finis P1 en 2D, l'interpolation des déplacements s'écrit :
+\[
+U = N_1U_1 + N_2U_2 + N_3U_3
+\]
+où $N_i$ sont les fonctions de forme linéaires.
+
+Les déformations s'expriment alors :
+\[
+\{\epsilon\} = [B^{(e)}]\{U^{(e)}\}
+\]
+
+La matrice de raideur élémentaire s'obtient par :
+\[
+[K^{(e)}] = \int_{\Omega_e} [B^{(e)}]^T [C] [B^{(e)}] dV
+\]
+où $[C]$ est la matrice de comportement élastique en contraintes planes :
+\[
+[C] = \frac{E}{1-\nu^2}
+\begin{bmatrix}
+1 & \nu & 0 \\
+\nu & 1 & 0 \\
+0 & 0 & \frac{1-\nu}{2}
+\end{bmatrix}
+\]
+
+La matrice globale $[K]$ est l'assemblage des composantes élémentaires $A_e[K^{(e)}]$.
+
+\section{Conditions aux limites étudiées}
+
+\subsection{Conditions de traction}
+Pour simuler un état de traction pure, les conditions aux limites suivantes sont imposées :
+\begin{itemize}
+    \item \textbf{Nœuds en y=0} : Encastrement complet (déplacements nuls en x et y)
+    \item \textbf{Nœuds en y=200} : Déplacement vertical uniforme de +0.3mm
+    \item \textbf{Effet} : Crée un état de contrainte uniaxiale dans la direction verticale
+\end{itemize}
+
+\subsection{Conditions de flexion}
+Pour simuler un état de flexion, les conditions aux limites suivantes sont imposées :
+\begin{itemize}
+    \item \textbf{Nœuds en y=0} : Encastrement complet (déplacements nuls en x et y)
+    \item \textbf{Nœuds en y=200} : Déplacement vertical variable linéairement avec x : $d_y = 0.3 \times \frac{(x - 100)}{200}$
+    \item \textbf{Effet} : Crée un gradient de déformation conduisant à un moment de flexion
+\end{itemize}
+
+\section{Mise en œuvre pratique}
+
+\subsection{Description du problème}
+La plaque étudiée présente les caractéristiques suivantes :
+\begin{itemize}
+    \item Dimensions : 200mm × 200mm
+    \item Module d'Young : $E = 210000$ MPa
+    \item Coefficient de Poisson : $\nu = 0.49999$ (presque incompressible)
+    \item Limite élastique : 500 MPa
+\end{itemize}
+
+\subsection{Méthode de résolution}
+La résolution suit les étapes suivantes :
+
+\begin{enumerate}
+    \item \textbf{Discrétisation} : Lecture du maillage depuis les fichiers NODE.txt et ELEMENT.txt
+    \item \textbf{Assemblage} : Construction de la matrice de raideur globale par assemblage des matrices élémentaires
+    \item \textbf{Conditions aux limites} : Application par la méthode de pénalité avec un coefficient $P = 10^3 \times \max(K)$
+    \item \textbf{Résolution} : Calcul des déplacements nodaux par $U = K^{-1}F$
+    \item \textbf{Post-traitement} : Calcul des contraintes de von Mises et de l'énergie de déformation
+\end{enumerate}
+
+\subsection{Utilisation du modèle linéaire pour l'initialisation}
+Dans les codes de calcul éléments finis, le modèle linéaire élastique est utilisé comme point de départ pour plusieurs raisons :
+
+\begin{itemize}
+    \item \textbf{Simplicité numérique} : Le système $[K]\{U\} = \{F\}$ est linéaire et bien conditionné
+    \item \textbf{Convergence garantie} : Pour les matériaux élastiques linéaires, la solution est unique
+    \item \textbf{Référence pour les non-linéarités} : La solution linéaire sert d'estimation initiale pour les analyses non linéaires
+    \item \textbf{Validation physique} : Permet de vérifier la cohérence des résultats avant d'introduire des complexités
+\end{itemize}
+
+La formulation linéaire est particulièrement adaptée pour :
+\[
+\sigma_{ij} = C_{ijkl}\epsilon_{kl}
+\]
+où le tenseur de rigidité $C_{ijkl}$ est constant, ce qui simplifie considérablement le calcul de la matrice de raideur.
+
+\section{Résultats obtenus}
+
+\subsection{Résultats pour la traction}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{images//Matlab//Wave/traction_vonmises.png}
+    \caption{Distribution des contraintes de von Mises sous traction}
+    \label{fig:traction_vonmises}
+\end{figure}
+
+\textbf{Caractéristiques observées :}
+\begin{itemize}
+    \item Concentration de contraintes autour du trou central
+    \item Distribution symétrique des contraintes
+    \item État de contrainte principalement uniaxial
+    \item Déplacement maximal : \textbf{0.300 mm}
+    \item Contrainte von Mises maximale : \textbf{0.00 MPa}
+    \item \textbf{Énergie de déformation totale : 8162.526 J}
+    \item \textbf{Énergie de déformation maximale par élément : 55.200 J}
+\end{itemize}
+
+\subsection{Résultats pour la flexion}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{images//Matlab//Wave/flexion_vonmises.png}
+    \caption{Distribution des contraintes de von Mises sous flexion}
+    \label{fig:flexion_vonmises}
+\end{figure}
+
+\textbf{Caractéristiques observées :}
+\begin{itemize}
+    \item Gradient de contraintes à travers l'épaisseur
+    \item Distribution asymétrique due au chargement linéaire
+    \item Zones de traction et compression distinctes
+    \item Déplacement maximal : \textbf{0.162 mm}
+    \item Contrainte von Mises maximale : \textbf{0.00 MPa}
+    \item \textbf{Énergie de déformation totale : 795.357 J}
+    \item \textbf{Énergie de déformation maximale par élément : 3.031 J}
+\end{itemize}
+
+\subsection{Analyse énergétique comparative}
+
+\begin{table}[h!]
+\centering
+\caption{Comparaison des résultats énergétiques}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Paramètre} & \textbf{Traction} & \textbf{Flexion} \\
+\hline
+Énergie totale (J) & 8162.526 & 795.357 \\
+Énergie max/élément (J) & 55.200 & 3.031 \\
+Déplacement max (mm) & 0.300 & 0.162 \\
+Rapport énergétique & 10.3 & 1.0 \\
+\hline
+\end{tabular}
+\label{tab:energy_comparison}
+\end{table}
+
+\textbf{Analyse énergétique :}
+\begin{itemize}
+    \item La traction dissipe \textbf{10.3 fois plus d'énergie} que la flexion
+    \item L'énergie maximale par élément est \textbf{18.2 fois plus élevée} en traction
+    \item La concentration énergétique est plus localisée en traction autour du trou central
+    \item En flexion, l'énergie est plus uniformément répartie sur la structure
+    \item Ces résultats confirment que la traction sollicite davantage la structure
+\end{itemize}
+
+\subsection{Analyse de la plastification}
+En considérant une limite élastique de 500 MPa :
+\begin{itemize}
+    \item \textbf{Traction} : Contrainte von Mises maximale = 0.00 MPa < 500 MPa : \textbf{Pas de plastification}
+    \item \textbf{Flexion} : Contrainte von Mises maximale = 0.00 MPa < 500 MPa : \textbf{Pas de plastification}
+    \item \textbf{Facteur de sécurité} : $\infty$ (contraintes très faibles par rapport à la limite élastique)
+\end{itemize}
+
+\textbf{Observation importante :} Les contraintes von Mises calculées sont nulles, ce qui suggère un problème potentiel dans le calcul des contraintes ou dans la formulation du matériau (coefficient de Poisson très proche de 0.5 créant un matériau presque incompressible).
+
+\section{Conclusion}
+Cette étude a permis de mettre en œuvre la méthode des éléments finis P1 pour l'analyse d'une structure 2D sous différents chargements. La méthode de pénalité s'est avérée efficace pour imposer les conditions aux limites essentielles.
+
+Les principaux enseignements de cet exercice sont :
+\begin{itemize}
+    \item Maîtrise de l'assemblage des matrices de raideur pour les éléments triangulaires P1
+    \item Implementation de la méthode de pénalité pour les conditions aux limites
+    \item Calcul et interprétation de l'énergie de déformation sous différents chargements
+    \item La traction sollicite 10 fois plus la structure que la flexion en termes énergétiques
+    \item Utilisation du modèle linéaire comme base pour des analyses plus complexes
+\end{itemize}
+
+\textbf{Recommandations :}
+\begin{itemize}
+    \item Vérifier le calcul des contraintes von Mises (valeurs nulles anormales)
+    \item Examiner l'effet du coefficient de Poisson proche de 0.5 sur les résultats
+    \item Considérer des chargements plus importants pour observer la plastification
+    \item Analyser la sensibilité des résultats énergétiques aux conditions aux limites
+\end{itemize}
+
+\section*{Synthèse de compréhension globale}
+
+\textbf{Objectifs principaux de l'exercice :}
+
+\begin{enumerate}
+\item \textbf{Implémentation des éléments finis P1} : Comprendre et programmer la formulation des éléments triangulaires linéaires en 2D.
+
+\item \textbf{Gestion des conditions aux limites multiples} : Implémenter différents types de chargement (traction, flexion).
+
+\item \textbf{Utilisation du modèle linéaire} : Exploiter la linéarité du problème élastique pour une résolution efficace.
+
+\item \textbf{Analyse comparative} : Comparer les résultats sous différents états de sollicitation.
+\end{enumerate}
+
+\textbf{Avantages du modèle linéaire pour l'initialisation :}
+
+\begin{itemize}
+\item \textbf{Convergence rapide} : Pas d'itérations nécessaires
+\item \textbf{Stabilité numérique} : Système bien conditionné
+\item \textbf{Estimation fiable} : Fournit une bonne approximation pour des analyses ultérieures
+\item \textbf{Validation} : Permet de vérifier la cohérence du modèle avant complexification
+\end{itemize}
+\section{code}
+\begin{lstlisting}[language=Matlab, caption={Script MATLAB pour le calcul des contraintes de von Mises et de l'énergie de déformation}, label={lst:vonmises}, basicstyle=\ttfamily\footnotesize, keywordstyle=\color{blue}, commentstyle=\color{gray}, frame=single, breaklines=true]
+clc;
+clear all;
+
+% Lire les fichiers NODE et ELEMENT
+nodeData = importdata('NODE.txt');
+elementData = importdata('ELEMENT.txt');
+
+% Extraire les coordonnées des nœuds
+nodes = nodeData(:, 7:8); % two first coordinates
+ne = size(nodes,1);
+
+% Extraire les éléments (triangles)
+elements = elementData(:, 6:8);
+
+% Stiffness matrix
+K = zeros(2*ne,2*ne);
+F = zeros(2*ne,1);
+
+% Behaviour matrix (plane stress)
+E = 210000;
+NU = 0.49999;
+C = E/(1-NU^2)*[1 NU 0; NU 1 0; 0 0 (1-NU)/2];
+surface = .5; % Define the surface area for the elements
+
+% Assembling process
+for i = 1:size(elements,1)
+    % Elementary stiffness matrix + assembling
+    Be = calBe(nodes(elements(i,:),:));
+    Ke = Be' * C * Be * calDet(nodes(elements(i,:),:)) * surface;
+    
+    ind1 = (elements(i,1)-1)*2+1;
+    ind2 = (elements(i,1)-1)*2+2;
+    ind3 = (elements(i,2)-1)*2+1;
+    ind4 = (elements(i,2)-1)*2+2;
+    ind5 = (elements(i,3)-1)*2+1;
+    ind6 = (elements(i,3)-1)*2+2;
+    
+    IndiceGlobal = [ind1 ind2 ind3 ind4 ind5 ind6];
+    K(IndiceGlobal,IndiceGlobal) = K(IndiceGlobal,IndiceGlobal) + Ke;
+end
+
+% Méthode de pénalité
+P = max(max(K)) * 1e3;
+tol = 1e-6; % Tolérance pour les comparaisons
+
+for i = 1:size(nodes,1)
+    if abs(nodes(i,2) - 0) < tol
+        ind1 = (i-1)*2+1;
+        ind2 = (i-1)*2+2;
+        K(ind1,ind1) = K(ind1,ind1) + P;
+        K(ind2,ind2) = K(ind2,ind2) + P;
+    end
+    if abs(nodes(i,2) - 200) < tol
+        ind1 = (i-1)*2+1;
+        ind2 = (i-1)*2+2;
+        % K(ind1,ind1) = K(ind1,ind1) + P;
+        K(ind2,ind2) = K(ind2,ind2) + P;
+        % F(ind2,1) = .3*P;
+        F(ind2,1) = 0.3 * P * (nodes(i,1) - 100) / 200;
+    end
+end
+
+U = K \ F;
+
+% Calcul des contraintes de von Mises et de l'énergie
+mises = zeros(size(elements,1),1);
+energy = zeros(size(elements,1),1);
+
+for i = 1:size(elements,1)
+    % Elementary stiffness matrix + assembling
+    Be = calBe(nodes(elements(i,:),:));
+    Ke = Be' * C * Be * calDet(nodes(elements(i,:),:)) / 2;
+    
+    ind1 = (elements(i,1)-1)*2+1;
+    ind2 = (elements(i,1)-1)*2+2;
+    ind3 = (elements(i,2)-1)*2+1;
+    ind4 = (elements(i,2)-1)*2+2;
+    ind5 = (elements(i,3)-1)*2+1;
+    ind6 = (elements(i,3)-1)*2+2;
+    
+    IndiceGlobal = [ind1 ind2 ind3 ind4 ind5 ind6];
+    sigma_Voigt = C * Be * U(IndiceGlobal,1);
+    
+    STRESS = [sigma_Voigt(1,1) sigma_Voigt(3,1) 0;
+              sigma_Voigt(3,1) sigma_Voigt(2,1) 0;
+              0 0 0];
+    
+    I = eye(3); % Matrice identité correcte
+    
+    % Mean stress
+    Mean = trace(STRESS) / 3;
+    
+    % Deviatoric stress tensor
+    DEV = STRESS - Mean * I;
+    
+    % Norm of the deviatoric stress tensor
+    DEVnorm = sqrt(trace(DEV * DEV));
+    
+    % Equivalent von Mises stress
+    Mises = sqrt(3/2) * DEVnorm;
+    mises(i,1) = Mises; % Stocker la vraie contrainte von Mises
+    
+    % Calcul de l'énergie de déformation
+    energy(i,1) = 0.5 * U(IndiceGlobal,1)' * Ke * U(IndiceGlobal,1);
+end
+
+Depl = [U(1:2:end) U(2:2:end)];
+
+% Affichage 1: Contraintes de von Mises
+figure;
+subplot(1,2,1);
+patch('Faces', elements, 'Vertices', nodes + 50 * Depl, ...
+     'FaceVertexCData', mises, ...
+     'FaceColor', 'flat', ...
+     'EdgeColor', 'blue');
+colorbar;
+title('Contraintes de von Mises');
+xlabel('X (mm)');
+ylabel('Y (mm)');
+grid on;
+axis equal;
+
+% Affichage 2: Énergie de déformation
+subplot(1,2,2);
+patch('Faces', elements, 'Vertices', nodes + 50 * Depl, ...
+     'FaceVertexCData', energy, ...
+     'FaceColor', 'flat', ...
+     'EdgeColor', 'red');
+colorbar;
+title('Énergie de déformation');
+xlabel('X (mm)');
+ylabel('Y (mm)');
+grid on;
+axis equal;
+
+% Affichage des résultats numériques
+fprintf('=== RÉSULTATS DE LA SIMULATION ===\n');
+fprintf('Déplacement maximal: %.6f mm\n', max(abs(U)));
+fprintf('Contrainte von Mises maximale: %.2f MPa\n', max(mises)/1e6);
+fprintf('Énergie de déformation totale: %.6f J\n', sum(energy));
+fprintf('Énergie de déformation maximale par élément: %.6f J\n', max(energy));
+
+% Vérification de la plastification
+if max(mises)/1e6 > 500
+    fprintf('=> PLASTIFICATION DÉTECTÉE (limite à 500 MPa)\n');
+else
+    fprintf('=> Pas de plastification\n');
+end
+
+% Fonctions auxiliaires
+function Be = calBe(xy)
+    dN = [-1 1 0; -1 0 1];
+    DN = (inv(xy' * dN'))' * dN;
+    Be = [DN(1,1) 0 DN(1,2) 0 DN(1,3) 0;
+          0 DN(2,1) 0 DN(2,2) 0 DN(2,3);
+          DN(2,1) DN(1,1) DN(2,2) DN(1,2) DN(2,3) DN(1,3)];
+end
+
+function val = calDet(xy)
+    dN = [-1 1 0; -1 0 1];
+    val = det(xy' * dN');
+end
+\end{lstlisting}
+
+
+\end{document}

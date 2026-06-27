@@ -1,0 +1,772 @@
+\documentclass{rapportECL}
+\usepackage{lipsum}
+\usepackage{overpic}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tcolorbox}
+\title{Rapport ECL - Template} %Titre du fichier
+
+
+
+\begin{document}
+
+%----------- Informations du rapport ---------
+
+\titre{Application de la Méthode des Éléments Finis : Études 1D et 2D} %Titre du fichier .pdf
+% \UE{ DIMENSIONNEMENT DES STRUCTURES} %Nom de la UE
+% \sujet{GAMME DE FABRICATION} %Nom du sujet
+
+\enseignant{Frédérick \textsc{ BONNAVAND}} %Nom de l'enseignant
+
+\eleves{ Gaston\textsc{KAMDEM}\\ 
+% \textsc{Adebayo Landry}
+}
+\UE{ENISE-5GM}
+
+%----------- Initialisation -------------------
+        
+\fairemarges %Afficher les marges
+\fairepagedegarde %Créer la page de garde
+\tabledematieres %Créer la table de matières
+\newpage
+
+\section{Étude du cas unidimensionnel (1D)}
+
+\subsection{Introduction}
+Ce rapport présente le travail réalisé sur la méthode des éléments finis appliquée à une géométrie 1D. L’objectif est de compléter un code MATLAB pour construire la matrice de masse et simuler le comportement dynamique d’une barre.
+
+L’étude vise à comprendre la formulation variationnelle des équations d’équilibre dynamique, implémenter correctement les matrices de rigidité et de masse, et analyser la propagation d’ondes élastiques dans la structure. Les simulations seront comparées à des solutions analytiques afin de valider la modélisation numérique et d’évaluer la précision et la stabilité des résultats.
+
+\paragraph{Objetifs:}
+Les principaux objectifs de cette séance peuvent être résumés comme suit :
+
+\begin{enumerate}
+    \item Compléter le fichier \texttt{WAVE2D.m} afin de calculer la matrice de masse.
+    \item Déterminer expérimentalement la vitesse de l’onde élastique, notée \(v_{wave}\).
+    \item Établir la relation entre \(v_{wave}\) et les propriétés matérielles \(E\) et \(\rho\) à l’aide de la méthode d’analyse dimensionnelle.
+    \item Optimiser le pas de temps \(\Delta t\) pour accélérer la simulation, en le prenant égal à la moitié du temps nécessaire à l’onde élastique pour traverser un élément fini, et évaluer le gain en temps de calcul pour \(E = 190{,}000~\text{MPa}\).
+\end{enumerate}
+
+\subsection{Géométrie}
+La figure ci-après illustre la géométrie du problème à résoudre. Elle présente la configuration de la barre considérée ainsi que les conditions aux limites et les paramètres géométriques nécessaires à la modélisation.
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{Capture d’écran du 2025-11-10 09-47-28.png}
+    \caption{Geometry}
+    \label{fig:placeholder}
+\end{figure}
+\newpage
+
+\subsection{Formulation mathématique du problème}
+
+Afin de bien comprendre le comportement de la barre étudiée, il est nécessaire de présenter les fondements mathématiques qui régissent son fonctionnement avant d’aborder les objectifs numériques et expérimentaux.
+
+\subsubsection*{Équations du milieu continu}
+Le problème dynamique est gouverné par l'équation d'équilibre des contraintes :
+\[ \text{div}(\vec{\sigma}) = \rho \vec{\gamma} \quad \text{dans} \ \Omega \]
+avec la loi de comportement élastique linéaire :
+\[ \sigma_{ij} = C_{ijkl} \epsilon_{kl} \]
+
+\subsubsection*{Formulation variationnelle}
+
+Le principe des travaux virtuels s'écrit sous sa forme générale :
+
+\[ \forall \delta U, \int_{\Omega} \vec{\delta \epsilon} : \vec{C} : \vec{\epsilon}  dv + \int_{\Omega} \delta \vec{U} \rho \vec{\gamma}  dv = 0 \]
+
+
+Dans le cas particulier de l'élasticité linéaire, le principe devient :
+
+\[
+\forall \delta \vec{U}, \quad \int_{\Omega} \vec{\delta \overline{\epsilon}} : \vec{\overline{C}} : \vec{\epsilon}  dv + \int_{\Omega} \delta \vec{U} \cdot \rho \vec{\gamma}  dv = 0
+\]
+
+
+ %Déplacement au cours du temps
+
+\subsection{Discrétisation par éléments finis}
+
+\subsubsection*{Élément barre 1D}
+L'approximation du champ de déplacement utilise des fonctions de forme linéaires :
+\[ U_x \approx N_1(x)U_1^{(e)} + N_2(x)U_2^{(e)} \]
+avec :
+\[ N_1(x) = \frac{x_2 - x}{x_2 - x_1}, \quad N_2(x) = \frac{x - x_1}{x_2 - x_1} \]
+
+\subsubsection*{Matrices élémentaires}
+
+\textbf{La matrice de rigidité élémentaire est :}
+
+\[ \left( K^{(e)} \right) = \frac{ES}{h} \begin{pmatrix} +1 & -1 \\ -1 & +1 \end{pmatrix} \]
+
+
+\textbf{La matrice de masse élémentaire s'obtient par :}
+
+\[ \left( M^{(e)} \right) = \int_{\Omega(e)} \left( N^{(e)} \right)^T \rho \left( N^{(e)} \right) dv \]
+
+\textbf{En développant l'expression matricielle :}
+
+\[
+\left( M^{(e)} \right) = \int_{\Omega^{(e)}} \rho \begin{pmatrix} N_1^{(e)} \\ N_2^{(e)} \end{pmatrix} \begin{pmatrix} N_1^{(e)} & N_2^{(e)} \end{pmatrix} dv
+\]
+
+\textbf{Ce qui donne la forme explicite :}
+
+\[
+\left( M^{(e)} \right) = \rho \begin{pmatrix}
+\int_{\Omega^{(e)}} N_1^{(e)} N_1^{(e)} dv & \int_{\Omega^{(e)}} N_1^{(e)} N_2^{(e)} dv \\
+\int_{\Omega^{(e)}} N_2^{(e)} N_1^{(e)} dv & \int_{\Omega^{(e)}} N_2^{(e)} N_2^{(e)} dv
+\end{pmatrix}
+\] 
+
+On a: 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{Capture d’écran du 2025-11-10 09-50-05.png}
+    \caption{Caption}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\subsection{Formulation discrète et résolution}
+
+\subsubsection*{Problème matriciel}
+Le problème discret s'écrit :
+\[ (K) (U) + (M) (\gamma) = (0) \]
+
+\subsubsection*{Intégration temporelle}
+Le schéma d'Euler explicite donne à chaque pas de temps :
+\[ (U_{t+\Delta t}) = \left( \frac{(M)}{\Delta t} \right)^{(-1)} \left( \left( 2 \frac{(M)}{\Delta t} - (K) \right) (U_t) - \frac{(M)}{\Delta t} (U_{t-\Delta t}) \right) \]
+
+\subsection{Travail à réaliser}
+
+\subsubsection*{Implémentation de la matrice de masse}
+
+% La matrice de masse doit être correctement implémentée dans le code \texttt{WAVE2D.m} (Voir le code Matlab à la fin du rapport).
+On sait que pour un élément barre 1D :
+\[
+N_1(x) = \frac{x_2 - x}{h}, \quad N_2(x) = \frac{x - x_1}{h}, \quad \text{avec } h = x_2 - x_1
+\]
+
+Et on a la propriété fondamentale :
+\[
+N_1(x) + N_2(x) = \frac{x_2 - x}{h} + \frac{x - x_1}{h} = \frac{x_2 - x_1}{h} = 1
+\]
+
+\[
+\int_{\Omega^{(e)}} N_1^{(e)} (N_1^{(e)} + N_2^{(e)}) \, dv = \int_{\Omega^{(e)}} N_1^{(e)} \cdot 1 \, dv
+\]
+
+En coordonnées locales avec $x_1 = 0$, $x_2 = h$ :
+\[
+\int_0^h N_1(x) \, dx = \int_0^h \frac{h - x}{h} \, dx = \frac{1}{h} \left[ hx - \frac{x^2}{2} \right]_0^h = \frac{1}{h} \left( h^2 - \frac{h^2}{2} \right) = \frac{h}{2}
+\]
+
+En considérant la section $S$ constante :
+\[
+\int_{\Omega^{(e)}} N_1^{(e)} (N_1^{(e)} + N_2^{(e)}) \, dv = S \cdot \frac{h}{2}
+\]
+\[
+\int_{\Omega^{(e)}} N_2^{(e)} (N_1^{(e)} + N_2^{(e)}) \, dv = \int_{\Omega^{(e)}} N_2^{(e)} \cdot 1 \, dv
+\]
+\paragraph{Deuxième intégrale}
+
+\[
+\int_0^h N_2(x) \, dx = \int_0^h \frac{x}{h} \, dx = \frac{1}{h} \left[ \frac{x^2}{2} \right]_0^h = \frac{1}{h} \cdot \frac{h^2}{2} = \frac{h}{2}
+\]
+
+\[
+\int_{\Omega^{(e)}} N_2^{(e)} (N_1^{(e)} + N_2^{(e)}) \, dv = S \cdot \frac{h}{2}
+\]
+\paragraph{Matrice de Masse}
+
+\[
+M^{(e)} \approx \rho \begin{pmatrix}
+S \cdot \frac{h}{2} & 0 \\
+0 & S \cdot \frac{h}{2}
+\end{pmatrix} = \frac{\rho S h}{2} \begin{pmatrix}
+1 & 0 \\
+0 & 1
+\end{pmatrix}
+\]
+
+\textbf{(Voir le code dans la suite du rapport)}
+
+\textbf{Remarque :} Nous avons sommé les termes diagonaux afin d’assurer la stabilité numérique du calcul.
+
+\subsubsection*{Détermination de la vitesse de l'onde élastique}
+La vitesse de l'onde élastique $v_{wave}$ peut être déterminée expérimentalement en mesurant le temps de propagation de l'onde sur une distance connue.
+
+On a: 
+
+\[ v_{wave} = \sqrt{\frac{E}{\rho}} \]
+
+\subsection{Propagation de l'onde élastique}
+
+\subsubsection*{Champ de déplacement}
+La figure \ref{fig:deplacement_onde} présente l'évolution du champ de déplacement longitudinal dans la barre au cours du temps. On observe clairement la propagation de l'onde élastique le long de la structure, générée par la condition initiale imposée.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images//Matlab//wave_1D/onde_deplacement.png}
+    \caption{Propagation de l'onde élastique - Champ de déplacement longitudinal}
+    \label{fig:deplacement_onde}
+\end{figure}
+\newpage
+\subsubsection{Optimisation du pas de temps}
+La figure \ref{fig:pas_temps_optimal} illustre la propagation de l'onde avec un pas de temps optimisé, défini comme la moitié du temps nécessaire à l'onde pour traverser un élément fini :
+
+\[
+\Delta t_{opt} = \frac{1}{2} \frac{h}{v_{wave}}
+\]
+
+\textbf{Ce choix de pas de temps répond à un double objectif :}
+
+\begin{itemize}
+\item \textbf{Stabilité numérique} : Ce pas de temps garantit la stabilité du schéma d'intégration explicite en limitant la distance parcourue par l'onde pendant un pas de temps
+
+\item \textbf{Efficacité} : Réduction significative du temps de simulation. 
+\end{itemize}
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images//Matlab//wave_1D/onde_pas_vitesse.png}
+    \caption{Propagation de l'onde avec pas de temps optimal $\Delta t = \frac{h}{2v_{wave}}$}
+    \label{fig:pas_temps_optimal}
+\end{figure}
+
+\paragraph{Remarque:} Le choix du pas de temps optimal, défini par $\Delta t = \dfrac{h}{\sqrt{E/\rho}} \times \dfrac{1}{2}$, permet de significativement réduire la durée totale de la simulation. Cette optimisation repose sur le fait que le pas de temps est le plus grand possible tout en respectant les critères de stabilité numérique, ce qui minimise le nombre d'itérations requis sans altérer la précision des résultats.
+
+\subsubsection*{Propagation de l'onde au cours du temps}
+
+La figure ci-après illustre l'évolution de la propagation de l'onde élastique dans le matériau au cours du temps :
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{images//Matlab//wave_1D/temps de propagation.png}
+    \caption{Propagation de l'onde élastique en fonction du temps dans le matériau}
+    \label{fig:propagation_onde_temps}
+\end{figure}
+
+Cette visualisation permet d'observer la progression spatiale du front d'onde à différents instants, mettant en évidence la célérité de l'onde et son amortissement éventuel le long de la structure.
+
+\subsection{Résultats des simulations et analyse du temps de calcul}
+
+\subsubsection*{Comparaison des pas de temps}
+
+Deux configurations de pas de temps ont été testées :
+
+\subsubsection*{Ancien pas de temps}
+Le pas de temps initial était calculé selon la formule :
+\[ \Delta t_{ancien} = \frac{2\pi/\omega_{max}}{40} \]
+où $\omega_{max}$ est la fréquence propre la plus élevée du système.
+
+\textbf{Résultat :} 
+\begin{itemize}
+    \item Temps de calcul : 0,774242 secondes
+    \item Nombre d'itérations : $\frac{T}{\Delta t_{ancien}} = \frac{0,0001}{\Delta t_{ancien}}$
+\end{itemize}
+
+\subsubsection*{Nouveau pas de temps optimisé}
+Le pas de temps optimisé est calculé comme la moitié du temps de traversée d'un élément par l'onde élastique :
+\[ \Delta t_{opt} = \frac{1}{2} \frac{h}{v_{wave}} = \frac{1}{2} h \sqrt{\frac{\rho}{E}} \]
+
+\textbf{Résultat :}
+\begin{itemize}
+    \item Temps de calcul : 101,020321 secondes
+    \item Nombre d'itérations : $\frac{T}{\Delta t_{opt}} = \frac{0,0001}{\Delta t_{opt}}$
+\end{itemize}
+
+\subsubsection*{Analyse du gain de temps de calcul}
+
+Contrairement aux attentes, l'utilisation du pas de temps optimisé a entraîné une augmentation significative du temps de calcul. Ce résultat contre-intuitif s'explique par les considérations suivantes :
+
+\begin{itemize}
+    \item \textbf{Pas de temps plus restrictif :} Le pas de temps $\Delta t_{opt}$ basé sur la condition CFL (Courant-Friedrichs-Lewy) est en réalité plus petit que l'ancien pas de temps, ce qui augmente le nombre total d'itérations nécessaires pour couvrir la même durée de simulation.
+    
+    \item \textbf{Stabilité vs Performance :} Bien que $\Delta t_{opt}$ garantisse la stabilité numérique pour la propagation d'ondes, il n'optimise pas nécessairement le temps de calcul global.
+    
+    \item \textbf{Précision numérique :} Le pas de temps initial, bien que plus grand, pourrait introduire des erreurs de dispersion numérique, mais semble suffisant pour cette application spécifique.
+\end{itemize}
+
+
+\subsection{Implémentation Matlab}
+
+\subsubsection*{Code principal de simulation}
+
+L'implémentation MATLAB suivante permet la simulation de la propagation d'onde élastique de la barre 1D en utilisant la méthode des éléments finis avec un schéma d'intégration temporelle explicite.
+
+
+\begin{lstlisting}[language=Matlab, caption=Code MATLAB pour la simulation de propagation d'onde 1D, label=code:matlab_wave]
+clc;
+clear all;
+
+% Paramètres de la simulation
+T = 0.0001;                    % Durée de la simulation (s)
+E = 190000;                    % Module d'Young (MPa)
+NU = 0.3;                      % Coefficient de Poisson
+RHO = 0.0000078;               % Masse volumique (Kg/mm³)
+L = 2.5;                       % Longueur de la barre (mm)
+nb = 500;                      % Nombre d'éléments
+h = L/nb;                      % Taille des éléments
+ne = nb + 1;                   % Nombre de nœuds
+
+% Position des nœuds
+x = [0:h:L];
+
+% Initialisation des matrices globales
+K = zeros(ne,ne);              % Matrice de rigidité
+M = zeros(ne,ne);              % Matrice de masse
+
+% Assemblage des matrices élémentaires
+for i = 1:nb
+    % Matrice de rigidité élémentaire
+    K([i i+1],[i i+1]) = K([i i+1],[i i+1]) + E/h * [1 -1; -1 1];
+    
+    % Matrice de masse concentrée élémentaire
+    M([i i+1],[i i+1]) = M([i i+1],[i i+1]) + (RHO * h / 2) * [1 0; 0 1];
+end
+
+% Condition aux limites par pénalisation
+P = max(max(K)) * 10^3;
+K(ne,ne) = K(ne,ne) + P;
+M(ne,ne) = M(ne,ne) + P;
+
+% Calcul du pas de temps
+w2 = eig(K, M, 'qz');
+w = sqrt(w2);
+dt = (2 * pi() / max(w)) / 40;
+% Alternative: dt = (h / sqrt(E/RHO)) / 2;
+
+% Discrétisation temporelle
+t = [0:dt:T];
+
+% Matrices pour le schéma d'intégration
+AA = -(M / (dt^2));
+BB = 2 * M / (dt^2) - K;
+CC = (M / (dt^2)) ^ (-1);
+
+% Conditions initiales
+U0 = zeros(ne, 1);             % Déplacement initial
+V0 = zeros(ne, 1);             % Vitesse initiale
+V0(1,1) = 10;                  % Impact avec vitesse de 10 mm/s au nœud 1
+
+% Intégration temporelle
+tic;
+U = zeros(ne, size(t,2));
+
+% Initialisation par développement de Mac-Laurin
+U(:,1) = U0 - dt * V0 + dt/2 * (M^(-1) * (-K * U0));
+U(:,2) = U0;
+
+% Boucle d'intégration temporelle
+for i = 2:size(t,2)-1
+    U(:,i+1) = CC * (BB * U(:,i) + AA * U(:,i-1));
+    
+    % Visualisation en temps réel (optionnelle)
+    % plot(x', U(:,i));
+    % grid on;
+    % axis([0 2.5 -2*10^(-7) 2*10^(-7)]);
+    % pause(0.0000001);
+end
+toc;
+
+% Visualisation des résultats
+plot(t, U(1,:));
+xlabel('Temps (s)');
+ylabel('Déplacement (mm)');
+title('Déplacement du premier nœud en fonction du temps');
+grid on;
+\end{lstlisting}
+
+\subsubsection*{Explications des principales étapes}
+
+\begin{itemize}
+\item \textbf{Initialisation} : Définition des paramètres matériaux et géométriques de la barre
+\item \textbf{Maillage} : Création d'un maillage régulier avec $nb$ éléments et $ne$ nœuds
+\item \textbf{Assemblage} : Construction des matrices globales de rigidité $K$ et de masse $M$ par assemblage des matrices élémentaires
+\item \textbf{Conditions limites} : Imposition d'une condition aux limites par méthode de pénalisation
+\item \textbf{Intégration temporelle} : Utilisation d'un schéma explicite pour résoudre l'équation dynamique
+\item \textbf{Visualisation} : Traçage du déplacement du premier nœud en fonction du temps
+\end{itemize}
+
+
+
+\section{Étude 2D de la propagation d'onde élastique}
+
+\subsection{Introduction}
+
+Dans cette partie du travail, nous cherchons à réaliser une étude par la méthode des éléments finis appliquée à une géométrie 2D.
+
+Les objectifs principaux sont les suivants :
+
+\begin{itemize}
+\item \textbf{Implémentation numérique} : Compléter le code \texttt{WAVE2D.m} pour le calcul de la matrice de masse dans le cas d'éléments finis triangulaires P1 en 2D
+\item \textbf{Validation physique} : Estimer expérimentalement la vitesse de propagation du front d'onde élastique à partir des résultats de simulation
+\item \textbf{Analyse comparative} : Comparer les résultats 2D obtenus avec la théorie de l'élasticité en contrainte plane
+\item \textbf{Visualisation} : Observer les phénomènes de propagation d'onde dans un milieu bidimensionnel et identifier les spécificités par rapport au cas 1D
+\end{itemize}
+
+\subsection{Géométrie}
+La figure ci-dessous montre la géométrie du problème à étudier.
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Capture d’écran du 2025-11-10 11-16-37.png}
+    \caption{Géométrie}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\subsection{Formulation mathématique du problème 2D}
+
+\subsubsection{Équations fondamentales}
+
+L'équilibre des contraintes en 2D s'écrit :
+\[
+\text{div}(\vec{\sigma}) = \rho \vec{\gamma} \quad \text{dans} \ \Omega
+\]
+
+Avec la loi de comportement élastique :
+\[
+\sigma_{ij} = C_{ijkl} \epsilon_{kl}
+\]
+
+\subsubsection{Principe des travaux virtuels}
+
+Forme générale :
+\[
+\forall \delta \vec{U}, \quad \int_{\Omega} \vec{\delta \epsilon} : \vec{\sigma}  dv + \int_{\Omega} \delta \vec{U} \cdot \rho \vec{\gamma}  dv = 0
+\]
+
+Cas de l'élasticité linéaire :
+\[
+\forall \delta \vec{U}, \quad \int_{\Omega} \vec{\delta \epsilon} : \vec{C} : \vec{\epsilon}  dv + \int_{\Omega} \delta \vec{U} \cdot \rho \vec{\gamma}  dv = 0
+\]
+
+\subsection{Élément fini triangulaire P1 en 2D}
+
+\subsubsection{Fonctions de forme}
+
+Pour un élément triangulaire à 3 nœuds, les fonctions de forme en coordonnées naturelles $(\xi, \eta)$ sont :
+\[
+\begin{aligned}
+N_1(\xi, \eta) &= 1 - \xi - \eta \\
+N_2(\xi, \eta) &= \xi \\
+N_3(\xi, \eta) &= \eta
+\end{aligned}
+\]
+
+\subsubsection{Champ de déplacement}
+
+L'approximation du champ de déplacement s'écrit :
+\[
+\begin{pmatrix} u_x \\ u_y \end{pmatrix} \approx 
+\begin{pmatrix}
+N_1 & 0 & N_2 & 0 & N_3 & 0 \\
+0 & N_1 & 0 & N_2 & 0 & N_3
+\end{pmatrix}
+\begin{pmatrix}
+U_{1x}^{(e)} \\ U_{1y}^{(e)} \\ U_{2x}^{(e)} \\ U_{2y}^{(e)} \\ U_{3x}^{(e)} \\ U_{3y}^{(e)}
+\end{pmatrix}
+\]
+
+\subsubsection{Champ de déformation}
+
+Le vecteur des déformations s'exprime par :
+\[
+\{ \epsilon \} = 
+\begin{cases} 
+\epsilon_{xx} \\ 
+\epsilon_{yy} \\ 
+2\epsilon_{xy} 
+\end{cases}
+= \left[ B^{(e)} \right] \{ U^{(e)} \}
+\]
+
+avec la matrice $B^{(e)}$ définie par :
+\[
+\left[ B^{(e)} \right] = 
+\begin{bmatrix}
+\frac{\partial N_1}{\partial x} & 0 & \frac{\partial N_2}{\partial x} & 0 & \frac{\partial N_3}{\partial x} & 0 \\
+0 & \frac{\partial N_1}{\partial y} & 0 & \frac{\partial N_2}{\partial y} & 0 & \frac{\partial N_3}{\partial y} \\
+\frac{\partial N_1}{\partial y} & \frac{\partial N_1}{\partial x} & \frac{\partial N_2}{\partial y} & \frac{\partial N_2}{\partial x} & \frac{\partial N_3}{\partial y} & \frac{\partial N_3}{\partial x}
+\end{bmatrix}
+\]
+
+\subsubsection{Champ de contrainte}
+
+Le vecteur des contraintes en contrainte plane est donné par :
+\[
+\{\sigma\} = 
+\begin{cases} 
+\sigma_{xx} \\ 
+\sigma_{yy} \\ 
+\sigma_{xy} 
+\end{cases}
+= [C] \{\epsilon\} = [C] \left[ B^{(e)} \right] \{ U^{(e)} \}
+\]
+
+avec la matrice de comportement élastique :
+\[
+[C] = \frac{E}{1 - \nu^2}
+\begin{bmatrix}
+1 & \nu & 0 \\
+\nu & 1 & 0 \\
+0 & 0 & \frac{1 - \nu}{2}
+\end{bmatrix}
+\]
+
+\subsubsection{Transformation géométrique}
+
+Les dérivées des fonctions de forme se calculent par :
+\[
+\left\{
+\begin{aligned}
+&\frac{\partial N_i}{\partial x} \\
+&\frac{\partial N_i}{\partial y}
+\end{aligned}
+\right\}
+= \left( \left[ J^{(e)} \right]^{-1} \right)^T
+\left\{
+\begin{aligned}
+&\frac{\partial N_i}{\partial \xi} \\
+&\frac{\partial N_i}{\partial \eta}
+\end{aligned}
+\right\}
+\]
+
+où la matrice jacobienne est définie par :
+\[
+\left[ J^{(e)} \right] = 
+\begin{bmatrix}
+\frac{\partial x}{\partial \xi} & \frac{\partial x}{\partial \eta} \\
+\frac{\partial y}{\partial \xi} & \frac{\partial y}{\partial \eta}
+\end{bmatrix}
+\quad \text{avec} \quad 
+x = \sum_{i=1}^3 N_i(\xi, \eta)x_i, \quad
+y = \sum_{i=1}^3 N_i(\xi, \eta)y_i
+\]
+
+\subsection{Matrices élémentaires 2D}
+
+\subsubsection*{Matrice de rigidité élémentaire}
+
+\[
+\left( K^{(e)} \right) = \int_{\Omega(e)} \left( B^{(e)} \right)^T \left( C \right) \left( B^{(e)} \right) dv
+\]
+
+\subsubsection*{Matrice de masse élémentaire}
+
+\[
+\left( M^{(e)} \right) = \int_{\Omega(e)} \left( N^{(e)} \right)^T \rho \left( N^{(e)} \right) dv
+\]
+
+\subsubsection*{Masse concentrée aux nœuds}
+
+Pour la matrice de masse concentrée :
+\[
+\left( M^{(e)} \right) \approx \rho
+\begin{pmatrix}
+\int_{\Omega^{(e)}} N_1^{(e)} dv & 0 & 0 & 0 & 0 & 0 \\
+0 & \int_{\Omega^{(e)}} N_1^{(e)} dv & 0 & 0 & 0 & 0 \\
+0 & 0 & \int_{\Omega^{(e)}} N_2^{(e)} dv & 0 & 0 & 0 \\
+0 & 0 & 0 & \int_{\Omega^{(e)}} N_2^{(e)} dv & 0 & 0 \\
+0 & 0 & 0 & 0 & \int_{\Omega^{(e)}} N_3^{(e)} dv & 0 \\
+0 & 0 & 0 & 0 & 0 & \int_{\Omega^{(e)}} N_3^{(e)} dv
+\end{pmatrix}
+\]
+
+\subsection{Formulation discrète et résolution}
+
+\subsubsection*{Problème matriciel}
+
+La forme discrétisée du principe des travaux virtuels donne :
+\[
+\forall (\delta U), \quad (\delta U)^T \left( (K) (U) + (M) (\gamma) \right) = 0
+\]
+
+Problème à résoudre :
+\[
+(K) (U) + (M) (\gamma) = (0)
+\]
+
+\subsubsection*{Intégration temporelle par schéma d'Euler explicite}
+\[
+(U_{t+\Delta t}) = \left( \frac{(M)}{\Delta t^2} \right)^{-1} \left( \left( 2 \frac{(M)}{\Delta t^2} - (K) \right) (U_t) - \frac{(M)}{\Delta t^2} (U_{t-\Delta t}) \right)
+\]
+
+\subsubsection{Implémentation de la matrice de masse}
+
+ Voir le code \textsc{Matlab} pour consulter l’implémentation de la matrice de masse utilisée dans cette partie.
+
+
+\subsubsection{Estimation de la vitesse de l’onde élastique}
+
+La vitesse de propagation de l’onde élastique dans le milieu est identique à celle obtenue dans le cas unidimensionnel.  
+Elle s’exprime par la relation suivante :
+
+\[
+v_{wave} = \sqrt{\frac{E}{\rho}}
+\]
+
+\subsection{Propagation de l'onde élastique}
+La figure suivante illustre l’évolution du champ de déplacement dans la barre au cours du temps.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{images//Matlab//wave 2D/déplacement 2D.png}
+    \caption{Déplacement 2D }
+    \label{fig:placeholder}
+\end{figure}
+
+ Pour cette simulation du déplacement, nous avons considéré un maillage de \textbf{60 éléments}.
+
+\subsection{Déplacement d'un nœud spécifique}
+
+La figure \ref{fig:deplacement_noeud_26} présente l'évolution temporelle du déplacement au nœud 26 de la structure. Ce nœud, stratégiquement positionné, permet d'observer la réponse dynamique de la plaque suite à l'impact initial.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{images//Matlab//wave 2D/déplacement au noeud 26.png}
+    \caption{Temps de déplacement au nœud 26 suivant l'axe X $U=3.12*10^{-7}$secondes}
+    \label{fig:deplacement_noeud_26}
+\end{figure}
+
+\textbf{Nous constatons que le temps de parcours de l'onde dans le matériau en 1D et en 2D avec blocage des bords est presque pareil. Le modèle 2D corrobore la théorie de départ.}
+
+\subsection{Code Matlab 2D}
+\section{Implémentation MATLAB 2D}
+
+L'implémentation MATLAB suivante permet la simulation de la propagation d'onde élastique dans une plaque 2D en utilisant la méthode des éléments finis avec des éléments triangulaires et un schéma d'intégration temporelle explicite.
+
+\begin{lstlisting}[language=Matlab, caption=Code MATLAB complet pour la simulation 2D (WAVE2D.m), label=code:matlab_2d_complet]
+clc;
+clear all;
+
+% Paramètres de la simulation
+Time = 0.0001;                    % Durée de la simulation (s)
+E = 190000;                       % Module d'Young (MPa)
+NU = 0.3;                         % Coefficient de Poisson
+RHO = 0.0000078;                  % Masse volumique (Kg/mm³)
+L = 2.5;                          % Longueur de la plaque (mm)
+nb = 50;                          % Nombre d'éléments par côté
+h = L/nb;                         % Taille des éléments
+
+% Création du maillage carré
+[x,y] = meshgrid(0:h:L, 0:h:L);
+ne = size(x,1) * size(x,2);       % Nombre total de nœuds
+
+% Coordonnées des nœuds
+coord = zeros(ne,2);
+for i = 1:(nb + 1)
+    for j = 1:(nb + 1)
+        il = (i-1)*(nb + 1) + j;
+        coord(il,1) = x(i,j);
+        coord(il,2) = y(i,j);
+    end
+end
+
+% Triangulation par algorithme de Delaunay
+T = delaunay(coord);
+trimesh(T,x,y);
+
+% Initialisation des matrices globales
+K = zeros(2*ne, 2*ne);            % Matrice de rigidité
+M = zeros(2*ne, 2*ne);            % Matrice de masse
+
+% Processus d'assemblage
+for i = 1:size(T,1)
+    % Matrice de comportement élastique (contrainte plane)
+    C = E/(1-NU^2) * [1 NU 0; NU 1 0; 0 0 (1-NU)/2];
+    
+    % Matrice de rigidité élémentaire
+    Be = calBe(coord(T(i,:),:));
+    Ke = Be' * C * Be * calDet(coord(T(i,:),:)) / 2;
+    IndiceGlobal = repelem((T(i,:)-1).*2, 2) + [1 2 1 2 1 2];
+    K(IndiceGlobal, IndiceGlobal) = K(IndiceGlobal, IndiceGlobal) + Ke;
+    
+    % Matrice de masse élémentaire concentrée
+    Me = RHO/3 * calDet(coord(T(i,:),:)) / 2 * diag(diag(ones(6,6)));
+    M(IndiceGlobal, IndiceGlobal) = M(IndiceGlobal, IndiceGlobal) + Me;
+end
+
+% Conditions aux limites par pénalisation
+P = 10^20 * max(max(K));
+for i = 2*ne-2*(nb+1)+1:2*ne
+    K(i,i) = K(i,i) + P;
+    M(i,i) = M(i,i) + P;
+end
+
+% Calcul du pas de temps critique
+v = sqrt(E/RHO);
+dt = (h/v) / 2;
+
+% Discrétisation temporelle
+t = [0:dt:Time];
+
+% Matrices pour le schéma d'intégration
+AA = -(M/(dt^2));
+BB = 2*M/(dt^2) - K;
+CC = (M/(dt^2)) ^ (-1);
+
+% Conditions initiales
+U0 = zeros(2*ne, 1);              % Déplacement initial
+V0 = zeros(2*ne, 1);              % Vitesse initiale
+
+% Impact avec vitesse de 2 mm/s sur le bord
+for i = 1:nb+1
+    V0((i-1)*2+2, 1) = 2;
+end
+
+% Intégration temporelle
+U = zeros(2*ne, size(t,2));
+U(:,1) = U0 - dt * V0 + dt/2 * (M^(-1) * (-K * U0));
+U(:,2) = U0;
+
+for i = 2:size(t,2)-1
+    U(:,i+1) = CC * (BB * U(:,i) + AA * U(:,i-1));
+    
+    % Code de visualisation optionnel
+    % for j = 1:nb+1
+    %     for jj = 1:nb+1
+    %         z(j,jj) = U((jj-1)*2*(nb+1)+(j-1)*2+2, i);
+    %     end
+    % end
+    % clf;
+    % trimesh(T, x, y, z);
+    % grid on;
+    % axis([0 L 0 L -2*10^(-6) 2*10^(-6)]);
+    % pause(0.001);
+end
+
+% Visualisation du déplacement au nœud 26
+plot(t, U(26,:));
+xlabel('Temps (s)');
+ylabel('Déplacement (mm)');
+title('Déplacement du nœud 26 en fonction du temps');
+grid on;
+\end{lstlisting}
+
+\subsection{Fonctions auxiliaires}
+
+\begin{lstlisting}[language=Matlab, caption=Fonctions auxiliaires pour le calcul élémentaire, label=code:fonctions_auxiliaires]
+function Be = calBe(xy)
+    % Calcul de la matrice B élémentaire
+    dN = [-1 1 0; -1 0 1];
+    DN = (inv(xy' * dN'))' * dN;
+    Be = [DN(1,1) 0 DN(1,2) 0 DN(1,3) 0;
+          0 DN(2,1) 0 DN(2,2) 0 DN(2,3);
+          DN(2,1) DN(1,1) DN(2,2) DN(1,2) DN(2,3) DN(1,3)];
+end
+
+function Det = calDet(xy)
+    % Calcul du déterminant jacobien
+    dN = [-1 1 0; -1 0 1];
+    Det = det(xy' * dN');
+end
+\end{lstlisting}
+
+
+
+\end{document}

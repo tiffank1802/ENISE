@@ -1,0 +1,35 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Contexte}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Objectifs du projet}{3}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Présentation du système existant}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Description du tracteur et de l’axe}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Configuration des liaisons}{4}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Méthodologie d'analyse}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Identification des causes de rupture}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Approche par éléments finis}{6}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Données d'entrée}{6}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Schéma des efforts, moments et liaisons appliqués à l’axe arrière}{6}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Critères d'évaluation}{7}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Simulation du système actuel}{7}{section.4}%
+\contentsline {subsubsection}{\numberline {4.0.1}Modélisation}{7}{subsubsection.4.0.1}%
+\contentsline {subsection}{\numberline {4.1}Analyse par éléments finis}{8}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Conditions aux limites et chargements}{8}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Maillage}{9}{subsubsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.2}Résultats des simulations du système existant}{10}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Interpretations du Resultat}{10}{subsubsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.3}Analyse des faiblesses}{10}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Proposition de solutions d'amélioration}{11}{section.5}%
+\contentsline {section}{\numberline {6}Simulation des solutions proposées \& Observation}{11}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Renfort local}{11}{subsection.6.1}%
+\contentsline {subsubsection}{\numberline {6.1.1}Nervures et goussets}{11}{subsubsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.2}Renures}{12}{subsubsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.2}Amélioration des fixations}{12}{subsection.6.2}%
+\contentsline {subsubsection}{\numberline {6.2.1}Goupilles}{12}{subsubsection.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.2}Vis de pression}{13}{subsubsection.6.2.2}%
+\contentsline {subsubsection}{\numberline {6.2.3}Collage}{13}{subsubsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.3}Optimisation de la géométrie de la clavette}{15}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Avantages \& Iconvennients de chaque solution}{15}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Solution retenue}{15}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}Justification du choix}{15}{subsection.6.6}%
+\contentsline {section}{\numberline {7}Conclusion}{16}{section.7}%
